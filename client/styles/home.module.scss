@@ -1,0 +1,41 @@
+@import './variables.module.scss';
+
+.homeOuter {
+    color: $primary-color;
+    @include fixed-center;
+    @include flex-center-col;
+    gap:0.5rem;
+    padding:1rem;
+    border:0.15rem solid $primary-color;
+    border:none;
+    border-radius:0.4rem;
+    box-shadow:0 0.16rem 0.8rem 0.1rem $background-dark;
+    background:$background-dark;
+    @include fade-in;
+}
+
+.title {
+    @include flex-center-row;
+    font-weight:bold;
+    font-size:1.6rem;
+    gap:10px;
+}
+
+
+.links {
+    @include flex-center-row;
+    gap:1rem;
+    a {
+        @include flex-center-col;
+        text-decoration:none;
+        color:$secondary-color;
+        font-size:1.4rem;
+        &:hover {
+            color:$glow;
+        }
+        svg {
+            cursor:pointer;
+        }
+    }
+}
+

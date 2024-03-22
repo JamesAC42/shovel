@@ -1,0 +1,179 @@
+@import './variables.module.scss';
+
+.roomOuter {
+    @include fixed-center;
+}
+
+.loggedOut {
+    @include flex-center-row;
+    color:$primary-color;
+    align-items: stretch;
+    background:$background-dark;
+    border-radius:0.4rem;
+    box-shadow:0 0.16rem 0.8rem 0.1rem $background-dark;
+    @include fade-in;
+}
+
+.loggedIn {
+    border:1px solid $primary-color;
+    background:$background-dark;
+    padding:2rem;
+    color:$primary-color;
+    text-align:center;
+    @include flex-center-row;
+    align-items: stretch;
+    box-shadow:0 0.16rem 0.8rem 0.1rem $background-dark;
+    border-radius:0.4rem;
+    gap:2rem;
+    @include fade-in;
+}
+
+.backButton {
+    position:absolute;
+    top:0;
+    left:0;
+    transform:translate(0, -100%);
+    cursor:pointer;
+    font-size:1.4rem;
+    text-decoration: none;
+}
+
+.backButton a {
+    color:$primary-color;
+}
+
+.logout {
+    cursor:pointer;
+    font-weight:bold;
+    color:$error-color;
+    background:$background-color;
+    border-radius:0.4rem;
+    padding:1rem;
+    margin-top:0.4rem;
+}
+
+.login, .createUser {
+    flex:1;
+    display:flex;
+    flex-direction: column;
+    justify-content: start;
+    padding:0 2rem 0.6rem 2rem;
+}
+
+.login {
+    border-right:1px solid $secondary-color;
+}
+
+.login form, .createUser form {
+    display:flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.login form label,
+.createUser form label {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    margin:0.2rem;
+    gap:1rem;
+    white-space:nowrap;
+    justify-content: space-between;
+}
+
+@mixin formInput {
+    border:1px solid $secondary-color;
+    outline:none;
+    padding:0.2rem 0.4rem;
+    font-family:'Figtree', sans-serif;
+    background:$background-color;
+    color:$primary-color;
+    border-radius:0.2rem;
+}
+
+.login form label input,
+.createUser form label input {
+    flex:1;
+    max-width:50%;
+    @include formInput
+}
+
+.errorMessage, .joinStatus {
+    text-align:center;
+    margin:0.5rem 0;
+}
+
+.errorMessage {
+    color:$error-color;
+}
+
+.joinStatus {
+    color: $primary-color;
+}
+
+.submitForm {
+    display:block;
+    background:$background-color;
+    margin:0.8rem 0 0.8rem 0;
+    border:none;
+    outline:none;
+    color:$primary-color;
+    font-family:'Figtree', sans-serif;
+    cursor:pointer;
+    padding:0.2rem 0;
+    border-radius:0.4rem;
+    font-size:1rem;
+}
+
+.accountStatus {
+    flex:1;
+    @include flex-center-col;
+    align-items: stretch;
+    min-width:10rem;
+    justify-content: space-between;
+}
+
+.roomInput {
+    flex:1;
+    display:flex;
+    flex-direction: column;
+    align-items:stretch;
+    
+    label {
+        display:flex;
+        flex-direction: row;
+        justify-content:space-between;
+    }
+    
+    input {
+        @include formInput;
+        margin:0.8rem 0 0.8rem 0;
+        border:none;
+        margin-bottom:0;
+    }
+}
+
+.myRooms {
+
+    label {
+        margin-top:1.2rem;
+    }
+
+    ul {
+        padding-left:0;
+        list-style-type:none;
+        margin-bottom:0;
+        margin-top:0.2rem;
+    }
+
+    ul li {
+        text-align:left;
+        padding-left:0;
+    }
+
+    ul li a {
+        text-decoration: none;
+        color:$link-color;
+    }
+
+}

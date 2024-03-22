@@ -1,0 +1,16 @@
+@mixin blackWhiteTheme {
+    $primary-color: #000000;
+    $background-color: #ffffff;
+    $background-dark: #e7e7e7;
+    $background-slightly-dark: #000000;
+    $glow: #000000;
+    $secondary-color: #000000;
+    $tertiary-color: #000000;
+    $error-color: #ff2727;
+    $link-color: #3368d9;
+    $tag-color:#000000;
+    $highlight-color:#000000;
+    $journal-entry-background: #f7f7f7;
+    $approve: #4cbe42;
+    $decline: #d15252;
+}
