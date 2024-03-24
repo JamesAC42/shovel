@@ -314,79 +314,76 @@ const Journal = sequelize.define('Journal', {
 
 const Tag = sequelize.define('Tag', {
   tag: {
-    type: DataTypes.STRING(50)
+    type: DataTypes.STRING(50),
+    collate: 'default'
   },
   userId: {
     type: DataTypes.INTEGER,
-    field: 'user_id',
-    primaryKey: true,
-    references: {
-      model: 'users',
-      key: 'id',
-    },
+    allowNull: false,
+    primaryKey: true
   },
   id: {
     type: DataTypes.INTEGER,
+    allowNull: false,
     primaryKey: true,
-    autoIncrement: true,
+    autoIncrement: true
   },
   room: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
-    references: {
-      model: 'room',
-      key: 'id',
-    },
-  },
+    allowNull: false,
+    primaryKey: true
+  }
 }, {
   tableName: 'tags',
   timestamps: false,
+  indexes: [
+    {
+      unique: true,
+      fields: ['user_id', 'id', 'room']
+    }
+  ]
 });
 
 const JournalTag = sequelize.define('JournalTag', {
   journalEntry: {
     type: DataTypes.INTEGER,
     field: 'journal_entry',
-    primaryKey: true,
-    references: {
-      model: 'journal',
-      key: 'id',
-    },
+    primaryKey: true
   },
   tag: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
-    references: {
-      model: 'tags',
-      key: 'id',
-    }
+    primaryKey: true
   }
 }, {
   tableName: 'journal_tags',
   timestamps: false,
+  indexes: [
+    {
+      unique: true,
+      fields: ['journal_entry', 'tag']
+    }
+  ]
 });
 
 const TaskTag = sequelize.define('TaskTag', {
   taskId: {
     type: DataTypes.INTEGER,
     field: 'task_id',
-    primaryKey: true,
-    references: {
-      model: 'tasks',
-      key: 'id',
-    },
+    primaryKey: true
   },
   tag: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
-    references: {
-      model: 'tags',
-      key: 'id',
-    }
+    primaryKey: true
   }
 }, {
   tableName: 'task_tags',
   timestamps: false,
+  indexes: [
+    {
+      unique: true,
+      fields: ['task_id', 'tag']
+    }
+  ]
 });
 
 User.hasMany(RoomRequest, {foreignKey: "user_id"});
@@ -440,11 +437,11 @@ Tag.belongsTo(Room, { foreignKey: 'room' });
 Tag.hasMany(JournalTag, { foreignKey: 'tag' });
 Tag.hasMany(TaskTag, { foreignKey: 'tag' });
 
-JournalTag.belongsTo(Journal, { foreignKey: 'journal_entry' });
-JournalTag.belongsTo(Tag, { foreignKey: 'tag' });
+JournalTag.belongsTo(Journal, { foreignKey: 'journal_entry', targetKey: 'id' });
+JournalTag.belongsTo(Tag, { foreignKey: 'tag', targetKey: 'id' });
 
-TaskTag.belongsTo(Task, { foreignKey: 'task_id' });
-TaskTag.belongsTo(Tag, { foreignKey: 'tag' });
+TaskTag.belongsTo(Task, { foreignKey: 'task_id', targetKey: 'id' });
+TaskTag.belongsTo(Tag, { foreignKey: 'tag', targetKey: 'id' });
 
 module.exports = {
   User,

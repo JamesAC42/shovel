@@ -136,7 +136,6 @@ CREATE TABLE tags
     tag character varying(50) COLLATE pg_catalog."default",
     user_id integer NOT NULL,
     id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
-    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     room integer NOT NULL,
     CONSTRAINT tags_pkey PRIMARY KEY (user_id, id, room),
     CONSTRAINT tags_room_fkey FOREIGN KEY (room)

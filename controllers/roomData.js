@@ -144,10 +144,12 @@ async function roomData (req, res, models) {
         }
 
         data.joinRequests = await Promise.all(joinRequests.map(async (request) => {
-            const user = await models.User.findOne({ where: { id: request.userId } });
+            let user = await models.User.findOne({ where: { id: request.userId } });
+            delete user.dataValues.password;
             return user.username;
         }));
 
+        data.id = roomId;
         data.name = room.name;
 
         res.json({success:true, data});
