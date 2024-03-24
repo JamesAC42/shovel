@@ -1,9 +1,6 @@
 @import "./variables.module.scss";
-@import "./global.scss";
 
 .roomOuter {
-
-    @include themePicker;
 
     height:100vh;
     width:100vw;
@@ -11,14 +8,16 @@
     overflow-y:hidden;
     margin:0;
 
+    background:var(--background-color);
+
     @include flex-center-col;
     align-items:stretch;
 
     .statsPanelOuter {
         overflow-y:hidden;
         position:relative;
-        box-shadow: 0 -10px 20px 5px $background-dark inset;
-        max-height:35vh;
+        box-shadow: 0 -10px 20px 5px var(--background-dark) inset;
+        max-height:50vh;
         transition:max-height 0.2s cubic-bezier(0.215, 0.610, 0.355, 1);
 
         &.statsPanelCollapsed {
@@ -33,7 +32,7 @@
             z-index:10000;
             svg {
                 font-size:1.8rem;
-                color:$primary-color;
+                color:var(--primary-color);
                 cursor:pointer;
             }
 
@@ -56,25 +55,25 @@
 
         @include flex-center-row;
         position:relative;
-        color:$primary-color;
+        color:var(--primary-color);
         padding:3rem 0;
 
         .roomTop {
-            margin:0.6rem 1rem;
+            margin:0.3rem 1rem;
             position:absolute;
             top:0;left:0;
             @include flex-center-row;
-            gap:1rem;
             .roomId {
                 font-weight:bold;
             }
-            .requestNotifs {
+            .requestNotifs, .themePicker {
                 position:relative;
                 height:2rem;
                 width:2rem;
                 @include flex-center-row;
                 svg {
-                    font-size:1.4rem;
+                    font-size:1.2rem;
+                    margin-left:1rem;
                     cursor:pointer;
                     transform:translateY(3px);
                     &:hover {
@@ -87,25 +86,25 @@
                         max-height:0;
                     }
                     100% {
-                        max-width:13rem;
-                        max-height:9rem;
+                        max-width:15rem;
+                        max-height:10rem;
                     }
                 }
-                .requests {
-                    box-shadow:0 0 5px 4px $background-dark;
+                .requests, .themes {
+                    box-shadow:0 0 5px 4px var(--background-dark);
                     h4 {
                         text-align:center;
                     }   
                     animation:expand-requests 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1;
-                    width:13rem;
-                    max-height:9rem;
+                    width:15rem;
+                    max-height:10rem;
                     border-radius:0.5rem;
                     position:absolute;
                     left:0;bottom:0;
-                    background:$background-dark;
+                    background:var(--background-dark);
                     z-index:100000;
                     transform:translate(0.3rem, calc(100% + 0.4rem));
-                    border:1px solid $tertiary-color;
+                    border:1px solid var(--tertiary-color);
                     overflow-y:scroll;
                     .request {
                         padding:0rem 1rem;
@@ -119,10 +118,69 @@
                                 font-size:1rem;
                             }
                             .approveRequest {
-                                color:$approve;
+                                color:var(--approve);
                             }
                             .declineRequest {
-                                color:$decline;
+                                color:var(--decline);
+                            }
+                        }
+                    }
+
+                    .themeContainer {
+                        .themeItem {
+                            cursor:pointer;
+                            text-align:center;
+                            font-size:1rem;
+                            font-weight:bold;
+                            margin: 0 0.5rem 1rem 0.5rem;
+                            padding:0.2rem 0;
+                            border-radius:0.5rem;
+                            &:hover {
+                                filter: brightness(1.2);
+                            }
+                            &.default {
+                                background:#888f9d;
+                                color:#151518;
+                            }
+                            &.blackwhite {
+                                background:#000000;
+                                color:#ffffff;
+                            }
+                            &.chocolate {
+                                background:#6b3e26;
+                                color:#f0e5de;
+                            }
+                            &.eclipse {
+                                background:#d6d2c4;
+                                color:#181818;
+                            }
+                            &.hacker {
+                                background:#66ff00;
+                                color:#000000;
+                            }
+                            &.nightclub {
+                                background:#8338ec;
+                                color:#fff;
+                            }
+                            &.nightocean {
+                                background:#688ccf;
+                                color:#0B1723;
+                            }
+                            &.peach {
+                                background:#b33f25;
+                                color:#FFCBA4;
+                            }
+                            &.pink {
+                                background:#ec2b4b;
+                                color:#FFB6C1;
+                            }
+                            &.snowyevergreen {
+                                background:#5fa8ac;
+                                color:#FFFFFF;
+                            }
+                            &.solaris {
+                                background:#587ac0;
+                                color:#fff4e6;
                             }
                         }
                     }
@@ -132,7 +190,7 @@
 
         span.workMarker,
         span.workMarkerSpecial {
-            color:$secondary-color;
+            color:var(--secondary-color);
             margin-right:0.2rem;
             display:inline-block;
             height:1rem;
@@ -140,18 +198,18 @@
         }
 
         span.workMarkerSpecial {
-            color:$glow;
-            box-shadow:0 0 4px 1px $glow;
+            color:var(--glow);
+            box-shadow:0 0 4px 1px var(--glow);
         }
 
         td.streakHeader {
             font-weight:bold;
-            color:$highlight-color;
+            color:var(--highlight-color);
         }
 
         span.streak {
             font-weight:bold;
-            color:$highlight-color;
+            color:var(--highlight-color);
             opacity:0.5;
             text-align:center;
             &.streakActive {
@@ -162,6 +220,19 @@
         .workTotal {
             font-weight:bold;
             font-size:1.3rem;
+        }
+
+        @media (max-width: 100rem) {
+        
+            span.workMarker,
+            span.workMarkerSpecial {
+                margin-right:0.1rem;
+                height:0.9rem;
+            }
+    
+            .workTotal {
+                font-size:1.1rem;
+            }
         }
 
         .deepWorkWeek {
@@ -184,29 +255,20 @@
                     }
                 }
                 .checkInButton {
-                    background:$primary-color;
-                    color:$background-color;
+                    background:var(--primary-color);
+                    color:var(--background-color);
                     border-radius:1rem;
                     padding:0.5rem 1rem;
                     margin-top:0.4rem;
                     cursor:pointer;
-                    box-shadow:0 0 5px 4px $background-dark;
+                    box-shadow:0 0 5px 4px var(--background-dark);
                     &:hover {
-                        outline:2px solid $glow;
+                        outline:2px solid var(--glow);
+                    }
                     }
                     svg {
                         transform:translateY(2px);
                     }
-                }
-            }
-
-            .workGrid {
-                table {
-                    border-collapse: collapse;
-                }
-                td {
-                    border-right:1px solid $secondary-color;
-                    padding:0.2rem 0.8rem;
                 }
             }
 
@@ -223,195 +285,221 @@
                     padding:0.5rem;
                     border-radius:0.4rem;
                     cursor:pointer;
-                    border:1px solid $background-dark;
-                    box-shadow:0 0 5px 4px $background-dark;
+                    border:1px solid var(--background-dark);
+                    box-shadow:0 0 5px 4px var(--background-dark);
                     &:hover {
-                        outline:2px solid $secondary-color;
+                        outline:2px solid var(--secondary-color);
                     }
-                }
-                .undoButton {
                     svg {
-                        transform: translateY(2px);
+                        transform: translateY(-1px);
                     }
                 }
             }
-        }
 
-        .workStreak {
-
+            @media (max-width: 100rem) {
+                // Add responsive styles here
+                .thisWeek {
+                    .changeWeek {
+                        gap:0.5rem;
+                        margin-top:0.2rem;
+                        .changeWeekButton {
+                            font-size:1.2rem;
+                        }
+                    }
+                    .checkInButton {
+                        border-radius:0.7rem;
+                        padding:0.3rem 0.8rem;
+                        margin-top:0.3rem;
+                        font-size:0.9rem;
+                    }
+                }
+    
+                .workGrid {
+                    td {
+                        padding:0.1rem 0.5rem;
+                        font-size:0.9rem;
+                    }
+                }
+    
+                .workButtons {
+                    gap:0.8rem;
+                    .workButton {
+                        padding:0.3rem;
+                    }
+                }
+            }
         }
 
     }
 
     .mainContentOuter {
         flex:1;
-        overflow:hidden;
-        position:relative;
-        border-top:1px solid $secondary-color;
-        z-index:99999;
+        overflow: hidden;
+        position: relative;
+        border-top: 1px solid var(--secondary-color);
+        z-index: 99999;
 
         .mainContent {
-
-            height:95vh;
+            height: 95vh;
             @include flex-center-row;
-    
+
             .journalOuter, .todoOuter {
                 @include flex-center-col;
-                color:$primary-color;
-                height:100%;
-                align-items:stretch;
+                color: var(--primary-color);
+                height: 100%;
+                align-items: stretch;
             }
 
             .todoOuter {
-                width:36vw;
+                width: 36vw;
             }
 
             .journalOuter {
-                flex:1;
+                flex: 1;
             }
 
             @mixin add-button {
-                background:$primary-color;
-                color:$background-color;
-                border:1px solid $secondary-color;
-                border-radius:0.5rem;
-                height:2.2rem;width:2.2rem;
+                background: var(--primary-color);
+                color: var(--background-color);
+                border: 1px solid var(--secondary-color);
+                border-radius: 0.5rem;
+                height: 2.2rem;
+                width: 2.2rem;
                 @include flex-center;
-                cursor:pointer;
-                box-shadow:0 0 5px 4px $background-dark;
+                cursor: pointer;
+                box-shadow: 0 0 5px 4px var(--background-dark);
                 &:hover {
                     filter: brightness(1.5);
                 }
             }
 
             .userTabPanel {
-                height:2rem;
-                line-height:2rem;
-                display:flex;
+                height: 2rem;
+                line-height: 2rem;
+                display: flex;
                 flex-direction: row;
-                background:$background-slightly-dark;
+                background: var(--background-slightly-dark);
 
                 .userTab {
-
-                    padding:0 1rem;
-                    border-right:1px solid $secondary-color;
-                    border-bottom:1px solid $secondary-color;
-                    cursor:pointer;
-                    border-radius:0.4rem 0.4rem 0 0;
-                    background:$background-color;
-                    max-width:5rem;
-                    overflow:hidden;
-                    white-space:nowrap;
+                    padding: 0 1rem;
+                    border-right: 1px solid var(--secondary-color);
+                    border-bottom: 1px solid var(--secondary-color);
+                    cursor: pointer;
+                    border-radius: 0.4rem 0.4rem 0 0;
+                    background: var(--background-color);
+                    max-width: 5rem;
+                    overflow: hidden;
+                    white-space: nowrap;
                     text-overflow: ellipsis;
 
                     &:hover {
-                        opacity:0.6;
+                        opacity: 0.6;
                     }
 
                     &.userTabActive {
-                        border-bottom:none;
-                        cursor:default;
+                        border-bottom: none;
+                        cursor: default;
                         &:hover {
-                            opacity:1;
+                            opacity: 1;
                         }
                     }
                 }
 
                 .panelFiller {
-                    flex:1;
-                    border-bottom:1px solid $secondary-color;
-                    background:$background-slightly-dark;
+                    flex: 1;
+                    border-bottom: 1px solid var(--secondary-color);
+                    background: var(--background-slightly-dark);
                 }
-
             }
 
             .todoInner, .journalInner {
-                flex:1;
-                overflow-y:scroll;
-                max-height:100%;
+                flex: 1;
+                overflow-y: scroll;
+                max-height: 100%;
             }
 
             .todoOuter {
-                border-right:1px solid $secondary-color;
+                border-right: 1px solid var(--secondary-color);
             }
 
             .todoInner {
-                padding:1rem 2rem 4rem 2rem;
+                padding: 1rem 2rem 4rem 2rem;
 
                 @mixin goal-input {
-                    background:$background-color;
-                    outline:none;
-                    border:1px solid $secondary-color;
-                    border-radius:0.4rem;
-                    font-size:1rem;
-                    padding:0.5rem 1rem;
-                    color:$primary-color;
-                    font-family:'Figtree', sans-serif;
-                    line-height:1.2rem;
+                    background: var(--background-color);
+                    outline: none;
+                    border: 1px solid var(--secondary-color);
+                    border-radius: 0.4rem;
+                    font-size: 1rem;
+                    padding: 0.5rem 1rem;
+                    color: var(--primary-color);
+                    font-family: 'Figtree', sans-serif;
+                    line-height: 1.2rem;
                 }
-                overflow-y:scroll;
-                scrollbar-color: $secondary-color $background-dark;
-                scrollbar-width:thin;
+                overflow-y: scroll;
+                scrollbar-color: var(--secondary-color) var(--background-dark);
+                scrollbar-width: thin;
 
                 .goalSection {
-                    margin-bottom:3rem;
+                    margin-bottom: 3rem;
                     h2 {
                         span.goalDates {
-                            color:$secondary-color;
+                            color: var(--secondary-color);
                         }
                     }
                     .taskList {
                         .taskItem {
-                            display:flex;
+                            display: flex;
                             flex-direction: row;
                             align-items: center;
 
-                            margin:0.4rem 0;
-                            padding:0.2rem 0;
+                            margin: 0.4rem 0;
+                            padding: 0.2rem 0;
 
                             .taskCheck {
-                                height:1.2rem;width:1.2rem;
-                                min-width:1.2rem;
-                                border-radius:0.2rem;
-                                cursor:pointer;
+                                height: 1.2rem;
+                                width: 1.2rem;
+                                min-width: 1.2rem;
+                                border-radius: 0.2rem;
+                                cursor: pointer;
                                 @include flex-center;
-                                margin:0 0.5rem;
-                                border:1px solid $secondary-color;
+                                margin: 0 0.5rem;
+                                border: 1px solid var(--secondary-color);
                             }
                             .taskName {
-                                line-height:1.5rem;
+                                line-height: 1.5rem;
                                 .taskTag {
-                                    background:$tag-color;
-                                    color:$background-color;
-                                    padding:0.2rem 0.4rem;
-                                    border-radius:0.5rem;
-                                    margin-left:0.5rem;
-                                    font-size:0.8rem;
-                                    font-weight:bold;
+                                    background: var(--tag-color);
+                                    color: var(--background-color);
+                                    padding: 0.2rem 0.4rem;
+                                    border-radius: 0.5rem;
+                                    margin-left: 0.5rem;
+                                    font-size: 0.8rem;
+                                    font-weight: bold;
                                 }
                             }
 
                             &.taskItemCompleted {
                                 .taskCheck {
-                                    background:$secondary-color;
+                                    background: var(--secondary-color);
                                 }
                                 .taskName {
                                     text-decoration: line-through;
-                                    color:$secondary-color;
+                                    color: var(--secondary-color);
                                     opacity: 0.6;
                                     .taskTag {
-                                        opacity:0.4;
+                                        opacity: 0.4;
                                     }
                                 }
                             }
                         }
                         .newTaskContainer {
                             @include flex-center-row;
-                            gap:1rem;
-                            margin-top:0.7rem;
+                            gap: 1rem;
+                            margin-top: 0.7rem;
                             input {
                                 @include goal-input;
-                                width:30%;
+                                width: 30%;
                             }
                             .addTask {
                                 @include add-button;
@@ -421,8 +509,8 @@
                 }
                 .newGoal {
                     @include flex-center-row;
-                    margin-top:2rem;
-                    gap:1rem;
+                    margin-top: 2rem;
+                    gap: 1rem;
                     input {
                         @include goal-input;
                     }
@@ -433,130 +521,126 @@
             }
 
             .journalInner {
-                padding:1rem 2rem 0.8rem 2rem;
-                display:flex;
-                flex-direction:row;
-                align-items:stretch;
-                gap:1.5rem;
-                overflow-y:scroll;
-                scrollbar-color: $secondary-color $background-dark;
-                scrollbar-width:thin;
+                padding: 1rem 2rem 0.8rem 2rem;
+                display: flex;
+                flex-direction: row;
+                align-items: stretch;
+                gap: 1.5rem;
+                overflow-y: scroll;
+                scrollbar-color: var(--secondary-color) var(--background-dark);
+                scrollbar-width: thin;
 
                 .journalDates {
-                    position:sticky;
-                    top:0;
-                    width:6rem;
-                    padding-top:1.4rem;
-                    max-height:100%;
-                    overflow-y:scroll;
-                    scrollbar-color: $secondary-color $background-dark;
-                    scrollbar-width:thin;
-                    padding-right:1rem;
+                    position: sticky;
+                    top: 0;
+                    width: 6rem;
+                    padding-top: 1.4rem;
+                    max-height: 100%;
+                    overflow-y: scroll;
+                    scrollbar-color: var(--secondary-color) var(--background-dark);
+                    scrollbar-width: thin;
+                    padding-right: 1rem;
                     .journalYear {
-                        font-weight:bold;
-                        font-size:1.2rem;
-                        margin-bottom:1rem;
-                        position:relative;
+                        font-weight: bold;
+                        font-size: 1.2rem;
+                        margin-bottom: 1rem;
+                        position: relative;
                         .journalYearExpand {
-                            position:absolute;
-                            top:0;right:0;
-                            font-size:1.6rem;
-                            cursor:pointer;
+                            position: absolute;
+                            top: 0;
+                            right: 0;
+                            font-size: 1.6rem;
+                            cursor: pointer;
                             &:hover {
-                                filter:brightness(1.5);
+                                filter: brightness(1.5);
                             }
                         }
 
                         .journalMonth {
-                            font-weight:normal;
-                            color:$secondary-color;
-                            text-align:right;
-                            font-size:1rem;
-                            margin-top:0.3rem;
-                            cursor:pointer;
+                            font-weight: normal;
+                            color: var(--secondary-color);
+                            text-align: right;
+                            font-size: 1rem;
+                            margin-top: 0.3rem;
+                            cursor: pointer;
                             &:hover {
                                 filter: brightness(1.5);
                             }
                             &.journalMonthActive {
-                                color:$primary-color;
+                                color: var(--primary-color);
                             }
                         }
-
                     }
                 }
 
                 .journalContent {
-
-                    flex:1;
+                    flex: 1;
 
                     .journalInputContainer {
-    
                         @include flex-center-row;
-                        margin-bottom:2rem;
+                        margin-bottom: 2rem;
                         align-items: stretch;
-                        gap:2rem;
-    
+                        gap: 2rem;
+
                         .journalInputTextOuter {
-                            flex:1;
-                            display:flex;
+                            flex: 1;
+                            display: flex;
                             flex-direction: column;
-                            align-items:stretch;
+                            align-items: stretch;
                             textarea {
-                                background:$background-dark;
-                                outline:none;
-                                border:none;
+                                background: var(--background-dark);
+                                outline: none;
+                                border: none;
                                 resize: none;
-                                padding:1rem;
-                                color:$primary-color;
-                                font-size:1.1rem;
-                                font-family:'Figtree', sans-serif;
-                                box-shadow:0 0 5px 4px $background-dark;
+                                padding: 1rem;
+                                color: var(--primary-color);
+                                font-size: 1.1rem;
+                                font-family: 'Figtree', sans-serif;
+                                box-shadow: 0 0 5px 4px var(--background-dark);
                             }
                             textarea.journalInputMain {
-                                height:10rem;
-                                border-radius:0.5rem 0.5rem 0 0;
-                                border-bottom:1px solid $secondary-color;
+                                height: 10rem;
+                                border-radius: 0.5rem 0.5rem 0 0;
+                                border-bottom: 1px solid var(--secondary-color);
                             }
                             textarea.journalInputTags {
-                                border-radius:0 0 0.5rem 0.5rem;
-                                overflow:hidden;
-                                height:1.5rem;
+                                border-radius: 0 0 0.5rem 0.5rem;
+                                overflow: hidden;
+                                height: 1.5rem;
                             }
                         }
-    
+
                         .journalInputControls {
                             @include flex-center-col;
-                            gap:1.5rem;
+                            gap: 1.5rem;
                             justify-content: space-between;
-    
+
                             .journalInputControl {
                                 @include add-button;
                             }
                         }
                     }
-    
+
                     .journalEntry {
-                        background:$journal-entry-background;
-                        border-radius:0.4rem;
-                        margin-bottom:1.4rem;
-                        padding:0.5rem 1.7rem;
+                        background: var(--journal-entry-background);
+                        border-radius: 0.4rem;
+                        margin-bottom: 1.4rem;
+                        padding: 0.5rem 1.7rem;
 
                         h3 {
                             span.journalTag {
-                                display:inline-block;
-                                background:$primary-color;
-                                border-radius:0.8rem;
-                                margin-left:0.6rem;
-                                padding:0.2rem 0.7rem;
-                                color:$background-dark;
-                                font-size:1rem;
-                                transform:translateY(-2px);
+                                display: inline-block;
+                                background: var(--primary-color);
+                                border-radius: 0.8rem;
+                                margin-left: 0.6rem;
+                                padding: 0.2rem 0.7rem;
+                                color: var(--background-dark);
+                                font-size: 1rem;
+                                transform: translateY(-2px);
                             }
                         }
                     }
                 }
-
             }
         }
     }
-}

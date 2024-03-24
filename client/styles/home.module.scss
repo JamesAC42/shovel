@@ -1,16 +1,17 @@
 @import './variables.module.scss';
 
 .homeOuter {
-    color: $primary-color;
+    color: var(--primary-color);
+    background: var(--background-color);
     @include fixed-center;
     @include flex-center-col;
+    height:100vh;width:100vw;
     gap:0.5rem;
     padding:1rem;
-    border:0.15rem solid $primary-color;
+    border:0.15rem solid var(--primary-color);
     border:none;
     border-radius:0.4rem;
-    box-shadow:0 0.16rem 0.8rem 0.1rem $background-dark;
-    background:$background-dark;
+    box-shadow:0 0.16rem 0.8rem 0.1rem var(--background-dark);
     @include fade-in;
 }
 
@@ -28,10 +29,10 @@
     a {
         @include flex-center-col;
         text-decoration:none;
-        color:$secondary-color;
+        color:var(--secondary-color);
         font-size:1.4rem;
         &:hover {
-            color:$glow;
+            color:var(--glow);
         }
         svg {
             cursor:pointer;

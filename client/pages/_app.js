@@ -1,16 +1,16 @@
 import '../styles/global.scss';
 import {useState} from 'react';
+import ThemeContext from './ThemeContext';
 
 export default function App({ Component, pageProps }) {
+
     const [theme, setTheme] = useState('default');
 
-    const changeTheme = (newTheme) => {
-        setTheme(newTheme)
-    }
-
     return (
-        <div className={`theme-${theme}`}>
-            <Component {...pageProps} changeTheme={changeTheme} />
-        </div>
+        <ThemeContext.Provider value={{theme, setTheme}}>
+            <div className={`theme-${theme}`}>
+                <Component {...pageProps} />
+            </div>
+        </ThemeContext.Provider>
     )
 }

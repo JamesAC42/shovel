@@ -1,32 +1,24 @@
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import styles from '../../styles/roomlayout.module.scss';
 import { useEffect, useState } from 'react';
 import Router from 'next/router';
-import Image from 'next/image';
 
-import { IoChevronBackCircle, IoChevronForwardCircle } from "react-icons/io5";
-import { TbCircleFilled, TbShovel } from "react-icons/tb";
 import { MdOutlineExpandMore } from "react-icons/md";
 import { HiPencilAlt } from "react-icons/hi";
-import { FaUndo, FaSave, FaEraser, FaCheck  } from "react-icons/fa";
+import { FaUndo, FaSave, FaEraser } from "react-icons/fa";
 import { FaFileArrowUp } from "react-icons/fa6";
-import { IoMailUnread, IoMail } from "react-icons/io5";
-import { CgCloseO } from "react-icons/cg";
+
+import StatsPanel from '../../components/room/StatsPanel';
+
+import RoomContext from '../RoomContext';
 
 export default function Room () {
 
     const router = useRouter();
     const { id } = router.query;
 
-    const [data, setData] = useState(null);
+    const [roomData, setRoomData] = useState({});
     const [loading, setLoading] = useState(true);
-
-    const [week, setWeek] = useState(null);
-
-    const [statsExpanded, setStatsExpanded] = useState(true);
-
-    const [showRequests, setShowRequests] = useState(false);
 
     useEffect(() => {
         fetchData();
@@ -36,17 +28,17 @@ export default function Room () {
 
         if(!id) return;
 
+        setLoading(true);
+
         try {
             const response = await fetch(`/api/roomData?id=${id}`);
             const data = await response.json();
-            // handle the data object here
             console.log(data);
             if(!data.success) {
                 Router.push("/room");
                 return;
             } else {
-                setData(data.data);
-                setLoading(false);
+                setRoomData(data.data);
             }
         } catch(err) {
             console.log("Error", err);
@@ -56,355 +48,20 @@ export default function Room () {
                 },
             };
         }
+
+        setLoading(false);
     }
-
-    useEffect(() => {
-        if(!data) return;
-
-        let date = new Date();
-        date.setDate(date.getDate() - date.getDay());
-        let formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-        setWeek(formattedDate);
-
-    }, [data]);
     
     if(loading) return <div>Loading....</div>
-    if(!data) return <div>Room not found</div>
+    if(!roomData) return <div>Room not found</div>
 
     return (
+        <RoomContext.Provider value={{roomData, setRoomData}}>
         <div>
-            <Head>
-                <title>Shovel - Room</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
             
             <div className={styles.roomOuter}>
 
-                <div className={styles.statsPanelOuter + " " + (
-                    statsExpanded ? "" : styles.statsPanelCollapsed
-                )}>
-                <div 
-                    className={styles.toggleStatsPanel + " " + (
-                        statsExpanded ? "" : styles.toggleStatsPanelCollapsed
-                    )} 
-                    onClick={() => setStatsExpanded(!statsExpanded)}>
-                    <MdOutlineExpandMore />
-                </div>
-                <div className={styles.statsPanel}>
-                    
-                    <div className={styles.roomTop}>
-                        <div className={styles.roomId}>
-                            {data.name} | {id}
-                        </div>
-                        <div className={styles.requestNotifs}>
-                            <div onClick={() => setShowRequests(!showRequests)}>
-                                <IoMailUnread />
-                            </div>
-                            {
-                            showRequests ? 
-                            <div className={styles.requests}>
-                                <h4>join requests</h4>
-                                <div className={styles.request}>
-                                    <div className={styles.requestName}>
-                                        User 1
-                                    </div>
-                                    <div className={styles.requestActions}>
-                                        <div className={styles.approveRequest}>
-                                            <FaCheck/>
-                                        </div>
-                                        <div className={styles.declineRequest}>
-                                            <CgCloseO />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> : null
-                            }
-                        </div>
-                    </div>
-                    <div className={styles.deepWorkWeek}>
-                        <div className={styles.thisWeek}>
-                            week of {week}
-                            <div className={styles.changeWeek}>
-                                <div className={styles.changeWeekButton}>
-                                    <IoChevronBackCircle/>
-                                </div>
-                                <div className={styles.changeWeekButton}>
-                                    <IoChevronForwardCircle/>
-                                </div>
-                            </div>
-                            <div className={styles.checkInButton}>
-                                <TbShovel /> Check In Today
-                            </div>
-                        </div>
-                        <div className={styles.workGrid}>
-                            <table>
-                                <tr>
-                                    <td></td>
-                                    <td className={styles.streakHeader}>streak</td>
-                                    <td>sunday</td>
-                                    <td>monday</td>
-                                    <td>tuesday</td>
-                                    <td>wednesday</td>
-                                    <td>thursday</td>
-                                    <td>friday</td>
-                                    <td>saturday</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>user 1</td>
-                                    <td>
-                                        <span className={`${styles.streak} ${styles.streakActive}`}>30/52</span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                    </td>
-                                    <td><span className={styles.workTotal}>10</span></td>
-                                </tr>
-                                <tr>
-                                    <td>user 2</td>
-                                    <td>
-                                        <span className={styles.streak}>0/12</span>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                    </td>
-                                    <td><span className={styles.workTotal}>10</span></td>
-                                </tr>
-                                <tr>
-                                    <td>user 3</td>
-                                    <td>
-                                        <span className={styles.streak}>0/8</span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                    </td>
-                                    <td><span className={styles.workTotal}>10</span></td>
-                                </tr>
-                                <tr>
-                                    <td>user 3</td>
-                                    <td>
-                                        <span className={styles.streak}>0/8</span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                    </td>
-                                    <td><span className={styles.workTotal}>10</span></td>
-                                </tr>
-                                <tr>
-                                    <td>user 3</td>
-                                    <td>
-                                        <span className={styles.streak}>0/8</span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                    </td>
-                                    <td><span className={styles.workTotal}>10</span></td>
-                                </tr>
-                                <tr>
-                                    <td>user 3</td>
-                                    <td>
-                                        <span className={styles.streak}>0/8</span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                        <span className={styles.workMarker}><TbCircleFilled/></span>
-                                    </td>
-                                    <td>
-                                        <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                    </td>
-                                    <td><span className={styles.workTotal}>10</span></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div className={styles.workButtons}>
-                            <div className={styles.addButtons}>
-                                <div className={styles.workButton}>
-                                    <span className={styles.workMarker}><TbCircleFilled/></span>
-                                </div>
-                                <div className={styles.workButton}>
-                                    <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                                </div>
-                            </div>
-                            <div className={styles.undoButton}>
-                                <div className={styles.workButton}>
-                                    <span className={styles.undoButton}><FaUndo /></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                </div>
-                
+                <StatsPanel/>
                 <div className={styles.mainContentOuter}>
                 <div className={styles.mainContent}>
                     
@@ -981,5 +638,6 @@ export default function Room () {
             </div>
 
         </div>
+        </RoomContext.Provider>
     )
 }

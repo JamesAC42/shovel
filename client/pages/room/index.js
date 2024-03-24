@@ -159,6 +159,7 @@ export default function Room() {
 
 
     return (
+        <div className={styles.roomTop}>
         <div className={styles.roomOuter}>
             <UserData setUserData={setUserData}/>
             {
@@ -229,6 +230,7 @@ export default function Room() {
                     <CreateUser setUserData={setUserData}/>
                 </div>
             }
+        </div>
         </div>
     )
 }

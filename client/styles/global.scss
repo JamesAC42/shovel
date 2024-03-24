@@ -1,17 +1,5 @@
 @import './variables.module.scss';
-
-@import './themes/blackwhite';
-@import './themes/default';
-
-@mixin themePicker {
-  .theme-default & {
-    @include defaultTheme;
-  }
-  
-  .theme-blackwhite & {
-    @include blackWhiteTheme;
-  }
-}
+@import './theme.scss';
 
 @font-face {
   font-family: 'Figtree';
@@ -19,9 +7,7 @@
 }
 
 body {
-  @include themePicker;
   font-family: Figtree, sans-serif;
-  background: $background-color;
   overflow:hidden;
   margin:0;padding:0;
 }

@@ -1,0 +1,11 @@
+@import "../variables.module.scss";
+
+.workGrid {
+    table {
+        border-collapse: collapse;
+    }
+    td {
+        border-right:1px solid var(--secondary-color);
+        padding:0.2rem 0.8rem;
+    }
+}
