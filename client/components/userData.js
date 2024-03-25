@@ -1,5 +1,9 @@
-import { useEffect } from 'react';
-function UserData({setUserData}) {
+import { useEffect, useContext } from 'react';
+import UserContext from '../pages/UserContext';
+
+function UserData() {
+
+    const {setUserInfo} = useContext(UserContext);
 
     useEffect(() => {
         fetch('/api/room')
@@ -11,7 +15,7 @@ function UserData({setUserData}) {
             })
             .then(data => {
                 if (data.success) {
-                    setUserData(data.user);
+                    setUserInfo(data.user);
                 }
             })
             .catch(error => {

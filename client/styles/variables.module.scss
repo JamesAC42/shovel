@@ -42,3 +42,19 @@
         opacity:1;
     }
 }
+
+@keyframes expand-requests {
+    0% {
+        max-width:0;
+        max-height:0;
+    }
+    100% {
+        max-width:15rem;
+        max-height:8rem;
+    }
+}
+
+@mixin theme-scrollbar {
+    scrollbar-color: var(--secondary-color) var(--background-dark);
+    scrollbar-width: thin;
+}

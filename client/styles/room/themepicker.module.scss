@@ -1,0 +1,159 @@
+@import "../variables.module.scss";
+
+.themePicker {
+    position:relative;
+    height:2rem;
+    width:2rem;
+    @include flex-center-row;
+    @include theme-scrollbar;
+    svg {
+        font-size:1.2rem;
+        margin-left:1rem;
+        cursor:pointer;
+        transform:translateY(3px);
+        &:hover {
+            filter:brightness(1.5);
+        }
+    }
+    .themes {
+        box-shadow:0 0 5px 4px var(--background-dark);
+        h4 {
+            text-align:center;
+        }   
+        animation:expand-requests 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1;
+        width:15rem;
+        max-height:8rem;
+        border-radius:0.5rem;
+        position:absolute;
+        left:0;bottom:0;
+        background:var(--background-dark);
+        z-index:100000;
+        transform:translate(0.3rem, calc(100% + 0.4rem));
+        border:1px solid var(--tertiary-color);
+        overflow-y:scroll;
+
+        .themeContainer {
+            margin-bottom:1rem;
+            .themeItem {
+                cursor:pointer;
+                text-align:center;
+                font-size:1rem;
+                font-weight:bold;
+                margin: 0 0.5rem 0.4rem 0.5rem;
+                padding:0.2rem 0;
+                border-radius:0.5rem;
+                &:hover {
+                    filter: brightness(1.2);
+                }
+                &.default {
+                    background:#888f9d;
+                    color:#151518;
+                }
+                &.blackwhite {
+                    background:#000000;
+                    color:#ffffff;
+                }
+                &.chocolate {
+                    background:#6b3e26;
+                    color:#f0e5de;
+                }
+                &.eclipse {
+                    background:#d6d2c4;
+                    color:#181818;
+                }
+                &.hacker {
+                    background:#66ff00;
+                    color:#000000;
+                }
+                &.nightclub {
+                    background:#8338ec;
+                    color:#fff;
+                }
+                &.nightocean {
+                    background:#688ccf;
+                    color:#0B1723;
+                }
+                &.peach {
+                    background:#b33f25;
+                    color:#FFCBA4;
+                }
+                &.pink {
+                    background:#ec2b4b;
+                    color:#FFB6C1;
+                }
+                &.snowyevergreen {
+                    background:#5fa8ac;
+                    color:#FFFFFF;
+                }
+                &.solaris {
+                    background:#587ac0;
+                    color:#fff4e6;
+                }
+                &.book {
+                    background:#fffdf5;
+                    color:#343434;
+                }
+                &.lizard {
+                    background:#3e6238;
+                    color:#80ff6f;
+                }
+                &.periwinkle {
+                    background:#b4b2ef;
+                    color:#311f60;
+                }
+                &.kuromi {
+                    background:#100d14;
+                    color:#d641ff;
+                }
+                &.stuff {
+                    background:#f84040;
+                    color:#ffdc2c;
+                }
+                &.neopolitan {
+                    background:#6a5125;
+                    color:#ffc8ff;
+                }
+                &.cream {
+                    background:#fffbf4;
+                    color:#519ef6;
+                }
+                &.nano {
+                    background:#0e141e;
+                    color:#ffffff;
+                }
+                &.mint {
+                    background:#08b785;
+                    color:#ffffff;
+                }
+                &.melon {
+                    background:#3e7654;
+                    color:#fdc2ec;
+                }
+                &.ninja {
+                    background:#21242d;
+                    color:#ff5353;
+                }
+                &.forest {
+                    background:#0f261a;
+                    color:#14a5ca;
+                }
+                &.float {
+                    background:rgb(78, 218, 214);
+                    color:#fefbd9;
+                }
+                &.wiiu {
+                    background:#0066ff;
+                    color:#ffffff;
+                }
+                &.frutiger {
+                    background:#3cb51b;
+                    color:#ffffff;
+                }
+                &.miku {
+                    background:#343845;
+                    color:#67b4c2;
+                }
+            }
+        }
+    }
+}

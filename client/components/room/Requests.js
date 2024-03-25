@@ -5,7 +5,9 @@ import { IoMailUnread, IoMail } from "react-icons/io5";
 import { CgCloseO } from "react-icons/cg";
 import { FaCheck } from "react-icons/fa";
 
-function Requests({requests}) {
+import styles from "../../styles/room/requests.module.scss";
+
+function Requests() {
 
     const [showRequests, setShowRequests] = useState(false);
     const {roomData, setRoomData} = useContext(RoomContext);
@@ -13,6 +15,8 @@ function Requests({requests}) {
     const requestReply = (approve) => {
         
     }
+
+    const requests = roomData.joinRequests;
 
     return (
         
@@ -47,6 +51,10 @@ function Requests({requests}) {
                             </div>
                         </div>
                         )
+                    }
+                    {
+                        requests.length === 0 ?
+                        <h5>no requests</h5> : null
                     }
                 </div> : null
             }

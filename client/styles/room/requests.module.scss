@@ -1,0 +1,54 @@
+@import '../variables.module.scss';
+
+.requestNotifs {
+    position:relative;
+    height:2rem;
+    width:2rem;
+    @include flex-center-row;
+    svg {
+        font-size:1.2rem;
+        margin-left:1rem;
+        cursor:pointer;
+        transform:translateY(3px);
+        &:hover {
+            filter:brightness(1.5);
+        }
+    }
+    @include theme-scrollbar;
+    .requests {
+        box-shadow:0 0 5px 4px var(--background-dark);
+        h4,h5 {
+            text-align:center;
+        }   
+        animation:expand-requests 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1;
+        width:15rem;
+        max-height:8rem;
+        border-radius:0.5rem;
+        position:absolute;
+        left:0;bottom:0;
+        background:var(--background-dark);
+        z-index:100000;
+        transform:translate(0.3rem, calc(100% + 0.4rem));
+        border:1px solid var(--tertiary-color);
+        overflow-y:scroll;
+        .request {
+            padding:0rem 1rem;
+            margin-bottom:1rem;
+            @include flex-center-row;
+            justify-content: space-between;
+            .requestActions {
+                @include flex-center-row;
+                gap:1rem;
+                svg {
+                    font-size:1rem;
+                }
+                .approveRequest {
+                    color:var(--approve);
+                }
+                .declineRequest {
+                    color:var(--decline);
+                }
+            }
+        }
+    }
+}

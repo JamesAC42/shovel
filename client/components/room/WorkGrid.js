@@ -1,8 +1,14 @@
+import { useState, useContext } from "react";
+import RoomContext from "../../pages/RoomContext";
+import UserContext from "../../pages/UserContext";
 import styles from "../../styles/room/workgrid.module.scss";
 
 Date.prototype.addDays=function(d){return new Date(this.valueOf()+864E5*d);};
 
-function WorkGrid({deepWorkHours}) {
+function WorkGrid() {
+
+    const {roomData, setRoomData} = useContext(RoomContext);
+    const { userInfo } = useContext(UserContext);
     
     const getWeekDay = (dayNum) => {
         return ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'][dayNum];
@@ -29,8 +35,16 @@ function WorkGrid({deepWorkHours}) {
     }
     */
 
-    if(deepWorkHours === null) return null;
-    const users = Object.keys(deepWorkHours);
+    if(roomData === null) return null;
+
+    const deepWorkHours = {};
+    const userData = {};
+    const users = Object.keys(roomData.users);
+
+    for(let user of users) {
+        deepWorkHours[user] = roomData.users[user].deepWorkTracker;
+        userData[user] = roomData.users[user].userInfo;
+    }
 
     let dateList = [];
     let userdates = {};
@@ -77,6 +91,17 @@ function WorkGrid({deepWorkHours}) {
         }
     }
 
+    const renderStreak = (user) => {
+        const currentStreak = userData[user].currentStreak;
+        const streakHighscore = userData[user].streakHighscore;
+        return `${currentStreak ? currentStreak : 0}/${streakHighscore ? streakHighscore : 0}`;
+    }
+
+    const streakStyle = (user) => {
+        let currentStreak = userData[user].currentStreak ?? 0;
+        return(`${styles.streak} ${currentStreak > 0 ? styles.streakActive : ""}`);
+    }
+
     return (
         <div className={styles.workGrid}>
             <table>
@@ -93,10 +118,10 @@ function WorkGrid({deepWorkHours}) {
                 {
                     users.map(user =>
                     <tr>
-                        <td>{userinfo[user].username}</td>
+                        <td>{userData[user].username}</td>
                         <td>
-                            <span className={`${styles.streak} ${userinfo[user].currentStreak === 0 ? styles.streakActive : ""}`}>
-                                {userinfo[user].currentStreak}/{userinfo[user].streakHighscore}
+                            <span className={streakStyle(user)}>
+                                {renderStreak(user)}
                             </span>
                         </td>
                         {

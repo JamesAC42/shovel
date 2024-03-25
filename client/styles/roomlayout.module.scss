@@ -13,324 +13,7 @@
     @include flex-center-col;
     align-items:stretch;
 
-    .statsPanelOuter {
-        overflow-y:hidden;
-        position:relative;
-        box-shadow: 0 -10px 20px 5px var(--background-dark) inset;
-        max-height:50vh;
-        transition:max-height 0.2s cubic-bezier(0.215, 0.610, 0.355, 1);
-
-        &.statsPanelCollapsed {
-            max-height:5vh;
-        }
-
-        .toggleStatsPanel {
-            position:absolute;
-            bottom:0;right:0;
-            margin:0.2rem 0.8rem;
-            transform:rotate(180deg);
-            z-index:10000;
-            svg {
-                font-size:1.8rem;
-                color:var(--primary-color);
-                cursor:pointer;
-            }
-
-            &.toggleStatsPanelCollapsed {
-                transform:rotate(0deg);
-            }
-        }
-    }
-
-    img {
-        position:absolute;
-        top:1rem;right:1rem;
-        opacity:0.5;
-        height:5rem;
-        width:auto;
-        transform:translate(0, 0);
-    }
-
-    .statsPanel {
-
-        @include flex-center-row;
-        position:relative;
-        color:var(--primary-color);
-        padding:3rem 0;
-
-        .roomTop {
-            margin:0.3rem 1rem;
-            position:absolute;
-            top:0;left:0;
-            @include flex-center-row;
-            .roomId {
-                font-weight:bold;
-            }
-            .requestNotifs, .themePicker {
-                position:relative;
-                height:2rem;
-                width:2rem;
-                @include flex-center-row;
-                svg {
-                    font-size:1.2rem;
-                    margin-left:1rem;
-                    cursor:pointer;
-                    transform:translateY(3px);
-                    &:hover {
-                        filter:brightness(1.5);
-                    }
-                }
-                @keyframes expand-requests {
-                    0% {
-                        max-width:0;
-                        max-height:0;
-                    }
-                    100% {
-                        max-width:15rem;
-                        max-height:10rem;
-                    }
-                }
-                .requests, .themes {
-                    box-shadow:0 0 5px 4px var(--background-dark);
-                    h4 {
-                        text-align:center;
-                    }   
-                    animation:expand-requests 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1;
-                    width:15rem;
-                    max-height:10rem;
-                    border-radius:0.5rem;
-                    position:absolute;
-                    left:0;bottom:0;
-                    background:var(--background-dark);
-                    z-index:100000;
-                    transform:translate(0.3rem, calc(100% + 0.4rem));
-                    border:1px solid var(--tertiary-color);
-                    overflow-y:scroll;
-                    .request {
-                        padding:0rem 1rem;
-                        margin-bottom:1rem;
-                        @include flex-center-row;
-                        justify-content: space-between;
-                        .requestActions {
-                            @include flex-center-row;
-                            gap:1rem;
-                            svg {
-                                font-size:1rem;
-                            }
-                            .approveRequest {
-                                color:var(--approve);
-                            }
-                            .declineRequest {
-                                color:var(--decline);
-                            }
-                        }
-                    }
-
-                    .themeContainer {
-                        .themeItem {
-                            cursor:pointer;
-                            text-align:center;
-                            font-size:1rem;
-                            font-weight:bold;
-                            margin: 0 0.5rem 1rem 0.5rem;
-                            padding:0.2rem 0;
-                            border-radius:0.5rem;
-                            &:hover {
-                                filter: brightness(1.2);
-                            }
-                            &.default {
-                                background:#888f9d;
-                                color:#151518;
-                            }
-                            &.blackwhite {
-                                background:#000000;
-                                color:#ffffff;
-                            }
-                            &.chocolate {
-                                background:#6b3e26;
-                                color:#f0e5de;
-                            }
-                            &.eclipse {
-                                background:#d6d2c4;
-                                color:#181818;
-                            }
-                            &.hacker {
-                                background:#66ff00;
-                                color:#000000;
-                            }
-                            &.nightclub {
-                                background:#8338ec;
-                                color:#fff;
-                            }
-                            &.nightocean {
-                                background:#688ccf;
-                                color:#0B1723;
-                            }
-                            &.peach {
-                                background:#b33f25;
-                                color:#FFCBA4;
-                            }
-                            &.pink {
-                                background:#ec2b4b;
-                                color:#FFB6C1;
-                            }
-                            &.snowyevergreen {
-                                background:#5fa8ac;
-                                color:#FFFFFF;
-                            }
-                            &.solaris {
-                                background:#587ac0;
-                                color:#fff4e6;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        span.workMarker,
-        span.workMarkerSpecial {
-            color:var(--secondary-color);
-            margin-right:0.2rem;
-            display:inline-block;
-            height:1rem;
-            border-radius:80%;
-        }
-
-        span.workMarkerSpecial {
-            color:var(--glow);
-            box-shadow:0 0 4px 1px var(--glow);
-        }
-
-        td.streakHeader {
-            font-weight:bold;
-            color:var(--highlight-color);
-        }
-
-        span.streak {
-            font-weight:bold;
-            color:var(--highlight-color);
-            opacity:0.5;
-            text-align:center;
-            &.streakActive {
-                opacity:1;
-            }
-        }
-
-        .workTotal {
-            font-weight:bold;
-            font-size:1.3rem;
-        }
-
-        @media (max-width: 100rem) {
-        
-            span.workMarker,
-            span.workMarkerSpecial {
-                margin-right:0.1rem;
-                height:0.9rem;
-            }
     
-            .workTotal {
-                font-size:1.1rem;
-            }
-        }
-
-        .deepWorkWeek {
-
-            @include flex-center-row;
-            gap:1rem;
-
-            .thisWeek {
-                text-align:center;
-                .changeWeek {
-                    @include flex-center-row;
-                    gap:1rem;
-                    margin-top:0.4rem;
-                    .changeWeekButton {
-                        font-size:1.6rem;
-                        cursor:pointer;
-                        &:hover {
-                            filter:brightness(2);
-                        }
-                    }
-                }
-                .checkInButton {
-                    background:var(--primary-color);
-                    color:var(--background-color);
-                    border-radius:1rem;
-                    padding:0.5rem 1rem;
-                    margin-top:0.4rem;
-                    cursor:pointer;
-                    box-shadow:0 0 5px 4px var(--background-dark);
-                    &:hover {
-                        outline:2px solid var(--glow);
-                    }
-                    }
-                    svg {
-                        transform:translateY(2px);
-                    }
-                }
-            }
-
-            .workButtons {
-                @include flex-center-row;
-                gap:1rem;
-                .workMarker, .workMarkerSpecial {margin:0;}
-                .addButtons {
-                    @include flex-center-col;
-                    gap:1rem;
-                }
-                .workButton {
-                    @include flex-center-row;
-                    padding:0.5rem;
-                    border-radius:0.4rem;
-                    cursor:pointer;
-                    border:1px solid var(--background-dark);
-                    box-shadow:0 0 5px 4px var(--background-dark);
-                    &:hover {
-                        outline:2px solid var(--secondary-color);
-                    }
-                    svg {
-                        transform: translateY(-1px);
-                    }
-                }
-            }
-
-            @media (max-width: 100rem) {
-                // Add responsive styles here
-                .thisWeek {
-                    .changeWeek {
-                        gap:0.5rem;
-                        margin-top:0.2rem;
-                        .changeWeekButton {
-                            font-size:1.2rem;
-                        }
-                    }
-                    .checkInButton {
-                        border-radius:0.7rem;
-                        padding:0.3rem 0.8rem;
-                        margin-top:0.3rem;
-                        font-size:0.9rem;
-                    }
-                }
-    
-                .workGrid {
-                    td {
-                        padding:0.1rem 0.5rem;
-                        font-size:0.9rem;
-                    }
-                }
-    
-                .workButtons {
-                    gap:0.8rem;
-                    .workButton {
-                        padding:0.3rem;
-                    }
-                }
-            }
-        }
-
-    }
 
     .mainContentOuter {
         flex:1;
@@ -437,8 +120,7 @@
                     line-height: 1.2rem;
                 }
                 overflow-y: scroll;
-                scrollbar-color: var(--secondary-color) var(--background-dark);
-                scrollbar-width: thin;
+                @include theme-scrollbar;
 
                 .goalSection {
                     margin-bottom: 3rem;
@@ -527,8 +209,7 @@
                 align-items: stretch;
                 gap: 1.5rem;
                 overflow-y: scroll;
-                scrollbar-color: var(--secondary-color) var(--background-dark);
-                scrollbar-width: thin;
+                @include theme-scrollbar;
 
                 .journalDates {
                     position: sticky;
@@ -537,8 +218,7 @@
                     padding-top: 1.4rem;
                     max-height: 100%;
                     overflow-y: scroll;
-                    scrollbar-color: var(--secondary-color) var(--background-dark);
-                    scrollbar-width: thin;
+                    @include theme-scrollbar;
                     padding-right: 1rem;
                     .journalYear {
                         font-weight: bold;
@@ -644,3 +324,4 @@
             }
         }
     }
+}

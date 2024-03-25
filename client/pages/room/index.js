@@ -1,32 +1,29 @@
 import styles from '../../styles/room.module.scss';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Login from '../../components/login';
 import CreateUser from '../../components/createUser';
 import { PiBackspace } from "react-icons/pi";
 import Link from 'next/link';
 import Router from 'next/router';
 import UserData from '../../components/userData';
+import UserContext from "../UserContext";
 
 export default function Room() {
 
-    const [userid, setUserId] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [username, setUsername] = useState("");
-    const [color, setColor] = useState("");
+    const {userInfo, setUserInfo} = useContext(UserContext);
 
     const [roomId, setRoomId] = useState("");
-    const [roomName, setRoomName] = useState("");
-
     const [joinError, setJoinError] = useState("");
     const [joinStatus, setJoinStatus]  = useState("");
+    
+    const [roomName, setRoomName] = useState("");
     const [createError, setCreateError] = useState("");
 
     const [userRooms, setUserRooms] = useState([]);
 
     useEffect(() => {
 
-        if(!userid) {
+        if(userInfo?.id) {
             setUserRooms([]);
             return;
         }
@@ -49,15 +46,7 @@ export default function Room() {
             console.error('Error:', error);
         });
 
-    }, [userid]);
-
-    const setUserData = (user) => {
-        setUserId(user.id);
-        setFirstName(user.firstName);
-        setLastName(user.lastName);
-        setUsername(user.username);
-        setColor(user.color);
-    }
+    }, [userInfo]);
 
     const logout = () => {
         fetch('/api/logout', {
@@ -68,11 +57,7 @@ export default function Room() {
         })
         .then(response => {
             if (response.status === 200) {
-                setUserId("");
-                setFirstName("");
-                setLastName("");
-                setUsername("");
-                setColor("");
+                setUserInfo(null);
             } else {
                 throw new Error('Logout failed');
             }
@@ -161,9 +146,9 @@ export default function Room() {
     return (
         <div className={styles.roomTop}>
         <div className={styles.roomOuter}>
-            <UserData setUserData={setUserData}/>
+            <UserData />
             {
-                userid ?
+                userInfo?.id ?
                 <div className={styles.loggedIn} style={{borderColor:color}}>
                     <div className={styles.accountStatus}>
                         logged in as {firstName + ' ' + lastName}

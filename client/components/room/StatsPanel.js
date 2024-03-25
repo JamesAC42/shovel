@@ -1,4 +1,4 @@
-import styles from '../../styles/roomlayout.module.scss';
+import styles from '../../styles/room/statspanel.module.scss';
 
 import Requests from './Requests';
 import ThemePicker from './ThemePicker';

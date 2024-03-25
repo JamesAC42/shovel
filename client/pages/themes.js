@@ -9,6 +9,22 @@ const themes = [
     'peach',
     'pink',
     'snowyevergreen',
-    'solaris'
+    'solaris',
+    'book',
+    'lizard',
+    'periwinkle',
+    'kuromi',
+    'stuff',
+    'neopolitan',
+    'cream',
+    'nano',
+    'mint',
+    'melon',
+    'ninja',
+    'forest',
+    'float',
+    'wiiu',
+    'frutiger',
+    'miku'
 ];
 export default themes;
