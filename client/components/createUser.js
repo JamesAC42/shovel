@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import styles from "../styles/room.module.scss";
+import UserContext from '../pages/UserContext';
 
-function CreateUser({setUserData}) {
+function CreateUser() {
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -10,6 +11,8 @@ function CreateUser({setUserData}) {
     const [passwordConfirm, setPasswordConfirm] = useState("");
     const [color, setColor] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+
+    const {setUserInfo} = useContext(UserContext);
 
     function submitForm(e) {
         e.preventDefault();
@@ -49,13 +52,7 @@ function CreateUser({setUserData}) {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                setUserData({
-                    id: data.user.id,
-                    firstName: data.user.firstName,
-                    lastName: data.user.lastName,
-                    username: data.user.username,
-                    color: data.user.color
-                });
+                setUserInfo({...data.user});
                 setErrorMessage("");
             } else {
                 setErrorMessage(data.message);

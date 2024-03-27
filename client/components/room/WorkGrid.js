@@ -58,17 +58,16 @@ function WorkGrid() {
         }
         userdates[user] = dates;
     }
-    const today = new Date().getDay();
-    for(let day = 0; day <= today; day++) {
-        let weekDay = new Date();
-        weekDay.addDays(-1 * (today - day))
+    const today = new Date();
+    for(let day = 0; day <= today.getDay(); day++) {
+        let weekDay = today.addDays(-1 * (today.getDay() - day))
         dateList.push(weekDay);
     }
 
     const renderWorkMarkers = (user, date) => {
         let workMarkers = [];
         let workHours = userdates[user][date];
-        if(!workHours) return workMarkers;
+        if(!workHours) return <td></td>;
         for(let i = 0; i < workHours.hours; i++) {
             if(userDates[user][date].wasNotable) {
                 workMarkers.push(
@@ -84,11 +83,12 @@ function WorkGrid() {
     }
 
     const getUserTotalHours = (user) => {
-        if(!deepWorkHours[user]) return 0;
+        if(!deepWorkHours[user]) return "0";
         let total = 0;
         for(let workEntry of deepWorkHours[user]) {
             total += workEntry.hours;
         }
+        return total.toString();
     }
 
     const renderStreak = (user) => {
@@ -101,6 +101,8 @@ function WorkGrid() {
         let currentStreak = userData[user].currentStreak ?? 0;
         return(`${styles.streak} ${currentStreak > 0 ? styles.streakActive : ""}`);
     }
+
+    console.log(dateList);
 
     return (
         <div className={styles.workGrid}>
@@ -127,9 +129,11 @@ function WorkGrid() {
                         {
                             dateList.map((date) => renderWorkMarkers(user, date))
                         }
-                        <td><span className={styles.workTotal}>
+                        <td>
+                            <span className={styles.workTotal}>
                             { getUserTotalHours(user) }
-                        </span></td>
+                            </span>
+                        </td>
                     </tr>
                     )
                 }

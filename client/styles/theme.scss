@@ -68,7 +68,7 @@ div.theme-chocolate {
 
 div.theme-hacker {
     --primary-color: #66ff00; 
-    --background-color: #000000; 
+    --background-color: #0a0a0a; 
     --background-dark: #000000; 
     --background-slightly-dark: #0d0d0d; 
     --glow: #33ff33; 
@@ -143,9 +143,9 @@ div.theme-pink {
     --secondary-color: #ff6dbd; 
     --tertiary-color: #FF69B4; 
     --error-color: #FF4500; 
-    --link-color: #FFC0CB; 
+    --link-color: #d93450; 
     --tag-color:#FF69B4; 
-    --highlight-color:#f363e4; 
+    --highlight-color:#f12e4f; 
     --journal-entry-background: #ffc9e6; 
     --approve: #98FB98; 
     --decline: #FF4500; 
@@ -162,7 +162,7 @@ div.theme-snowyevergreen {
     --error-color: #FF4B5C; 
     --link-color: #88D498; 
     --tag-color:#3C6E71; 
-    --highlight-color:#88D498; 
+    --highlight-color:#4964a0; 
     --journal-entry-background: #1B3A4B; 
     --approve: #88D498; 
     --decline: #FF4B5C; 
@@ -196,7 +196,7 @@ div.theme-book {
     --error-color: #ff4d4d;
     --link-color: #607dbf;
     --tag-color:#777f85;
-    --highlight-color:#e7c996;
+    --highlight-color:#655c4a;
     --journal-entry-background: #c9c9c9;
     --approve: #45e23d;
     --decline: #e32b2b;
@@ -213,7 +213,7 @@ div.theme-lizard {
     --error-color: #fcd828;
     --link-color: #e653d2;
     --tag-color:#47b87a;
-    --highlight-color:#6aa92f;
+    --highlight-color:#d7e855;
     --journal-entry-background: #2e5858;
     --approve: #45e23d;
     --decline: #e32b2b;
@@ -228,9 +228,9 @@ div.theme-periwinkle {
     --secondary-color: #783bae;
     --tertiary-color: #4f3bbc;
     --error-color: #ff65ea;
-    --link-color: #5fa2c4;
+    --link-color: #16475f;
     --tag-color:#6371ea;
-    --highlight-color:#bbacff;
+    --highlight-color:#4823ec;
     --journal-entry-background: #b4c1ef;
     --approve: #2c4eb7;
     --decline: #bd157a;
@@ -261,8 +261,8 @@ div.theme-stuff {
     --glow: #fffcda;
     --secondary-color: #ffce53;
     --tertiary-color: #f6ad4d;
-    --error-color: #284bfc;
-    --link-color: #538ee6;
+    --error-color: #d6ad28;
+    --link-color: #e1a954;
     --tag-color:#ffdc4e;
     --highlight-color:#f7c983;
     --journal-entry-background: #ff5959;
@@ -281,7 +281,7 @@ div.theme-neopolitan {
     --error-color: #ff3d3d;
     --link-color: #9b38e2;
     --tag-color:#9f756f;
-    --highlight-color:#6aa92f;
+    --highlight-color:#d374b3;
     --journal-entry-background: #e7d2d2;
     --approve: #45e23d;
     --decline: #e32b2b;
@@ -330,9 +330,9 @@ div.theme-mint {
     --secondary-color: #24642e;
     --tertiary-color: #127666;
     --error-color: #ff7474;
-    --link-color: #34adcf;
+    --link-color: #0e2e1d;
     --tag-color:#a6fee7;
-    --highlight-color:#30e393;
+    --highlight-color:#0e633d;
     --journal-entry-background: #00a77a;
     --approve: #45e23d;
     --decline: #e32b2b;
@@ -349,7 +349,7 @@ div.theme-melon {
     --error-color: #ff7474;
     --link-color: #9ae9ff;
     --tag-color:#a6fee7;
-    --highlight-color:#aefa90;
+    --highlight-color:#fd94b7;
     --journal-entry-background: #486d4b;
     --approve: #26c9a5;
     --decline: #ff5c5c;
@@ -364,9 +364,9 @@ div.theme-ninja {
     --secondary-color: #8a1f17;
     --tertiary-color: #d24457;
     --error-color: #ff1c1c;
-    --link-color: #41aecd;
+    --link-color: #ffa3a3;
     --tag-color:#ff6e55;
-    --highlight-color:#aefa90;
+    --highlight-color:#f57964;
     --journal-entry-background: #080808;
     --approve: #26c9a5;
     --decline: #ff5c5c;
@@ -381,9 +381,9 @@ div.theme-forest {
     --secondary-color: #4a6776;
     --tertiary-color: #224973;
     --error-color: #FF2E63;
-    --link-color: #66FCF1;
+    --link-color: #6bb75a;
     --tag-color: #3f6f61;
-    --highlight-color: #1F2833;
+    --highlight-color: #499c6b;
     --journal-entry-background: #071617;
     --approve: #4EBA6F;
     --decline: #FF2E63;
@@ -400,7 +400,7 @@ div.theme-float {
     --error-color: #B80C09;
     --link-color: #0B4F6C;
     --tag-color: #FBFBFF;
-    --highlight-color: #D6EFF5;
+    --highlight-color: #57c4a1;
     --journal-entry-background: #d4eef3;
     --approve: #01BAEF;
     --decline: #B80C09;
@@ -417,7 +417,7 @@ div.theme-wiiu {
     --error-color: #FF0000;
     --link-color: #0066CC;
     --tag-color: #000000;
-    --highlight-color: #E6E6E6;
+    --highlight-color: #5b7eef;
     --journal-entry-background: #FFFFFF;
     --approve: #00CC00;
     --decline: #FF0000;
@@ -432,7 +432,7 @@ div.theme-frutiger {
     --secondary-color: #00bc3f;
     --tertiary-color: #06b326;
     --error-color: #ffb727;
-    --link-color: #0066CC;
+    --link-color: #f69e39;
     --tag-color: #00d20e;
     --highlight-color: #34ff19;
     --journal-entry-background: #ff9500;
@@ -449,10 +449,163 @@ div.theme-miku {
     --secondary-color: #1e9fd7;
     --tertiary-color: #5198d5;
     --error-color: #ff4444;
-    --link-color: #0080ff;
+    --link-color: #ff5a80;
     --tag-color: #f77396;
-    --highlight-color: #34ff19;
+    --highlight-color: #ff729f;
     --journal-entry-background: #222428;
     --approve: #28ce94;
     --decline: #e82b6d;
+}
+
+div.theme-melody {
+    --primary-color: #ffffff;
+    --background-color: #ffb9de;
+    --background-dark: #f096d3;
+    --background-slightly-dark: #f398e5;
+    --glow: #ffffff;
+    --secondary-color: #fc75ec;
+    --tertiary-color: #dc63a2;
+    --error-color: #ff4444;
+    --link-color: #ff3273;
+    --tag-color: #fc7ad7;
+    --highlight-color: #ff38bd;
+    --journal-entry-background: #ffabe0;
+    --approve: #a83ef4;
+    --decline: #e82b6d;
+}
+
+div.theme-cafe {
+    --primary-color: #947c78;
+    --background-color: #1f1411;
+    --background-dark: #130d0a;
+    --background-slightly-dark: #271e1e;
+    --glow: #d6d1d1;
+    --secondary-color: #a89191;
+    --tertiary-color: #1b0c0c;
+    --error-color: #ff4444;
+    --link-color: #804440;
+    --tag-color: #5f4e3b;
+    --highlight-color: #cdac9e;
+    --journal-entry-background: #342319;
+    --approve: #79f843;
+    --decline: #e82b6d;
+}
+
+div.theme-kiwi {
+    --primary-color: #4ba543;
+    --background-color: #4f3222;
+    --background-dark: #311d14;
+    --background-slightly-dark: #2e1d0e;
+    --glow: #b2fea4;
+    --secondary-color: #20100c;
+    --tertiary-color: #1b0c0c;
+    --error-color: #ff7979;
+    --link-color: #53a747;
+    --tag-color: #5f4e3b;
+    --highlight-color: #a2f99b;
+    --journal-entry-background: #311d16;
+    --approve: #53ba27;
+    --decline: #fd4545;
+}
+
+div.theme-tropical {
+    --primary-color: #e48817;
+    --background-color: #fff0b5;
+    --background-dark: #fcdba2;
+    --background-slightly-dark: #ffd67e;
+    --glow: #74d3d4;
+    --secondary-color: #6ec5ab;
+    --tertiary-color: #5888bf;
+    --error-color: #ff7979;
+    --link-color: #3e4cc1;
+    --tag-color: #5f4e3b;
+    --highlight-color: #4da39c;
+    --journal-entry-background: #ffce84;
+    --approve: #35d65d;
+    --decline: #ff7070;
+}
+
+div.theme-lemonade {
+    --primary-color: #fb6888;
+    --background-color: #ffd588;
+    --background-dark: #ffcd76;
+    --background-slightly-dark: #fdbb70;
+    --glow: #ff4c55;
+    --secondary-color: #f69e9e;
+    --tertiary-color: #f5b24d;
+    --error-color: #ff7979;
+    --link-color: #ea30a3;
+    --tag-color: #f05171;
+    --highlight-color: #fd46b7;
+    --journal-entry-background: #ffc971;
+    --approve: #42ad5d;
+    --decline: #e83b66;
+}
+
+div.theme-rocket {
+    --primary-color: #ff4141;
+    --background-color: #fefefe;
+    --background-dark: #ededed;
+    --background-slightly-dark: #f1f1f1;
+    --glow: #ff3d47;
+    --secondary-color: #214fd7;
+    --tertiary-color: #f5b24d;
+    --error-color: #ff7979;
+    --link-color: #1808ff;
+    --tag-color: #fe526c;
+    --highlight-color: #1b2aff;
+    --journal-entry-background: #f5f8ff;
+    --approve: #1ceb50;
+    --decline: #ff2e2e;
+}
+
+div.theme-honeycomb {
+    --primary-color: #fff0a8;
+    --background-color: #f9a318;
+    --background-dark: #eaab21;
+    --background-slightly-dark: #e19640;
+    --glow: #fffdf5;
+    --secondary-color: #f5cd78;
+    --tertiary-color: #ffb445;
+    --error-color: #ff2b2b;
+    --link-color: #ffdccb;
+    --tag-color: #ffdb77;
+    --highlight-color: #ffe6b3;
+    --journal-entry-background: #eaab4d;
+    --approve: #b173f9;
+    --decline: #ff2020;
+}
+
+div.theme-mediterranean {
+    --primary-color: #246131;
+    --background-color: #d5e5a6;
+    --background-dark: #b6d49e;
+    --background-slightly-dark: #9ebe5b;
+    --glow: #17ab25;
+    --secondary-color: #b47c03;
+    --tertiary-color: #3356b4;
+    --error-color: #ff2b2b;
+    --link-color: #327022;
+    --tag-color: #079c1d;
+    --highlight-color: #bc930a;
+    --journal-entry-background: #a1d393;
+    --approve: #28da1b;
+    --decline: #f96b6b;
+}
+
+div.theme-arctic {
+    --primary-color: #fafdff;
+    --background-color: #101015;
+    --background-dark: #131124;
+    --background-slightly-dark: #304485;
+    --glow: #fffdf5;
+    --secondary-color: #4d5fa8;
+    --tertiary-color: #3356b4;
+    --error-color: #ff2b2b;
+    --link-color: #82a1df;
+    --tag-color: #43d3c5;
+    --highlight-color: #afc7ff;
+    --journal-entry-background: #242533;
+    --approve: #d8ecff;
+    --decline: #ff2020;
 }

@@ -3,14 +3,16 @@ import styles from '../../styles/room/statspanel.module.scss';
 import Requests from './Requests';
 import ThemePicker from './ThemePicker';
 import WorkGrid from './WorkGrid';
+import DeepWorkButtons from './DeepWorkButtons';
 
 import {useContext, useState} from 'react';
 import RoomContext from '../../pages/RoomContext';
 
 import { MdOutlineExpandMore } from "react-icons/md";
 import { IoChevronBackCircle, IoChevronForwardCircle } from "react-icons/io5";
-import { TbCircleFilled, TbShovel } from "react-icons/tb";
-import { FaUndo } from "react-icons/fa";
+import { IoMdBackspace } from "react-icons/io";
+import { TbShovel } from "react-icons/tb";
+import Link from 'next/link';
 
 function StatsPanel() {
 
@@ -44,6 +46,11 @@ function StatsPanel() {
 
             <div className={styles.statsPanel}>
                 <div className={styles.roomTop}>
+                    <div className={styles.backHome}>
+                        <Link href="/room">
+                            <IoMdBackspace />
+                        </Link>
+                    </div>
                     <div className={styles.roomId}>
                         {roomData.name} | {roomData.id}
                     </div>
@@ -69,21 +76,8 @@ function StatsPanel() {
 
                     <WorkGrid />
 
-                    <div className={styles.workButtons}>
-                        <div className={styles.addButtons}>
-                            <div className={styles.workButton}>
-                                <span className={styles.workMarker}><TbCircleFilled/></span>
-                            </div>
-                            <div className={styles.workButton}>
-                                <span className={styles.workMarkerSpecial}><TbCircleFilled/></span>
-                            </div>
-                        </div>
-                        <div className={styles.undoButton}>
-                            <div className={styles.workButton}>
-                                <span className={styles.undoButton}><FaUndo /></span>
-                            </div>
-                        </div>
-                    </div>
+                    <DeepWorkButtons />
+
                 </div>
             </div>
         </div>

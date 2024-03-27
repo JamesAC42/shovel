@@ -42,6 +42,20 @@
         position:absolute;
         top:0;left:0;
         @include flex-center-row;
+        .backHome {
+            font-size:1.4rem;
+            margin-right:1rem;
+            a {
+                color:var(--primary-color);
+            }
+            svg {
+                transform:translateY(3px);
+                cursor:pointer;
+                &:hover {
+                    filter:brightness(1.4);
+                }
+            }
+        }
         .roomId {
             font-weight:bold;
         }
@@ -61,36 +75,12 @@
         box-shadow:0 0 4px 1px var(--glow);
     }
 
-    td.streakHeader {
-        font-weight:bold;
-        color:var(--highlight-color);
-    }
-
-    span.streak {
-        font-weight:bold;
-        color:var(--highlight-color);
-        opacity:0.5;
-        text-align:center;
-        &.streakActive {
-            opacity:1;
-        }
-    }
-
-    .workTotal {
-        font-weight:bold;
-        font-size:1.3rem;
-    }
-
     @media (max-width: 100rem) {
     
         span.workMarker,
         span.workMarkerSpecial {
             margin-right:0.1rem;
             height:0.9rem;
-        }
-
-        .workTotal {
-            font-size:1.1rem;
         }
     }
 

@@ -25,6 +25,15 @@ const themes = [
     'float',
     'wiiu',
     'frutiger',
-    'miku'
+    'miku',
+    'melody',
+    'cafe',
+    'kiwi',
+    'tropical',
+    'lemonade',
+    'rocket',
+    'honeycomb',
+    'arctic',
+    'mediterranean'
 ];
 export default themes;

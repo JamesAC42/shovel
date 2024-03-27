@@ -14,7 +14,9 @@ function UserData() {
                 return response.json();
             })
             .then(data => {
+                console.log(data);
                 if (data.success) {
+                    console.log(data);
                     setUserInfo(data.user);
                 }
             })
@@ -22,7 +24,7 @@ function UserData() {
                 console.error('Error:', error);
             });
     }, []);
-
+    
     return(
         <div></div>
     )

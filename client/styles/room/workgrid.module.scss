@@ -8,4 +8,30 @@
         border-right:1px solid var(--secondary-color);
         padding:0.2rem 0.8rem;
     }
+
+    td.streakHeader {
+        font-weight:bold;
+        color:var(--highlight-color);
+    }
+
+    span.streak {
+        font-weight:bold;
+        color:var(--highlight-color);
+        opacity:0.5;
+        text-align:center;
+        &.streakActive {
+            opacity:1;
+        }
+    }
+    .workTotal {
+        font-weight:bold;
+        font-size:1.3rem;
+    }
+    
+    @media (max-width: 100rem) {
+        .workTotal {
+            font-size:1.1rem;
+        }
+    }
+
 }

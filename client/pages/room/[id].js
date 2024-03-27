@@ -52,7 +52,7 @@ export default function Room () {
         setLoading(false);
     }
     
-    if(loading) return <div>Loading....</div>
+    if(loading) return <div className={styles.loading}><div>Loading...</div></div>
     if(!roomData) return <div>Room not found</div>
 
     return (
@@ -629,14 +629,10 @@ export default function Room () {
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                
                 </div>
                 </div>
-
             </div>
-
         </div>
         </RoomContext.Provider>
     )
