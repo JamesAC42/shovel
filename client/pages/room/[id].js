@@ -11,6 +11,7 @@ import { FaFileArrowUp } from "react-icons/fa6";
 import StatsPanel from '../../components/room/StatsPanel';
 
 import RoomContext from '../RoomContext';
+import UserTabs from '../../components/room/UserTabs';
 
 export default function Room () {
 
@@ -55,6 +56,8 @@ export default function Room () {
     if(loading) return <div className={styles.loading}><div>Loading...</div></div>
     if(!roomData) return <div>Room not found</div>
 
+    let users = Object.keys(roomData.users);
+
     return (
         <RoomContext.Provider value={{roomData, setRoomData}}>
         <div>
@@ -67,15 +70,8 @@ export default function Room () {
                     
                     <div className={styles.todoOuter}>
                         
-                        <div className={styles.userTabPanel}>
-                            <div className={`${styles.userTab} ${styles.userTabActive}`}>User 2 asdf asdf</div>
-                            <div className={styles.userTab}>James C</div>
-                            <div className={styles.userTab}>James C</div>
-                            <div className={styles.userTab}>Enis A</div>
-                            <div className={styles.userTab}>User 2 asdf asdf</div>
-                            <div className={styles.userTab}>User 2 asdf asdf</div>
-                            <div className={styles.panelFiller}></div>
-                        </div>
+                        <UserTabs />
+
                         <div className={styles.todoInner}>
                             <div className={styles.goalSection}>
                                 <h2>Goal <span className={styles.goalDates}>3/3/2024-</span></h2>
@@ -263,13 +259,7 @@ export default function Room () {
                     </div>
                     
                     <div className={styles.journalOuter}>
-
-                        <div className={styles.userTabPanel}>
-                            <div className={`${styles.userTab} ${styles.userTabActive}`}>User 1</div>
-                            <div className={styles.userTab}>User 2</div>
-                            <div className={styles.userTab}>User 3</div>
-                            <div className={styles.panelFiller}></div>
-                        </div>
+                        <UserTabs />
                         <div className={styles.journalInner}>
 
                             <div className={styles.journalDates}>
