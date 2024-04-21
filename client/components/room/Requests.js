@@ -12,8 +12,28 @@ function Requests() {
     const [showRequests, setShowRequests] = useState(false);
     const {roomData, setRoomData} = useContext(RoomContext);
 
-    const requestReply = (approve) => {
+    const requestReply = async (username, accept) => {
         
+        const response = await fetch('/api/respondRequest', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+                requestUsername: username, 
+                room: roomData.id,
+                accept
+            }),
+        });
+        try {
+            const data = await response.json();
+            if (!data.success) {
+                console.error(data.message);
+            }
+        } catch(err) {
+            console.log(err);
+        }
+
     }
 
     const requests = roomData.joinRequests;
@@ -23,7 +43,7 @@ function Requests() {
         <div className={styles.requestNotifs}>
             <div onClick={() => setShowRequests(!showRequests)}>
             {
-                roomData.joinRequests.length > 0 ?
+                requests.length > 0 ?
                 <IoMailUnread /> : <IoMail />
             }
             </div>
@@ -35,16 +55,16 @@ function Requests() {
                         requests.map((request) => 
                         <div className={styles.request}>
                             <div className={styles.requestName}>
-                                {request.username}
+                                {request}
                             </div>
                             <div className={styles.requestActions}>
                                 <div
-                                    onClick={() => requestReply(true)} 
+                                    onClick={() => requestReply(request, true)} 
                                     className={styles.approveRequest}>
                                     <FaCheck/>
                                 </div>
                                 <div
-                                    onClick={() => requestReply(false)}  
+                                    onClick={() => requestReply(request, false)}  
                                     className={styles.declineRequest}>
                                     <CgCloseO />
                                 </div>

@@ -1,0 +1,44 @@
+@import "../variables.module.scss";
+
+.userTabPanel {
+    height: 2rem;
+    line-height: 2rem;
+    display: flex;
+    flex-direction: row;
+    background: var(--background-slightly-dark);
+
+    .userTab {
+        padding: 0 1rem;
+        border-right: 1px solid var(--secondary-color);
+        border-bottom: 1px solid var(--secondary-color);
+        cursor: pointer;
+        border-radius: 0.6rem 0.6rem 0 0;
+        background: var(--background-color);
+        max-width: 5rem;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        color:var(--secondary-color);
+
+        &:hover {
+            opacity: 0.6;
+        }
+
+        &.userTabActive {
+            border-bottom: none;
+            cursor: default;
+            opacity:1;
+            filter:none;
+            color:var(--primary-color);
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+
+    .panelFiller {
+        flex: 1;
+        border-bottom: 1px solid var(--secondary-color);
+        background: var(--background-slightly-dark);
+    }
+}

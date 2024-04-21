@@ -36,6 +36,10 @@
             margin-bottom:1rem;
             @include flex-center-row;
             justify-content: space-between;
+            .requestName {
+                flex:1;
+                text-align:center;
+            }
             .requestActions {
                 @include flex-center-row;
                 gap:1rem;

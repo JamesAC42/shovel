@@ -4,8 +4,8 @@
     overflow-y:hidden;
     position:relative;
     box-shadow: 0 -10px 20px 5px var(--background-dark) inset;
-    max-height:50vh;
-    transition:max-height 0.2s cubic-bezier(0.215, 0.610, 0.355, 1);
+    max-height:30vh;
+    transition:all 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
 
     &.statsPanelCollapsed {
         max-height:5vh;
@@ -72,7 +72,7 @@
 
     span.workMarkerSpecial {
         color:var(--glow);
-        box-shadow:0 0 4px 1px var(--glow);
+        //box-shadow:0 0 4px 1px var(--glow);
     }
 
     @media (max-width: 100rem) {
@@ -88,6 +88,24 @@
 
         @include flex-center-row;
         gap:1rem;
+        opacity:0;
+        transition:opacity 0.3s ease-in-out;
+
+        @keyframes jump-in {
+            0% {
+                opacity:0;
+                transform:translateY(100%);
+            }
+            100% {
+                opacity:1;
+                transform:none;
+            }
+        }
+
+        &.deepWorkWeekVisible {
+            animation:jump-in 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1;
+            opacity:1;
+        }
 
         .thisWeek {
             text-align:center;
@@ -103,21 +121,6 @@
                     }
                 }
             }
-            .checkInButton {
-                background:var(--primary-color);
-                color:var(--background-color);
-                border-radius:1rem;
-                padding:0.5rem 1rem;
-                margin-top:0.4rem;
-                cursor:pointer;
-                box-shadow:0 0 5px 4px var(--background-dark);
-                &:hover {
-                    outline:2px solid var(--glow);
-                }
-                svg {
-                    transform:translateY(2px);
-                }
-            }
         }
 
         .workButtons {
@@ -130,13 +133,32 @@
             }
             .workButton {
                 @include flex-center-row;
-                padding:0.5rem;
+                padding:0.3rem;
                 border-radius:0.4rem;
                 cursor:pointer;
                 border:1px solid var(--background-dark);
                 box-shadow:0 0 5px 4px var(--background-dark);
+                height:1.3rem;width:1.3rem;
+                transition:transform .1s linear;
                 &:hover {
                     outline:2px solid var(--secondary-color);
+                }
+
+                &.clicked {
+                    filter:brightness(0.8);
+                    transform:scale(0.95);
+                }
+
+                &.disabled {
+                    opacity:0.4;
+                    cursor:default;
+                    &:hover {
+                        outline:none;
+                    }
+                }
+
+                svg {
+                    transform:translateY(2px);
                 }
             }
             .undoButton {
@@ -177,9 +199,6 @@
 
             .workButtons {
                 gap:0.8rem;
-                .workButton {
-                    padding:0.3rem;
-                }
             }
         }
     }

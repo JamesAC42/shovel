@@ -37,7 +37,7 @@ div.theme-eclipse {
     --background-color: #202020;
     --background-dark: #181818;
     --background-slightly-dark: #282828;
-    --glow: #f2a365;
+    --glow: #f8d9c1;
     --secondary-color: #f2a365;
     --tertiary-color: #f2a365;
     --error-color: #ff4500;
@@ -70,7 +70,7 @@ div.theme-hacker {
     --primary-color: #66ff00; 
     --background-color: #0a0a0a; 
     --background-dark: #000000; 
-    --background-slightly-dark: #0d0d0d; 
+    --background-slightly-dark: #000000; 
     --glow: #33ff33; 
     --secondary-color: #00cc00; 
     --tertiary-color: #009900; 
@@ -86,7 +86,7 @@ div.theme-hacker {
 div.theme-nightclub {
     --primary-color: #beabf1;
     --background-color: #16213e;
-    --background-dark: #0f3460;
+    --background-dark: #121f2e;
     --background-slightly-dark: #865bd5;
     --glow: #c060a1;
     --secondary-color: #5948b9;
@@ -120,7 +120,7 @@ div.theme-nightocean {
 div.theme-peach {
     --primary-color: #b33f25; 
     --background-color: #FFCBA4; 
-    --background-dark: #FFB07C; 
+    --background-dark: #fabf98; 
     --background-slightly-dark: #FFA368; 
     --glow: #ff7d7d; 
     --secondary-color: #ce503f; 
@@ -136,8 +136,8 @@ div.theme-peach {
 
 div.theme-pink {
     --primary-color: #ec2b4b; 
-    --background-color: #FFB6C1; 
-    --background-dark: #fca6d1; 
+    --background-color: #fcd1d7; 
+    --background-dark: #ffc4e2; 
     --background-slightly-dark: #FF1493; 
     --glow: #ff2398; 
     --secondary-color: #ff6dbd; 
@@ -152,12 +152,12 @@ div.theme-pink {
 }
 
 div.theme-snowyevergreen {
-    --primary-color: #5fa8ac; 
+    --primary-color: #245c5f; 
     --background-color: #FFFFFF; 
-    --background-dark: #e9f7ff; 
+    --background-dark: #d8f1ff; 
     --background-slightly-dark: #3C6E71; 
     --glow: #88D498; 
-    --secondary-color: #1B3A4B; 
+    --secondary-color: #1d3542; 
     --tertiary-color: #0A2239; 
     --error-color: #FF4B5C; 
     --link-color: #88D498; 
@@ -171,7 +171,7 @@ div.theme-snowyevergreen {
 div.theme-solaris {
     --primary-color: #587ac0;
     --background-color: #fff4e6;
-    --background-dark: #edcbb0;
+    --background-dark: #ffecdd;
     --background-slightly-dark: #efe5ce;
     --glow: #35b7d1;
     --secondary-color: #eb683d;
@@ -188,7 +188,7 @@ div.theme-solaris {
 div.theme-book {
     --primary-color: #434343;
     --background-color: #f0eee8;
-    --background-dark: #dfd7d1;
+    --background-dark: #e7dfd9;
     --background-slightly-dark: #fef9f5;
     --glow: #b1b1b1;
     --secondary-color: #606060;
@@ -205,7 +205,7 @@ div.theme-book {
 div.theme-lizard {
     --primary-color: #95f378;
     --background-color: #202c3a;
-    --background-dark: #11111f;
+    --background-dark: #132534;
     --background-slightly-dark: #1d2636;
     --glow: #d2f080;
     --secondary-color: #61ad72;
@@ -221,8 +221,8 @@ div.theme-lizard {
 
 div.theme-periwinkle {
     --primary-color: #282374;
-    --background-color: #bbb6ff;
-    --background-dark: #b59bec;
+    --background-color: #d3d0ff;
+    --background-dark: #cdb9f9;
     --background-slightly-dark: #5956be;
     --glow: #effde4;
     --secondary-color: #783bae;
@@ -237,11 +237,11 @@ div.theme-periwinkle {
 }
 
 div.theme-kuromi {
-    --primary-color: #f236ff;
+    --primary-color: #ea66f3;
     --background-color: #0c0d13;
-    --background-dark: #000000;
+    --background-dark: #020202;
     --background-slightly-dark: #14141a;
-    --glow: #da6aff;
+    --glow: #ecb3ff;
     --secondary-color: #7639c5;
     --tertiary-color: #9a4694;
     --error-color: #fc2c28;
@@ -256,7 +256,7 @@ div.theme-kuromi {
 div.theme-stuff {
     --primary-color: #fff154;
     --background-color: #ff4949;
-    --background-dark: #bc2929;
+    --background-dark: #f33636;
     --background-slightly-dark: #ef2f2f;
     --glow: #fffcda;
     --secondary-color: #ffce53;
@@ -271,9 +271,9 @@ div.theme-stuff {
 }
 
 div.theme-neopolitan {
-    --primary-color: #624745;
+    --primary-color: #7d6765;
     --background-color: #fffcf1;
-    --background-dark: #fcd8f7;
+    --background-dark: #ffe7fc;
     --background-slightly-dark: #665050;
     --glow: #f552f3;
     --secondary-color: #e471e0;
@@ -290,7 +290,7 @@ div.theme-neopolitan {
 div.theme-cream {
     --primary-color: #3d7afe;
     --background-color: #fffaf8;
-    --background-dark: #dedeff;
+    --background-dark: #e6e6ff;
     --background-slightly-dark: #aec2e3;
     --glow: #41cbd7;
     --secondary-color: #92a9e9;
@@ -305,12 +305,12 @@ div.theme-cream {
 }
 
 div.theme-nano {
-    --primary-color: #3cbcf3;
+    --primary-color: #65f3f3;
     --background-color: #0d0f12;
-    --background-dark: #0f0f32;
+    --background-dark: #05050b;
     --background-slightly-dark: #293956;
-    --glow: #a3eaff;
-    --secondary-color: #4f5ad4;
+    --glow: #c7f2ff;
+    --secondary-color: #6c9dd4;
     --tertiary-color: #6371d0;
     --error-color: #ff5252;
     --link-color: #74d9f5;
@@ -324,7 +324,7 @@ div.theme-nano {
 div.theme-mint {
     --primary-color: #ffffff;
     --background-color: #00c18c;
-    --background-dark: #16a47e;
+    --background-dark: #24a985;
     --background-slightly-dark: #129a83;
     --glow: #bfffb1;
     --secondary-color: #24642e;
@@ -375,7 +375,7 @@ div.theme-ninja {
 div.theme-forest {
     --primary-color: #3e7e51;
     --background-color: #0B0C10;
-    --background-dark: #0d120f;
+    --background-dark: #000403;
     --background-slightly-dark: #070a0b;
     --glow: #4EBA6F;
     --secondary-color: #4a6776;
@@ -392,7 +392,7 @@ div.theme-forest {
 div.theme-float {
     --primary-color: #0B4F6C;
     --background-color: #FFFFFF;
-    --background-dark: #c6f6eb;
+    --background-dark: #ecfffb;
     --background-slightly-dark: #D6EFF5;
     --glow: #0B4F6C;
     --secondary-color: #01BAEF;
@@ -409,7 +409,7 @@ div.theme-float {
 div.theme-wiiu {
     --primary-color: #000000;
     --background-color: #FFFFFF;
-    --background-dark: #E6E6E6;
+    --background-dark: #f0f3f7;
     --background-slightly-dark: #F2F2F2;
     --glow: #000000;
     --secondary-color: #0066CC;
@@ -426,7 +426,7 @@ div.theme-wiiu {
 div.theme-frutiger {
     --primary-color: #ffffff;
     --background-color: #0051ff;
-    --background-dark: #042091;
+    --background-dark: #2243c7;
     --background-slightly-dark: #0041a9;
     --glow: #6aa8ff;
     --secondary-color: #00bc3f;
@@ -443,7 +443,7 @@ div.theme-frutiger {
 div.theme-miku {
     --primary-color: #50e1eb;
     --background-color: #272a30;
-    --background-dark: #151518;
+    --background-dark: #1f1f25;
     --background-slightly-dark: #1e2329;
     --glow: #6aa8ff;
     --secondary-color: #1e9fd7;
@@ -459,7 +459,7 @@ div.theme-miku {
 
 div.theme-melody {
     --primary-color: #ffffff;
-    --background-color: #ffb9de;
+    --background-color: #ffcae6;
     --background-dark: #f096d3;
     --background-slightly-dark: #f398e5;
     --glow: #ffffff;
@@ -494,7 +494,7 @@ div.theme-cafe {
 div.theme-kiwi {
     --primary-color: #4ba543;
     --background-color: #4f3222;
-    --background-dark: #311d14;
+    --background-dark: #3f2a1f;
     --background-slightly-dark: #2e1d0e;
     --glow: #b2fea4;
     --secondary-color: #20100c;
@@ -511,7 +511,7 @@ div.theme-kiwi {
 div.theme-tropical {
     --primary-color: #e48817;
     --background-color: #fff0b5;
-    --background-dark: #fcdba2;
+    --background-dark: #f9e1ac;
     --background-slightly-dark: #ffd67e;
     --glow: #74d3d4;
     --secondary-color: #6ec5ab;
@@ -545,7 +545,7 @@ div.theme-lemonade {
 div.theme-rocket {
     --primary-color: #ff4141;
     --background-color: #fefefe;
-    --background-dark: #ededed;
+    --background-dark: #eeedf8;
     --background-slightly-dark: #f1f1f1;
     --glow: #ff3d47;
     --secondary-color: #214fd7;
@@ -560,9 +560,9 @@ div.theme-rocket {
 }
 
 div.theme-honeycomb {
-    --primary-color: #fff0a8;
+    --primary-color: #fff8d4;
     --background-color: #f9a318;
-    --background-dark: #eaab21;
+    --background-dark: #e49836;
     --background-slightly-dark: #e19640;
     --glow: #fffdf5;
     --secondary-color: #f5cd78;
@@ -579,7 +579,7 @@ div.theme-honeycomb {
 div.theme-mediterranean {
     --primary-color: #246131;
     --background-color: #d5e5a6;
-    --background-dark: #b6d49e;
+    --background-dark: #b8d89e;
     --background-slightly-dark: #9ebe5b;
     --glow: #17ab25;
     --secondary-color: #b47c03;
@@ -594,12 +594,12 @@ div.theme-mediterranean {
 }
 
 div.theme-arctic {
-    --primary-color: #fafdff;
-    --background-color: #101015;
-    --background-dark: #131124;
+    --primary-color: #cbe9fd;
+    --background-color: #09090b;
+    --background-dark: #000000;
     --background-slightly-dark: #304485;
     --glow: #fffdf5;
-    --secondary-color: #4d5fa8;
+    --secondary-color: #3a4989;
     --tertiary-color: #3356b4;
     --error-color: #ff2b2b;
     --link-color: #82a1df;

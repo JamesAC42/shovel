@@ -1,0 +1,120 @@
+@import "../variables.module.scss";
+
+.todoOuter {
+    border-right: 1px solid var(--secondary-color);
+    @include flex-center-col;
+    color: var(--primary-color);
+    height: 100%;
+    align-items: stretch;
+    width: 36vw;
+}
+
+.todoInner {
+    padding: 1rem 2rem 4rem 2rem;
+    flex: 1;
+    overflow-y: scroll;
+    max-height: 100%;
+
+    .noGoals {
+        @include placeholder-text;
+        margin-top:1.5rem;
+        @include slide-fade-in;
+        svg {
+            transform:translateY(2px);
+        }
+    }
+
+    @mixin goal-input {
+        background: var(--background-color);
+        outline: none;
+        border: 1px solid var(--secondary-color);
+        border-radius: 0.4rem;
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        color: var(--primary-color);
+        font-family: 'Figtree', sans-serif;
+        line-height: 1.2rem;
+    }
+    overflow-y: scroll;
+    @include theme-scrollbar;
+
+    .goalSection {
+        margin-bottom: 3rem;
+        h2 {
+            span.goalDates {
+                color: var(--secondary-color);
+            }
+        }
+        .taskList {
+            .taskItem {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                margin: 0.4rem 0;
+                padding: 0.2rem 0;
+
+                .taskCheck {
+                    height: 1.2rem;
+                    width: 1.2rem;
+                    min-width: 1.2rem;
+                    border-radius: 0.2rem;
+                    cursor: pointer;
+                    @include flex-center;
+                    margin: 0 0.5rem;
+                    border: 1px solid var(--secondary-color);
+                }
+                .taskName {
+                    line-height: 1.5rem;
+                    .taskTag {
+                        background: var(--tag-color);
+                        color: var(--background-color);
+                        padding: 0.2rem 0.4rem;
+                        border-radius: 0.5rem;
+                        margin-left: 0.5rem;
+                        font-size: 0.8rem;
+                        font-weight: bold;
+                    }
+                }
+
+                &.taskItemCompleted {
+                    .taskCheck {
+                        background: var(--secondary-color);
+                    }
+                    .taskName {
+                        text-decoration: line-through;
+                        color: var(--secondary-color);
+                        opacity: 0.6;
+                        .taskTag {
+                            opacity: 0.4;
+                        }
+                    }
+                }
+            }
+            .newTaskContainer {
+                @include flex-center-row;
+                gap: 1rem;
+                margin-top: 0.7rem;
+                input {
+                    @include goal-input;
+                    width: 30%;
+                }
+                .addTask {
+                    @include add-button;
+                }
+            }
+        }
+    }
+    .newGoal {
+        @include flex-center-row;
+        @include slide-fade-in;
+        margin-top: 2rem;
+        gap: 1rem;
+        input {
+            @include goal-input;
+        }
+        .addGoal {
+            @include add-button;
+        }
+    }
+}

@@ -3,7 +3,7 @@ const getDeepWorkWeek = require("../repositories/getDeepWorkWeek");
 async function roomData (req, res, models) {
 
     let roomId = req.query.id;
-    const username = req.session.user ? req.session.user.username : null;
+    const username = req.session.user?.username;
 
     if (!username) {
         res.json({ success: false, message: "User not logged in." });
@@ -96,10 +96,20 @@ async function roomData (req, res, models) {
             let goals = await models.Goal.findAll({ where: { userId: userid, room: roomId } });
             let journal = await models.Journal.findAll({ where: { userId: userid, room: roomId } });
 
+            if(currentStreak) { 
+                delete currentStreak.dataValues.room;
+                delete currentStreak.dataValues.userId;
+            }
+            if(streakHighScore) {
+                delete streakHighScore.dataValues.userId;
+                delete streakHighScore.dataValues.room;
+            }
+
             let goalsData = {};
             for (let goal of goals) {
                 const tasks = await models.Task.findAll({ where: { goalId: goal.id } });
                 let tasksData = tasks.map(task => ({
+                    id: task.id,
                     title: task.title,
                     description: task.description,
                     dateCreated: task.dateCreated,
@@ -108,8 +118,15 @@ async function roomData (req, res, models) {
                 }));
 
                 for (let task of tasksData) {
-                    const taskTags = await models.TaskTag.findAll({ where: { taskId: task.id } });
-                    task.tags = taskTags.map(tag => tag.tag);
+                    const taskTags = await models.TaskTag.findAll({ 
+                        where: { taskId: task.id },
+                        include: [{
+                            model: models.Tag,
+                            as: 'tag',
+                            attributes: ['tag']
+                        }] 
+                    });
+                    task.tags = taskTags.map(taskTag => taskTag.tag.tag);
                 }
 
                 goalsData[goal.id] = {
@@ -129,8 +146,16 @@ async function roomData (req, res, models) {
                     entry: entry.entry,
                     tags: [] // TODO: Fetch tags for each journal entry
                 };
-                const journalTags = await models.JournalTag.findAll({ where: { journalEntry: entry.id } });
-                journalData[entry.id].tags = journalTags.map(tag => tag.tag);
+                const journalTags = await models.JournalTag.findAll({ 
+                    where: { journalEntry: entry.id },    
+                    include: [{
+                        model: models.Tag,
+                        as: 'tag',
+                        attributes: ['tag']
+                    }]
+                });
+                journalData[entry.id].tags = journalTags.map(journalTag => journalTag.tag.tag);
+                
             }
 
             data.users[userid] = {

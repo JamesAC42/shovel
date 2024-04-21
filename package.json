@@ -9,6 +9,7 @@
     "redis": "^3.1.2",
     "sanitize-html": "^2.12.1",
     "sequelize": "^6.37.1",
+    "socket.io": "^4.7.5",
     "sqlstring": "^2.3.3"
   }
 }

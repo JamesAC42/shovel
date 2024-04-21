@@ -1,7 +1,7 @@
 function getUserRooms(req, res, models) {
 
     
-    const username = req.session.user.username;
+    const username = req.session.user?.username;
     console.log(username);
     if (!username) {
         res.status(401).json({ success: false, message: 'Unauthorized' });

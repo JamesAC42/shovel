@@ -43,6 +43,21 @@
     }
 }
 
+@keyframes slide-fade-in-animation {
+    0% {
+        transform:translateY(10rem);
+        opacity:0;
+    }
+    100% {
+        transform:translateY(0);
+        opacity:1;
+    }
+}
+
+@mixin slide-fade-in {
+    animation: slide-fade-in-animation 0.2s cubic-bezier(0.075, 0.82, 0.165, 1) 1;
+}
+
 @keyframes expand-requests {
     0% {
         max-width:0;
@@ -57,4 +72,27 @@
 @mixin theme-scrollbar {
     scrollbar-color: var(--secondary-color) var(--background-dark);
     scrollbar-width: thin;
+}
+
+@mixin add-button {
+    background: var(--primary-color);
+    color: var(--background-color);
+    border: 1px solid var(--secondary-color);
+    border-radius: 0.5rem;
+    height: 2.2rem;
+    width: 2.2rem;
+    @include flex-center;
+    cursor: pointer;
+    box-shadow: 0 0 5px 4px var(--background-dark);
+    &:hover {
+        filter: brightness(1.5);
+    }
+}
+
+@mixin placeholder-text {
+    text-align:center;
+    border:1px solid var(--secondary-color);
+    opacity:0.6;
+    padding:2rem 0;
+    border-radius:0.5rem;
 }

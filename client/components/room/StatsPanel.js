@@ -11,8 +11,8 @@ import RoomContext from '../../pages/RoomContext';
 import { MdOutlineExpandMore } from "react-icons/md";
 import { IoChevronBackCircle, IoChevronForwardCircle } from "react-icons/io5";
 import { IoMdBackspace } from "react-icons/io";
-import { TbShovel } from "react-icons/tb";
 import Link from 'next/link';
+import CheckIn from './CheckIn';
 
 function StatsPanel() {
 
@@ -25,6 +25,10 @@ function StatsPanel() {
 
     const toggleBtnStyle = () => (
         statsExpanded ? "" : styles.toggleStatsPanelCollapsed
+    )
+
+    const deepWorkStyle = () => (
+        statsExpanded ? `${styles.deepWorkWeek} ${styles.deepWorkWeekVisible}` : styles.deepWorkWeek
     )
 
     const weekOf = () => {
@@ -57,10 +61,12 @@ function StatsPanel() {
                     <Requests />
                     <ThemePicker />
                 </div>
-                <div className={styles.deepWorkWeek}>
+                <div className={deepWorkStyle()}>
                     
                     <div className={styles.thisWeek}>
                         week of {weekOf()}
+                        <script>
+                        /*
                         <div className={styles.changeWeek}>
                             <div className={styles.changeWeekButton}>
                                 <IoChevronBackCircle/>
@@ -69,9 +75,9 @@ function StatsPanel() {
                                 <IoChevronForwardCircle/>
                             </div>
                         </div>
-                        <div className={styles.checkInButton}>
-                            <TbShovel /> Check In Today
-                        </div>
+                        */
+                        </script>
+                        <CheckIn />
                     </div>
 
                     <WorkGrid />

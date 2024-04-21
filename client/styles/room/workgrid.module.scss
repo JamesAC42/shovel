@@ -11,18 +11,36 @@
 
     td.streakHeader {
         font-weight:bold;
+        text-align:center;
         color:var(--highlight-color);
     }
 
-    span.streak {
-        font-weight:bold;
-        color:var(--highlight-color);
-        opacity:0.5;
+    td svg {
+        transform:translateY(0.2rem);
+    }
+
+    td.streakCell {
         text-align:center;
-        &.streakActive {
-            opacity:1;
+        
+        .streak {
+            @include flex-center-row;
+            background:var(--highlight-color);
+            color:var(--background-color);
+            opacity:0.9;
+            border-radius:0.4rem;
+            font-size:1.2rem;
+            font-weight:bold;
+            text-align:center;
+            div {
+                cursor:default;
+                padding:0.1rem 1rem;
+            }
+            div:first-child {
+                border-right: 2px solid var(--background-color);
+            }
         }
     }
+
     .workTotal {
         font-weight:bold;
         font-size:1.3rem;

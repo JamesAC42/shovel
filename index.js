@@ -2,11 +2,24 @@ const express = require('express');
 const session = require('express-session');
 const redis = require('redis');
 const RedisStore = require('connect-redis')(session);
+const http = require('http');
+const { Server } = require('socket.io');
 
 const app = express();
+const httpServer = http.createServer(app);
 const redisClient = redis.createClient({ legacyMode: true });
 const port = 5000;
 const sequelize = require('./database');
+
+//const io = new Server(httpServer, {
+//	path:'/socket'
+//});
+
+const io = new Server(httpServer, {
+  cors: {
+    origin: '*'
+  }
+});
 
 const models = require('./models/models');
 
@@ -18,6 +31,10 @@ const validateRoom = require('./controllers/validateRoom');
 const createRoom = require('./controllers/createRoom');
 const roomData = require('./controllers/roomData');
 const getUserRooms = require('./controllers/getUserRooms');
+const saveWorkHours = require('./controllers/roomControllers/saveWorkHours');
+const respondRequest = require('./controllers/roomControllers/respondRequest');
+const handleConnection = require('./socket');
+const checkIn = require('./controllers/roomControllers/checkIn');
 
 sequelize.sync()
   .then(() => {
@@ -59,11 +76,6 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal Server Error' });
 });
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
-
 app.post('/login', (req, res) => {
   login(req, res, models);
 });
@@ -77,11 +89,23 @@ app.post('/createUser', async (req, res) => {
 });
 
 app.post('/joinRoom', async (req, res) => {
-  validateRoom(req, res, models);
+  validateRoom(req, res, models, io);
 });
 
 app.post('/createRoom', async (req, res) => {
   createRoom(req, res, models);
+});
+
+app.post('/saveWorkHours', async (req, res) => {
+  saveWorkHours(req, res, models, io);
+});
+
+app.post('/respondRequest', async (req, res) => {
+  respondRequest(req, res, models, io);
+});
+
+app.post('/checkIn', async (req, res) => {
+  checkIn(req, res, models, io);
 });
 
 app.get('/room', (req, res) => {
@@ -94,4 +118,11 @@ app.get('/roomData', (req, res) => {
 
 app.get('/getUserRooms', (req, res) => {
   getUserRooms(req, res, models);
+});
+
+io.on('connection', handleConnection);
+
+// Start the server
+httpServer.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });

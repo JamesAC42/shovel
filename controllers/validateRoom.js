@@ -1,6 +1,6 @@
 const getUserFromUsername = require("../repositories/getUserFromUsername");
 
-const validateRoom = async (req, res, models) => {
+const validateRoom = async (req, res, models, io) => {
 
     if (!req.session.user) {
         return res.status(401).json({ success: false, message: 'User not logged in.' });
@@ -60,6 +60,10 @@ const validateRoom = async (req, res, models) => {
                 }
                 models.RoomRequest.create({ room: roomId, userId: user.id })
                 .then(() => {
+                    const socketRoom = `room_${roomId}`;
+                    io.to(socketRoom).emit('newJoinRequest', {
+                        username: user.username
+                    });
                     return res.json({ success: false, requestSent: true });
                 })
                 .catch(err => {

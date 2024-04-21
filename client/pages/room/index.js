@@ -1,5 +1,6 @@
 import styles from '../../styles/room.module.scss';
 import { useContext } from 'react';
+import Head from 'next/head'
 import UserContext from "../UserContext";
 import LoginPage from "../../components/LoginPage";
 import EnterRoom from '../../components/EnterRoom';
@@ -11,6 +12,10 @@ export default function Room() {
 
     return (
         <div className={styles.roomTop}>
+            <Head>
+                <title>Shovel</title>
+                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            </Head>
             <div className={styles.roomOuter}>
                 <UserData />
                 {

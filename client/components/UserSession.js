@@ -1,11 +1,12 @@
 import { useEffect, useContext } from 'react';
 import UserContext from '../pages/UserContext';
 
-function UserData() {
+function UserSession() {
 
-    const {setUserInfo} = useContext(UserContext);
+    const {userInfo, setUserInfo} = useContext(UserContext);
 
     useEffect(() => {
+        if(userInfo) return;
         fetch('/api/room')
             .then(response => {
                 if (response.status === 401) {
@@ -17,13 +18,14 @@ function UserData() {
                 console.log(data);
                 if (data.success) {
                     console.log(data);
+                    console.log("asdf");
                     setUserInfo(data.user);
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
             });
-    }, []);
+    }, [userInfo]);
     
     return(
         <div></div>
@@ -31,4 +33,4 @@ function UserData() {
 
 }
 
-module.exports = UserData;
+module.exports = UserSession;
