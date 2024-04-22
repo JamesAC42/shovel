@@ -6,6 +6,7 @@ import { HiPencilAlt } from "react-icons/hi";
 import { useContext, useState, useEffect } from 'react';
 import { FaArrowDownLong } from "react-icons/fa6";
 import Goal from './Goal';
+import getToday from '../../utilities/getToday';
 
 function Todo() {
 
@@ -13,13 +14,15 @@ function Todo() {
     const { userInfo } = useContext(UserContext);
 
     let [activeTab, setActiveTab] = useState(null);
+    let [goalInput, setGoalInput] = useState("");
 
     const getGoals = () => {
 
         if(!roomData) return {};
         if(!userInfo) return {};
-
-        return roomData.users[userInfo.id].goals;
+        
+        let userGoals = activeTab ?? userInfo.id;
+        return roomData.users[userGoals].goals;
 
     }
 
@@ -33,9 +36,47 @@ function Todo() {
         if(Object.keys(goals).length > 0) return null;
         return(
             <div className={styles.noGoals}>
-                Add a new goal <FaArrowDownLong />
+                {
+                    activeTab === userInfo.id ?
+                    <>
+                    Add a new goal <FaArrowDownLong />
+                    </> : "No goals yet"
+                }
             </div>
         )
+    }
+
+    const addGoal = async () => {
+
+        if(!goalInput) return;
+        if(goalInput.length > 100) return;
+        if(!roomData?.id) return;
+
+        try {
+            const today = getToday();
+            const response = await fetch('/api/addGoal', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ goal: goalInput, room: roomData.id, date:today }),
+            });
+            const data = await response.json();
+            if (!data.success) {
+                console.error(data.message);
+            } else {
+                setGoalInput("");
+            }
+        } catch(err) {
+            console.error(err);
+        }
+
+    }
+
+    const handleKeyDown = (e) => {
+        if(e.key === 'Enter') {
+            addGoal();
+        }
     }
 
     useEffect(() => {
@@ -62,15 +103,25 @@ function Todo() {
 
                 { noGoals() }
                 {
-                    Object.keys(getGoals()).map((goalId) => <Goal goalItem={generateGoal(goalId)}/>)
+                    Object.keys(getGoals()).map((goalId) => <Goal activeTab={activeTab} goalItem={generateGoal(goalId)}/>)
                 }
 
-                <div className={styles.newGoal}>
-                    <input type="text" placeholder="New Goal"></input>
-                    <div className={styles.addGoal}>
-                        <HiPencilAlt />
-                    </div>
-                </div>
+                { 
+                    activeTab === userInfo.id ? 
+                    <div className={styles.newGoal}>
+                        <input
+                            onChange={(e) => setGoalInput(e.target.value)}
+                            value={goalInput} 
+                            maxLength={100}
+                            onKeyDown={(e) => handleKeyDown(e)}
+                            type="text" placeholder="New Goal"></input>
+                        <div
+                            onClick={() => addGoal()} 
+                            className={styles.addGoal}>
+                            <HiPencilAlt />
+                        </div>
+                    </div> : null
+                }
 
             </div>
 

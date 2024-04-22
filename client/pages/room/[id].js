@@ -100,10 +100,70 @@ export default function Room () {
                 oldData.users[user].currentStreak.endDate = endDate;
                 oldData.users[user].streakHighScore.startDate = highScoreStartDate;
                 oldData.users[user].streakHighScore.endDate = highScoreEndDate;
-                console.log(oldData);
                 return oldData;
             });
 
+        });
+
+        newSocket.on('newGoal', (data) => {
+            setRoomData(prevRoomData => {
+                const oldData = JSON.parse(JSON.stringify(prevRoomData));
+                const { goal } = data;
+                oldData.users[goal.userId].goals[goal.id] = {
+                    ...goal,
+                    tasks: []
+                };
+                return oldData;
+            });
+
+        });
+
+        newSocket.on('deleteGoal', (data) => {
+            setRoomData(prevRoomData => {
+                const oldData = JSON.parse(JSON.stringify(prevRoomData));
+                const {user, goal} = data;
+                delete oldData.users[user].goals[goal];
+                return oldData;
+            })
+        });
+
+        newSocket.on('newTask', (data) => { 
+            console.log("new task", data);
+            setRoomData(prevRoomData => {
+                const oldData = JSON.parse(JSON.stringify(prevRoomData));
+                const {user, goal, newTask, tags} = data;
+                let taskItem = {...newTask};
+                taskItem.tags = tags;
+                oldData.users[user].goals[goal].tasks.push(taskItem);
+                oldData.users[user].goals[goal].endDate = null;
+                return oldData;
+            })
+
+        });
+
+        newSocket.on('deleteTask', (data) => {
+            setRoomData(prevRoomData => {
+                const oldData = JSON.parse(JSON.stringify(prevRoomData));
+                const {user, goal, task} = data;
+                const taskIndex = oldData.users[user].goals[goal].tasks.findIndex(taskItem => taskItem.id === task);
+                if (taskIndex > -1) {
+                    oldData.users[user].goals[goal].tasks.splice(taskIndex, 1);
+                }
+                return oldData;
+            })
+        });
+
+        newSocket.on('toggleTask', (data) => {
+            setRoomData(prevRoomData => {
+                const oldData = JSON.parse(JSON.stringify(prevRoomData));
+                const {user, goal, task, taskCompleted, goalCompleted} = data;
+                const taskItem = oldData.users[user].goals[goal].tasks.find(taskItem => taskItem.id === task);
+                if (taskItem) {
+                    taskItem.dateCompleted = taskCompleted;
+                }
+                oldData.users[user].goals[goal].endDate = goalCompleted;
+                return oldData;
+            })
         });
 
     }

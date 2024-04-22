@@ -320,7 +320,8 @@ const Tag = sequelize.define('Tag', {
   userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    primaryKey: true
+    primaryKey: true,
+    field: 'user_id',
   },
   id: {
     type: DataTypes.INTEGER,
@@ -441,7 +442,7 @@ JournalTag.belongsTo(Journal, { foreignKey: 'journal_entry', targetKey: 'id' });
 JournalTag.belongsTo(Tag, { foreignKey: 'tag', targetKey: 'id' });
 
 TaskTag.belongsTo(Task, { foreignKey: 'task_id', targetKey: 'id' });
-TaskTag.belongsTo(Tag, { foreignKey: 'tag', targetKey: 'id' });
+TaskTag.belongsTo(Tag, { foreignKey: 'tag', targetKey: 'id', as: 'Tag' });
 
 module.exports = {
   User,

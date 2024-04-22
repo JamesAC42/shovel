@@ -122,14 +122,15 @@ async function roomData (req, res, models) {
                         where: { taskId: task.id },
                         include: [{
                             model: models.Tag,
-                            as: 'tag',
+                            as: 'Tag',
                             attributes: ['tag']
                         }] 
                     });
-                    task.tags = taskTags.map(taskTag => taskTag.tag.tag);
+                    task.tags = taskTags.map(taskTag => taskTag.Tag.tag);
                 }
 
                 goalsData[goal.id] = {
+                    id: goal.id,
                     title: goal.title,
                     description: goal.description,
                     startDate: goal.startDate,
@@ -150,7 +151,7 @@ async function roomData (req, res, models) {
                     where: { journalEntry: entry.id },    
                     include: [{
                         model: models.Tag,
-                        as: 'tag',
+                        as: 'Tag',
                         attributes: ['tag']
                     }]
                 });

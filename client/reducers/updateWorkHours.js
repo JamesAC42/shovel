@@ -1,6 +1,3 @@
-import getWeekDay from "../utilities/getWeekDay";
-import parseDateString from "../utilities/parseDateString";
-
 function updateWorkHours(data, {user, date, hours, wasNotable}) {
 
     if(!user) return data;
@@ -15,11 +12,11 @@ function updateWorkHours(data, {user, date, hours, wasNotable}) {
         }
     }
     if(!found) {
-        newData.users[user].deepWorkTracker = [{
+        newData.users[user].deepWorkTracker.push({
             hours,
             date,
             wasNotable
-        }];
+        });
     }
     return newData;
 

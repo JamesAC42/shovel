@@ -35,6 +35,11 @@ const saveWorkHours = require('./controllers/roomControllers/saveWorkHours');
 const respondRequest = require('./controllers/roomControllers/respondRequest');
 const handleConnection = require('./socket');
 const checkIn = require('./controllers/roomControllers/checkIn');
+const addGoal = require('./controllers/roomControllers/addGoal');
+const deleteGoal = require('./controllers/roomControllers/deleteGoal');
+const addTask = require('./controllers/roomControllers/addTask');
+const deleteTask = require('./controllers/roomControllers/deleteTask');
+const toggleTask = require('./controllers/roomControllers/toggleTask');
 
 sequelize.sync()
   .then(() => {
@@ -106,6 +111,26 @@ app.post('/respondRequest', async (req, res) => {
 
 app.post('/checkIn', async (req, res) => {
   checkIn(req, res, models, io);
+});
+
+app.post('/addGoal', async (req, res) => {
+  addGoal(req, res, models, io);
+});
+
+app.post('/deleteGoal', async (req, res) => {
+  deleteGoal(req, res, models, io);
+});
+
+app.post('/addTask', async (req, res) => {
+  addTask(req, res, models, io);
+});
+
+app.post('/deleteTask', async (req, res) => {
+  deleteTask(req, res, models, io);
+});
+
+app.post('/toggleTask', async (req, res) => {
+  toggleTask(req, res, models, io);
 });
 
 app.get('/room', (req, res) => {

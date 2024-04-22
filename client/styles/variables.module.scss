@@ -46,6 +46,7 @@
 @keyframes slide-fade-in-animation {
     0% {
         transform:translateY(10rem);
+        transform:translateY(50%);
         opacity:0;
     }
     100% {
