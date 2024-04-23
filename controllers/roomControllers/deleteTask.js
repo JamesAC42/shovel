@@ -40,16 +40,32 @@ async function deleteTask(req, res, models, io) {
         await models.TaskTag.destroy({ where: { taskId: task } });
         await models.Task.destroy({ where: { id: task } });
 
+        const allTasks = await models.Task.findAll({ where: { goalId: goal } });
+        const allTasksCompleted = allTasks.every(task => task.dateCompleted !== null);
+
+        let goalCompletedDate = null;
+        if (allTasksCompleted) {
+            goalCompletedDate = allTasks.reduce((latest, task) => {
+                return (
+                    new Date(latest.dateCompleted).getTime() > new Date(task.dateCompleted).getTime()) ? 
+                    latest : task;
+            }).dateCompleted;
+            goalItem.endDate = goalCompletedDate;
+            await goalItem.save();
+        }
+
         const socketRoom = `room_${roomItem.id}`;
         io.to(socketRoom).emit('deleteTask', {
             user: user.id,
             goal,
-            task
+            task,
+            goalCompletedDate
         });
 
         res.status(200).json({ success: true, message: 'Task successfully deleted' });
 
     } catch (error) {
+        console.log(error);
         res.status(500).json({ success: false, message: 'Server error' });
         return;
     }

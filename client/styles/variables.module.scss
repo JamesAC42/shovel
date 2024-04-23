@@ -47,16 +47,31 @@
     0% {
         transform:translateY(10rem);
         transform:translateY(50%);
+        //opacity:0;
+    }
+    100% {
+        transform:translateY(0);
+        //opacity:1;
+    }
+}
+
+@keyframes slide-fade-in-translucent-animation {
+    0% {
+        transform:translateY(10rem);
+        transform:translateY(50%);
         opacity:0;
     }
     100% {
         transform:translateY(0);
-        opacity:1;
+        opacity:0.5;
     }
 }
 
 @mixin slide-fade-in {
     animation: slide-fade-in-animation 0.2s cubic-bezier(0.075, 0.82, 0.165, 1) 1;
+}
+@mixin slide-fade-in-translucent {
+    animation: slide-fade-in-translucent-animation 0.2s cubic-bezier(0.075, 0.82, 0.165, 1) 1;
 }
 
 @keyframes expand-requests {

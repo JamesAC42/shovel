@@ -161,7 +161,10 @@
 
                 &.taskItemCompleted {
                     .taskCheck {
-                        background: var(--secondary-color);
+                        @include flex-center-col;
+                        font-size:0.8rem;
+                        color:var(--primary-color);
+                        //background: var(--secondary-color);
                     }
                     .taskName {
                         text-decoration: line-through;

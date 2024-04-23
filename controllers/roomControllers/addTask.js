@@ -23,6 +23,7 @@ async function addTask(req, res, models, io) {
 
     // Validate date is no more than 1 day ahead or behind the current date
     const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
     const inputDate = new Date(date);
     const diffTime = Math.abs(currentDate - inputDate);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 

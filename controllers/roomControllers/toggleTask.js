@@ -13,6 +13,27 @@ async function toggleTask(req, res, models, io) {
             res.status(500).json({ success: false, message: 'Invalid format' });
             return;
         }
+        
+        // Validate date format
+        const dateRegEx = /^\d{4}-\d{2}-\d{2}$/;
+        if(!dateRegEx.test(date)) {
+            res.status(400).json({ success: false, message: 'Invalid date format. Expected format: yyyy-mm-dd' });
+            return;
+        }
+        
+        // Validate date is no more than 1 day ahead or behind the current date
+        const currentDate = new Date();
+        currentDate.setHours(0, 0, 0, 0);
+        const inputDate = new Date(date);
+        const diffTime = Math.abs(currentDate - inputDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+
+        if(diffDays > 1) {
+            res.status(400).json({ 
+                success: false, 
+                message: 'Invalid date. Date should be no more than 1 day ahead or behind the current date.' });
+            return;
+        }
 
         const user = await models.User.findOne({ where: { username: username } });
 

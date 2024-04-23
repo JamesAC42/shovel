@@ -2,7 +2,7 @@ import Task from "./Task";
 import styles from '../../styles/room/todo.module.scss';
 import { HiPencilAlt } from "react-icons/hi";
 import dateToReadable from "../../utilities/dateToReadable";
-import {useState, useContext} from 'react';
+import {useState, useContext, useRef} from 'react';
 import { FaTrashAlt } from "react-icons/fa";
 import getToday from "../../utilities/getToday";
 import RoomContext from "../../pages/RoomContext";
@@ -36,6 +36,8 @@ function Goal({activeTab, goalItem}) {
 
     let [taskValue, setTaskValue] = useState("");
     let [tagValue, setTagValue] = useState("");
+
+    const inputRef = useRef();
 
     const deleteGoal = async () => {
 
@@ -92,6 +94,9 @@ function Goal({activeTab, goalItem}) {
         } else {
             setTaskValue("");
             setTagValue("");
+            if(inputRef.current) {
+                inputRef.current.focus();
+            }
         }
 
     }
@@ -156,6 +161,7 @@ function Goal({activeTab, goalItem}) {
                     userInfo.id === activeTab ?
                     <div className={styles.newTaskContainer}>
                         <input
+                            ref={inputRef}
                             onChange={(e) => setTaskValue(e.target.value)}
                             value={taskValue}
                             onKeyDown={(e) => handleKeyPress(e)} 
@@ -167,7 +173,7 @@ function Goal({activeTab, goalItem}) {
                             value={tagValue}
                             onKeyDown={(e) => handleKeyPress(e)} 
                             type="text" 
-                            placeholder="tag 1, tag2, ..."></input>
+                            placeholder="tag 1, tag 2, ..."></input>
                         <div
                             onClick={() => addTask()} 
                             className={styles.addTask}>

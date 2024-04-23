@@ -128,7 +128,6 @@ export default function Room () {
         });
 
         newSocket.on('newTask', (data) => { 
-            console.log("new task", data);
             setRoomData(prevRoomData => {
                 const oldData = JSON.parse(JSON.stringify(prevRoomData));
                 const {user, goal, newTask, tags} = data;
@@ -144,10 +143,13 @@ export default function Room () {
         newSocket.on('deleteTask', (data) => {
             setRoomData(prevRoomData => {
                 const oldData = JSON.parse(JSON.stringify(prevRoomData));
-                const {user, goal, task} = data;
+                const {user, goal, task, goalCompletedDate} = data;
                 const taskIndex = oldData.users[user].goals[goal].tasks.findIndex(taskItem => taskItem.id === task);
                 if (taskIndex > -1) {
                     oldData.users[user].goals[goal].tasks.splice(taskIndex, 1);
+                }
+                if (goalCompletedDate) {
+                    oldData.users[user].goals[goal].endDate = goalCompletedDate;
                 }
                 return oldData;
             })
@@ -162,6 +164,24 @@ export default function Room () {
                     taskItem.dateCompleted = taskCompleted;
                 }
                 oldData.users[user].goals[goal].endDate = goalCompleted;
+                return oldData;
+            })
+        });
+
+        newSocket.on('journalEntryUpdate', (data) => {
+            setRoomData(prevRoomData => {
+                const oldData = JSON.parse(JSON.stringify(prevRoomData));
+                const {user, entry, journalId, date, tags} = data;
+                console.log("entry update", entry);
+                if(entry === "") {
+                    delete oldData.users[user].journal[journalId];
+                } else {
+                    oldData.users[user].journal[journalId] = {
+                        date,
+                        entry,
+                        tags
+                    };
+                }
                 return oldData;
             })
         });

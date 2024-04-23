@@ -40,6 +40,7 @@ const deleteGoal = require('./controllers/roomControllers/deleteGoal');
 const addTask = require('./controllers/roomControllers/addTask');
 const deleteTask = require('./controllers/roomControllers/deleteTask');
 const toggleTask = require('./controllers/roomControllers/toggleTask');
+const saveJournalEntry = require('./controllers/roomControllers/saveJournalEntry');
 
 sequelize.sync()
   .then(() => {
@@ -131,6 +132,10 @@ app.post('/deleteTask', async (req, res) => {
 
 app.post('/toggleTask', async (req, res) => {
   toggleTask(req, res, models, io);
+});
+
+app.post('/saveJournalEntry', async (req, res) => {
+  saveJournalEntry(req, res, models, io);
 });
 
 app.get('/room', (req, res) => {

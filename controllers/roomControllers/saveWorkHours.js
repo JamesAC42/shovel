@@ -5,8 +5,6 @@ async function saveWorkHours(req, res, models, io) {
     const username = req.session.user?.username;
     let { date, hours, wasNotable, accomplishment, room } = req.body;
 
-    console.log({date, hours, wasNotable, accomplishment, room, username});
-
     if (!username) {
         res.status(401).json({ success: false, message: 'Unauthorized' });
         return;
@@ -48,6 +46,7 @@ async function saveWorkHours(req, res, models, io) {
     }
 
     const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
     const [year, month, day] = date.split('-').map(Number);
     const inputDate = new Date(Date.UTC(year, month - 1, day));
     if(inputDate.getTime() - currentDate.getTime() > 1000 * 60 * 60 * 24) {

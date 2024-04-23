@@ -38,15 +38,12 @@
                 top: 0;
                 right: 0;
                 font-size: 1.6rem;
-                cursor: pointer;
-                &:hover {
-                    filter: brightness(1.5);
-                }
             }
 
             .journalMonth {
                 font-weight: normal;
-                color: var(--secondary-color);
+                opacity:0.5;
+                color: var(--primary-color);
                 text-align: right;
                 font-size: 1rem;
                 margin-top: 0.3rem;
@@ -55,7 +52,7 @@
                     filter: brightness(1.5);
                 }
                 &.journalMonthActive {
-                    color: var(--primary-color);
+                    opacity:1;
                 }
             }
         }
@@ -120,8 +117,9 @@
             border-radius: 0.4rem;
             margin-bottom: 1.4rem;
             padding: 0.5rem 1.7rem;
+            @include slide-fade-in;
 
-            h3 {
+            h2 {
                 span.journalTag {
                     display: inline-block;
                     background: var(--primary-color);
@@ -132,6 +130,19 @@
                     font-size: 1rem;
                     transform: translateY(-2px);
                 }
+            }
+
+            h1, h2, h3, h4, h5, h6 {
+                font-family: 'Figtree', sans-serif;
+                color: var(--secondary-color);
+            }
+
+            pre {
+                padding:1rem;
+                border-radius:0.5rem;
+                background: var(--background-dark);
+                font-family: 'SourceCodePro',monospace;
+                font-size:0.8rem;
             }
         }
     }

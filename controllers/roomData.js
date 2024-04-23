@@ -155,7 +155,7 @@ async function roomData (req, res, models) {
                         attributes: ['tag']
                     }]
                 });
-                journalData[entry.id].tags = journalTags.map(journalTag => journalTag.tag.tag);
+                journalData[entry.id].tags = journalTags.map(journalTag => journalTag.Tag.tag);
                 
             }
 

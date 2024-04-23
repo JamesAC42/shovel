@@ -4,6 +4,7 @@ import {useState, useContext} from 'react';
 import UserContext from "../../pages/UserContext";
 import RoomContext from "../../pages/RoomContext";
 import getToday from '../../utilities/getToday';
+import { FaCheck } from "react-icons/fa6";
 
 function Task({goal, activeTab, taskItem}) {
 
@@ -83,6 +84,9 @@ function Task({goal, activeTab, taskItem}) {
             <div
                 onClick={() => toggleTask()} 
                 className={`${styles.taskCheck} ${activeTab === userInfo.id ? styles.taskCheckEditable : ''}`}>
+                {
+                    dateCompleted ? <FaCheck /> : null
+                }
             </div>
             <div
                 onMouseEnter={() => toggleDelete(true)}
