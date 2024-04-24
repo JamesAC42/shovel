@@ -1,1 +1,4 @@
 /node_modules
+psql_login.json
+config.json
+redis_login.json

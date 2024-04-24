@@ -9,17 +9,26 @@ const app = express();
 const httpServer = http.createServer(app);
 const redisClient = redis.createClient({ legacyMode: true });
 const port = 5000;
+
+const config = require('./config.json');
+const redisLogin = require('./redis_login.json');
+
 const sequelize = require('./database');
 
-//const io = new Server(httpServer, {
-//	path:'/socket'
-//});
+let io;
+if(config.local) {
+  io = new Server(httpServer, {
+    cors: {
+      origin: '*'
+    }
+  });
+} else {
+  io = new Server(httpServer, {
+  	path:'/socket'
+  });
+}
 
-const io = new Server(httpServer, {
-  cors: {
-    origin: '*'
-  }
-});
+redisClient.auth(redisLogin.password);
 
 const models = require('./models/models');
 
@@ -57,7 +66,6 @@ try {
   console.error('Unable to connect to the database:', error);
 }
 
-redisClient.auth("");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -67,7 +75,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: false, // Set to true if using HTTPS
+      secure: config.secureSession, // Set to true if using HTTPS
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000 * 7, // it's been, 1 week
     },
