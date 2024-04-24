@@ -103,7 +103,7 @@ function Todo() {
 
                 { noGoals() }
                 {
-                    Object.keys(getGoals()).map((goalId) => <Goal activeTab={activeTab} goalItem={generateGoal(goalId)}/>)
+                    Object.keys(getGoals()).map((goalId) => <Goal key={goalId} activeTab={activeTab} goalItem={generateGoal(goalId)}/>)
                 }
 
                 { 

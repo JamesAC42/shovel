@@ -102,7 +102,7 @@ function Task({goal, activeTab, taskItem}) {
                 </div>
                 {
                     tags.map(tag =>
-                        <span className={styles.taskTag}>{tag}</span>
+                        <span key={tag} className={styles.taskTag}>{tag}</span>
                     )
                 }
             </div>

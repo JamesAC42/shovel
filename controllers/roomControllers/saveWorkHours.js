@@ -85,8 +85,6 @@ async function saveWorkHours(req, res, models, io) {
         let success = false;
         if (entry) {
 
-            console.log("updating existing....", date);
-
             // Update existing entry
             try {
                 await entry.update({
@@ -101,8 +99,6 @@ async function saveWorkHours(req, res, models, io) {
                 res.status(500).json({ success: false, message: 'Internal Server Error' });
             }
         } else {
-
-            console.log("creating new...", date);
 
             // Create new entry
             try {

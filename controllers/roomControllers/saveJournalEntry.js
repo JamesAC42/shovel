@@ -5,8 +5,6 @@ async function saveJournalEntry(req, res, models, io) {
     const username = req.session.user?.username;
     let { room, entry, date, tags } = req.body;
 
-    console.log({room, entry, date, tags});
-
     if(!username) {
         res.status(401).json({ success: false, message: 'Unauthorized' });
         return;

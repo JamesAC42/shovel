@@ -23,6 +23,7 @@ export default function UserTabs({
             {
                 users.map((user) =>
                     <div 
+                        key={user}
                         className={tabClass(user)}
                         onClick={() => setActiveTab(user)}>
                             {roomData.users[user].userInfo.username}

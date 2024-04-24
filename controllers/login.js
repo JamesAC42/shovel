@@ -18,7 +18,6 @@ const login = (req, res, models) => {
                         console.error('Error comparing passwords:', err);
                         res.status(500).json({ error: 'Internal Server Error' });
                     } else if (!result) {
-                        console.log("asdf");
                         res.send({ success: false, message: "Username or password is incorrect." });
                     } else {
                         req.session.user = { username };

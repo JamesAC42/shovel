@@ -46,8 +46,6 @@ async function addGoal(req, res, models, io) {
             res.status(404).json({ success: false, message: 'User not found' });
             return;
         }
-        console.log("asdfsadf");
-
 
         const roomExists = await models.Room.findOne({ where: { id: room } });
         const userInRoom = await models.RoomUser.findOne({ where: { userId: user.id, room } });

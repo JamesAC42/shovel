@@ -154,7 +154,7 @@ function Goal({activeTab, goalItem}) {
                 }
                 {
                     tasks.map((task) =>
-                        <Task activeTab={activeTab} goal={id} taskItem={task}/>
+                        <Task key={task.id} activeTab={activeTab} goal={id} taskItem={task}/>
                     )
                 }
                 {

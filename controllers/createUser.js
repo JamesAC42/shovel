@@ -4,7 +4,6 @@ const bcrypt = require('bcrypt');
 const createUser = async (req, res, models) => {
 
     let { firstName, lastName, username, password, color } = req.body;
-    console.log(req.body);
 
     if (!firstName || !lastName || !username || !password) {
         res.status(400).json({ success: false, message: 'All fields are required' });

@@ -17,7 +17,6 @@ function JournalInput({entries,currentYear,currentMonth}) {
 
     const saveEntryHandle = async (entry, tagString) => {
 
-        console.log("asdflaksjdf;lkajsdflk;j");
         let tags = tagString.split(',');
         tags = 
             tags
@@ -81,10 +80,7 @@ function JournalInput({entries,currentYear,currentMonth}) {
         
         if(!currentYear || !currentMonth) return;
 
-        console.log(entries, currentMonth, currentYear);
-
         let entry = entries[currentYear][currentMonth][0];
-        console.log(entry);
         setEntryValue(entry.entry);
         setTagValue(entry.tags.join(", "));
 

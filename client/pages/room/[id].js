@@ -32,8 +32,6 @@ export default function Room () {
 
         if(socketRef.current) return;
 
-        console.log("reconnecting socket");
-
         const socketUrl = 'http://localhost:5000';
         const socketPath = '';
         const query = {room: `room_${id}`};
@@ -172,7 +170,6 @@ export default function Room () {
             setRoomData(prevRoomData => {
                 const oldData = JSON.parse(JSON.stringify(prevRoomData));
                 const {user, entry, journalId, date, tags} = data;
-                console.log("entry update", entry);
                 if(entry === "") {
                     delete oldData.users[user].journal[journalId];
                 } else {
@@ -217,7 +214,6 @@ export default function Room () {
         try {
             const response = await fetch(`/api/roomData?id=${id}`);
             const data = await response.json();
-            console.log(data);
             if(!data.success) {
                 Router.push("/room");
                 return;

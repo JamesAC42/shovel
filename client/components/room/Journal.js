@@ -76,17 +76,12 @@ function Journal() {
         const actualCurrentMonth = currentDate.toLocaleString('default', { month: 'long' });
         const actualCurrentYear = currentDate.getFullYear();
 
-        console.log("actual month", actualCurrentMonth, actualCurrentYear);
-        console.log("set month", currentMonth, currentYear);
-
         return actualCurrentMonth === currentMonth && actualCurrentYear === parseInt(currentYear);
     }
 
     const generateEntries = () => {
 
         const journal = roomData.users[activeTab].journal;
-        
-        console.log("journal", journal);
 
         let entries = {};
         let dates = {};
@@ -125,21 +120,13 @@ function Journal() {
     
         }
 
-        console.log("new entries", entries);
-
         if(!monthFound) {
-            console.log("month not found");
             setCurrentMonth(null);
             setCurrentYear(null);
         }
-
-        console.log("entries", entries);
-        console.log("dates", dates);
     
         for(let year in entries) {
-            console.log("year", year);
             for(let month in entries[year]) {
-                console.log(year, month);
                 entries[year][month].sort((a, b) => 
                     new Date(b.date).getTime() - new Date(a.date).getTime());
             }
@@ -219,7 +206,7 @@ function Journal() {
     }, [activeTab])
 
     useEffect(() => {
-        
+
         setCurrentYear(null);
         setCurrentMonth(null);
         if(years.length > 0) {
@@ -232,8 +219,6 @@ function Journal() {
     if(!roomData) return null;
     if(!userInfo) return null;
 
-    console.log("current month", currentMonth);
-    
     return (
         <div className={styles.journalOuter}>
 

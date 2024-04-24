@@ -43,7 +43,7 @@ function JournalMonthPicker({
             {
                 renderYears.map((year) => 
                     <div
-                        key={year} 
+                        key={year.year} 
                         className={styles.journalYear}>
                         {year.year}
                         <div className={styles.journalYearExpand}>
