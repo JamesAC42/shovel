@@ -133,7 +133,6 @@
                     background: var(--background-dark);
                     outline: none;
                     border: none;
-                    resize: none;
                     padding: 1rem;
                     color: var(--primary-color);
                     font-size: 1.1rem;
@@ -142,10 +141,12 @@
                 }
                 textarea.journalInputMain {
                     height: 10rem;
+                    resize: vertical;
                     border-radius: 0.5rem 0.5rem 0 0;
                     border-bottom: 1px solid var(--secondary-color);
                 }
                 textarea.journalInputTags {
+                    resize: none;
                     border-radius: 0 0 0.5rem 0.5rem;
                     overflow: hidden;
                     height: 1.5rem;
