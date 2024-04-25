@@ -7,7 +7,7 @@ import RoomContext from "../../pages/RoomContext";
 import UserContext from "../../pages/UserContext";
 import getToday from "../../utilities/getToday";
 
-function JournalInput({entries,currentYear,currentMonth}) {
+function JournalInput({entries,currentYear,currentMonth,collapsed}) {
 
     let { roomData } = useContext(RoomContext);
     let { userInfo } = useContext(UserContext);
@@ -87,7 +87,7 @@ function JournalInput({entries,currentYear,currentMonth}) {
     }
 
     return(
-        <div className={styles.journalInputContainer}>
+        <div className={`${styles.journalInputContainer} ${collapsed ? styles.collapsed : ''}`}>
 
             <div className={styles.journalInputTextOuter}>
                 <textarea 

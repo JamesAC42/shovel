@@ -6,6 +6,8 @@ import styles from '../../styles/room/journal.module.scss';
 import JournalMonthPicker from './JournalMonthPicker';
 import { useState, useContext, useEffect } from 'react';
 import JournalInput from './JournalInput';
+import { HiPencilAlt } from "react-icons/hi";
+import { FaChevronUp } from "react-icons/fa6";
 
 import ReactMarkdown from 'react-markdown';
 import dateToReadable from '../../utilities/dateToReadable';        
@@ -47,9 +49,10 @@ function Journal() {
     const [currentYear, setCurrentYear] = useState(null);
     const [currentMonth, setCurrentMonth] = useState(null);
 
-    const [activeTab, setActiveTab] = useState(null);
+    const [journalCollapsed, setJournalCollapsed] = useState(false);
 
-    let resetActiveMonth = false;
+    const [savedActiveMonth, setSavedActiveMonth] = useState({});
+    const [activeTab, setActiveTab] = useState(null);
 
     const setMonth = (month, year) => {
         setCurrentMonth(month);
@@ -65,6 +68,13 @@ function Journal() {
         return months.indexOf(month);
     }
 
+    const getDefaultTime = () => {
+        const currentDate = new Date();
+        const defaultMonth = currentDate.toLocaleString('default', { month: 'long' });
+        const defaultYear = currentDate.getFullYear().toString();
+        return {defaultMonth, defaultYear};
+    }
+
     const showInput = () => {
         
         if(activeTab !== userInfo.id) return false;
@@ -72,11 +82,8 @@ function Journal() {
             return true;
         }
 
-        const currentDate = new Date();
-        const actualCurrentMonth = currentDate.toLocaleString('default', { month: 'long' });
-        const actualCurrentYear = currentDate.getFullYear();
-
-        return actualCurrentMonth === currentMonth && actualCurrentYear === parseInt(currentYear);
+        const {defaultMonth, defaultYear} = getDefaultTime();
+        return defaultMonth === currentMonth && defaultYear === currentYear;
     }
 
     const generateEntries = () => {
@@ -95,7 +102,9 @@ function Journal() {
             const year = dateSegments[0];
             const month = getMonthString(dateSegments[1]);
 
-            if(month === currentMonth) monthFound = true;
+            if(year === currentYear && month === currentMonth) {
+                monthFound = true;
+            }
     
             if (!dates[year]) {
                 dates[year] = [];
@@ -121,8 +130,9 @@ function Journal() {
         }
 
         if(!monthFound) {
-            setCurrentMonth(null);
-            setCurrentYear(null);
+            const {defaultMonth, defaultYear} = getDefaultTime();
+            setCurrentMonth(defaultMonth);
+            setCurrentYear(defaultYear);
         }
     
         for(let year in entries) {
@@ -149,6 +159,8 @@ function Journal() {
         if(!currentYear || !currentMonth) {
             return [];
         } else {
+            if(!entries[currentYear]) return [];
+            if(!entries[currentYear][currentMonth]) return [];
             return entries[currentYear][currentMonth];
         }
     }
@@ -156,9 +168,8 @@ function Journal() {
     const getSelectedTimeString = () => {
         let timeRange;
         if(!currentMonth || !currentYear) {
-            let month = new Date().toLocaleString('default', { month: 'long' });
-            let year = new Date().getFullYear();
-            timeRange = `${month} ${year}`
+            const {defaultMonth, defaultYear} = getDefaultTime();
+            timeRange = `${defaultMonth} ${defaultYear}`
         } else {
             timeRange =  `${currentMonth} ${currentYear}`;
         }
@@ -177,9 +188,17 @@ function Journal() {
         )
     }
 
-    const setTab = (tab) => { 
-        resetActiveMonth = true;
+    const setTab = (tab) => {
+
+        let savedMonths = JSON.parse(JSON.stringify(savedActiveMonth));
+        savedMonths[activeTab] = {month: currentMonth, year: currentYear};
         setActiveTab(tab);
+        setSavedActiveMonth(savedMonths);
+        if(savedMonths[tab]) {
+            setCurrentMonth(savedMonths[tab].month);
+            setCurrentYear(savedMonths[tab].year);
+        }
+
     }
 
     useEffect(() => {
@@ -193,28 +212,21 @@ function Journal() {
             generateEntries();
         }
 
+        if(!currentMonth || !currentYear) {
+            const {defaultMonth, defaultYear} = getDefaultTime();
+            setCurrentMonth(defaultMonth);
+            setCurrentYear(defaultYear);
+        }
+
     }, [roomData, userInfo]);
 
     useEffect(() => {
 
-        setCurrentMonth(null);
-        setCurrentYear(null);
         if(activeTab) {
-            generateEntries();
+            generateEntries(); 
         }
 
-    }, [activeTab])
-
-    useEffect(() => {
-
-        setCurrentYear(null);
-        setCurrentMonth(null);
-        if(years.length > 0) {
-            setCurrentYear(years[0].year);
-            setCurrentMonth(years[0].months[0]);
-        }
-
-    }, [years]);
+    }, [activeTab]);
 
     if(!roomData) return null;
     if(!userInfo) return null;
@@ -235,11 +247,26 @@ function Journal() {
                     setMonth={(month, year) => setMonth(month, year)} />
             
                 <div className={styles.journalContent}>
-                    <h2>Journal - {getSelectedTimeString()}</h2>
+                    <h2>
+                        Journal - {getSelectedTimeString()}
+                        {
+                            showInput() ?
+                            <div
+                                onClick={() => setJournalCollapsed(!journalCollapsed)} 
+                                className={styles.toggleJournalCollapse}
+                                title={journalCollapsed ? "Edit Entry" : "Collapse Entry"}>
+                                {
+                                    journalCollapsed ?
+                                    <HiPencilAlt /> : <FaChevronUp />
+                                }
+                            </div> : null
+                        }
+                    </h2>
 
                     {
                         showInput() ? 
                         <JournalInput
+                            collapsed={journalCollapsed}
                             entries={entries} 
                             currentYear={currentYear}
                             currentMonth={currentMonth} /> : null

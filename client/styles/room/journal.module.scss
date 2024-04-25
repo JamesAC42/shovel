@@ -61,6 +61,24 @@
     .journalContent {
         flex: 1;
 
+        h2 {
+            position:relative;
+            .toggleJournalCollapse {
+                position:absolute;
+                right:0;top:50%;
+                transform:translateY(-50%);
+                padding:0.5rem;
+                cursor:pointer;
+                &:hover {
+                    opacity:0.5;
+                }
+                svg {
+                    transform:translateY(5px);
+                    font-size:1.3rem;   
+                }
+            }
+        }
+
         .noEntries {
             @include placeholder-text;
             @include slide-fade-in;
@@ -71,6 +89,16 @@
             margin-bottom: 2rem;
             align-items: stretch;
             gap: 2rem;
+
+            transition:all .3s cubic-bezier(0.23, 1, 0.320, 1);
+
+            &.collapsed {
+                max-height:0;
+                overflow:hidden;
+                margin-bottom:0;
+            }
+
+
             @include slide-fade-in;
 
             .journalInputTextOuter {

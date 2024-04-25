@@ -26,7 +26,7 @@ function JournalMonthPicker({
     let cYear = currentYear;
     if(years.length === 0) {
         let currentMonth = new Date().toLocaleString('default', { month: 'long' });
-        let currentYear = new Date().getFullYear();
+        let currentYear = new Date().getFullYear().toString();
         renderYears = [{
             year: currentYear,
             months: [currentMonth]
