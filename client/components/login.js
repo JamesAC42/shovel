@@ -61,5 +61,4 @@ function Login() {
         </div>
     )
 }
-
-module.exports = Login;
+export default Login;

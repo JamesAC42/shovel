@@ -29,5 +29,4 @@ function UserSession() {
     )
 
 }
-
-module.exports = UserSession;
+export default UserSession;

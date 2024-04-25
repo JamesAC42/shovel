@@ -100,4 +100,4 @@ function CreateUser() {
         </div>
     )
 }
-module.exports = CreateUser;
+export default CreateUser;
