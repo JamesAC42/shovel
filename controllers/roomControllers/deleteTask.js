@@ -44,13 +44,17 @@ async function deleteTask(req, res, models, io) {
         const allTasksCompleted = allTasks.every(task => task.dateCompleted !== null);
 
         let goalCompletedDate = null;
-        if (allTasksCompleted) {
+        if (allTasks.length > 0 && allTasksCompleted) {
             goalCompletedDate = allTasks.reduce((latest, task) => {
                 return (
                     new Date(latest.dateCompleted).getTime() > new Date(task.dateCompleted).getTime()) ? 
                     latest : task;
             }).dateCompleted;
             goalItem.endDate = goalCompletedDate;
+            await goalItem.save();
+        }
+        if(goalItem.endDate && allTasks.length === 0) {
+            goalItem.endDate = null;
             await goalItem.save();
         }
 

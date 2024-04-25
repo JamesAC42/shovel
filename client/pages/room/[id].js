@@ -146,9 +146,7 @@ export default function Room () {
                 if (taskIndex > -1) {
                     oldData.users[user].goals[goal].tasks.splice(taskIndex, 1);
                 }
-                if (goalCompletedDate) {
-                    oldData.users[user].goals[goal].endDate = goalCompletedDate;
-                }
+                oldData.users[user].goals[goal].endDate = goalCompletedDate;
                 return oldData;
             })
         });
