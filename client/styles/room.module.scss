@@ -33,6 +33,16 @@
     @include fade-in;
 }
 
+.backHome {
+    color:var(--primary-color);
+    font-size:1.4rem;
+    cursor:pointer;
+    a {
+        color:var(--primary-color);
+        text-decoration: none;
+    }
+}
+
 .backButton {
     position:absolute;
     top:0;

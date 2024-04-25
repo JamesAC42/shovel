@@ -17,7 +17,9 @@ export default function Home() {
           shovel
         </div>
         <div className={styles.links}>
-          <Link href="https://github.com/">
+          <Link
+            target="_blank" 
+            href="https://github.com/JamesAC42/shovel">
             <FaGithubAlt />
           </Link>
           <Link href="/room">

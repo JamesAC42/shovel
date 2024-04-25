@@ -35,7 +35,7 @@ export default function Room () {
         const socketUrl = 'http://localhost:5000';
         const socketPath = '';
         const query = {room: `room_${id}`};
-        // const socketUrl = 'https://...';
+        // const socketUrl = 'https://ovel.sh';
         // const socketPath = '/socket';
         let newSocket = io(socketUrl, {
             path: socketPath,

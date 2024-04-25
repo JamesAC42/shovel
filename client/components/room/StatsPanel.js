@@ -11,6 +11,7 @@ import RoomContext from '../../pages/RoomContext';
 import { MdOutlineExpandMore } from "react-icons/md";
 import { IoChevronBackCircle, IoChevronForwardCircle } from "react-icons/io5";
 import { IoMdBackspace } from "react-icons/io";
+import { FaQuestionCircle } from "react-icons/fa";
 import Link from 'next/link';
 import CheckIn from './CheckIn';
 
@@ -60,6 +61,12 @@ function StatsPanel() {
                     </div>
                     <Requests />
                     <ThemePicker />
+
+                    <div
+                        onClick={() => alert("For questions, comments, bug reports, or feature suggestions, please send an email to ovelsh.feedback@gmail.com")}
+                        className={styles.question}>
+                        <FaQuestionCircle />
+                    </div>
                 </div>
                 <div className={deepWorkStyle()}>
                     

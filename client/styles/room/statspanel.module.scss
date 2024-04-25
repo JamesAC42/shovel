@@ -59,6 +59,17 @@
         .roomId {
             font-weight:bold;
         }
+        .question {
+            font-size:1.2rem;
+            margin-left:0.7rem;
+            cursor:pointer;
+            &:hover {
+                filter:brightness(1.5);
+            }
+            svg {
+                transform:translateY(3px);
+            }
+        }
     }
 
     span.workMarker,

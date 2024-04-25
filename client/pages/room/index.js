@@ -5,6 +5,8 @@ import UserContext from "../UserContext";
 import LoginPage from "../../components/LoginPage";
 import EnterRoom from '../../components/EnterRoom';
 import UserData from '../../components/UserSession';
+import { IoMdBackspace } from "react-icons/io";
+import Link from 'next/link';
 
 export default function Room() {
 
@@ -17,6 +19,13 @@ export default function Room() {
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             <div className={styles.roomOuter}>
+                <div className={styles.backHome}>
+                    <Link
+                        target="_self" 
+                        href="/">
+                        <IoMdBackspace />
+                    </Link>
+                </div>
                 <UserData />
                 {
                     userInfo ?
