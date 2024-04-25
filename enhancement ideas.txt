@@ -1,0 +1,9 @@
+things to add: 
+
+- change the week to view past work hours
+- edit past journal entries
+- write out what the accomplishment was for a given day
+- more detail for tasks other than title
+- filtering by tag and searching
+- ability to reorder the tasks and goals
+- mobile version or just nuke it if viewing on mobile tbh
