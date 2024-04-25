@@ -5,8 +5,8 @@ import dateToReadable from "../../utilities/dateToReadable";
 import {useState, useContext, useRef} from 'react';
 import { FaTrashAlt } from "react-icons/fa";
 import getToday from "../../utilities/getToday";
-import RoomContext from "../../pages/RoomContext";
-import UserContext from "../../pages/UserContext";
+import RoomContext from "../../contexts/RoomContext";
+import UserContext from "../../contexts/UserContext";
 
 function Goal({activeTab, goalItem}) {
 

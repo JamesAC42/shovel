@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
-import RoomContext from "../../pages/RoomContext";
-import UserContext from "../../pages/UserContext";
+import RoomContext from "../../contexts/RoomContext";
+import UserContext from "../../contexts/UserContext";
 import { TbCircleFilled } from "react-icons/tb";
 import styles from "../../styles/room/workgrid.module.scss";
 import statsStyles from "../../styles/room/statspanel.module.scss";

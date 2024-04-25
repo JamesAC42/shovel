@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
-import ThemeContext from '../../pages/ThemeContext';
+import ThemeContext from '../../contexts/ThemeContext';
 import { FaPaintBrush } from "react-icons/fa";
-import themes from "../../pages/themes";
+import themes from "../../utilities/themes";
 import styles from "../../styles/room/themepicker.module.scss";
 
 function ThemePicker() {

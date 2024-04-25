@@ -2,8 +2,8 @@ import btnstyles from '../../styles/room/checkinbutton.module.scss';
 import {useContext, useState, useEffect} from 'react';
 import { TbShovel } from "react-icons/tb";
 import { FaRegCheckCircle  } from "react-icons/fa";
-import RoomContext from "../../pages/RoomContext";
-import UserContext from "../../pages/UserContext";
+import RoomContext from "../../contexts/RoomContext";
+import UserContext from "../../contexts/UserContext";
 import getToday from '../../utilities/getToday';
 import elapsedDays from '../../utilities/elapsedDays';
 

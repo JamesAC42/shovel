@@ -5,13 +5,13 @@ import Router from 'next/router';
 import Head from 'next/head'
 import StatsPanel from '../../components/room/StatsPanel';
 
-import RoomContext from '../RoomContext';
+import RoomContext from '../../contexts/RoomContext';
 import Todo from '../../components/room/Todo';
 import Journal from '../../components/room/Journal';
 import UserSession from '../../components/UserSession';
 
 import { io } from 'socket.io-client';
-import UserContext from '../UserContext';
+import UserContext from '../../contexts/UserContext';
 import updateWorkHours from '../../reducers/updateWorkHours';
 
 export default function Room () {

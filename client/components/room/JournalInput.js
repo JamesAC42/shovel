@@ -3,8 +3,8 @@ import { FaFileArrowUp } from "react-icons/fa6";
 import { FaTrashAlt } from "react-icons/fa";
 import styles from "../../styles/room/journal.module.scss";
 import { useContext, useState } from "react";
-import RoomContext from "../../pages/RoomContext";
-import UserContext from "../../pages/UserContext";
+import RoomContext from "../../contexts/RoomContext";
+import UserContext from "../../contexts/UserContext";
 import getToday from "../../utilities/getToday";
 
 function JournalInput({entries,currentYear,currentMonth,collapsed}) {

@@ -1,4 +1,4 @@
-import RoomContext from "../../pages/RoomContext";
+import RoomContext from "../../contexts/RoomContext";
 import {useContext} from 'react';
 import styles from '../../styles/room/usertabs.module.scss';
 

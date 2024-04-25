@@ -1,7 +1,7 @@
 import '../styles/global.scss';
 import {useState, useEffect} from 'react';
-import ThemeContext from './ThemeContext';
-import UserContext from './UserContext';
+import ThemeContext from '../contexts/ThemeContext';
+import UserContext from '../contexts/UserContext';
 
 export default function App({ Component, pageProps }) {
 

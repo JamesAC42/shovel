@@ -6,7 +6,7 @@ import WorkGrid from './WorkGrid';
 import DeepWorkButtons from './DeepWorkButtons';
 
 import {useContext, useState} from 'react';
-import RoomContext from '../../pages/RoomContext';
+import RoomContext from '../../contexts/RoomContext';
 
 import { MdOutlineExpandMore } from "react-icons/md";
 import { IoChevronBackCircle, IoChevronForwardCircle } from "react-icons/io5";

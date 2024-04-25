@@ -1,8 +1,8 @@
 import styles from '../../styles/room/todo.module.scss';
 import { FaTrashAlt } from "react-icons/fa";
 import {useState, useContext} from 'react';
-import UserContext from "../../pages/UserContext";
-import RoomContext from "../../pages/RoomContext";
+import UserContext from "../../contexts/UserContext";
+import RoomContext from "../../contexts/RoomContext";
 import getToday from '../../utilities/getToday';
 import { FaCheck } from "react-icons/fa6";
 

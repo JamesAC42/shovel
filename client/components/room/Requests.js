@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import RoomContext from "../../pages/RoomContext";
+import RoomContext from "../../contexts/RoomContext";
 
 import { IoMailUnread, IoMail } from "react-icons/io5";
 import { CgCloseO } from "react-icons/cg";

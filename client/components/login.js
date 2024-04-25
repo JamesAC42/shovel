@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import styles from "../styles/room.module.scss";
-import UserContext from '../pages/UserContext';
+import UserContext from '../contexts/UserContext';
 
 function Login() {
 

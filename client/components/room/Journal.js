@@ -1,6 +1,6 @@
 import UserTabs from './UserTabs';
-import RoomContext from '../../pages/RoomContext';
-import UserContext from "../../pages/UserContext";
+import RoomContext from '../../contexts/RoomContext';
+import UserContext from "../../contexts/UserContext";
 
 import styles from '../../styles/room/journal.module.scss';
 import JournalMonthPicker from './JournalMonthPicker';

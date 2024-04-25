@@ -1,5 +1,5 @@
 import { useEffect, useContext } from 'react';
-import UserContext from '../pages/UserContext';
+import UserContext from '../contexts/UserContext';
 
 function UserSession() {
 

@@ -1,7 +1,7 @@
 import styles from '../../styles/room.module.scss';
 import { useContext } from 'react';
 import Head from 'next/head'
-import UserContext from "../UserContext";
+import UserContext from "../../contexts/UserContext";
 import LoginPage from "../../components/LoginPage";
 import EnterRoom from '../../components/EnterRoom';
 import UserData from '../../components/UserSession';
