@@ -7,11 +7,6 @@ import CreateUser from "./CreateUser";
 export default function LoginPage() {
     return (
         <div className={styles.loggedOut}>
-            <div className={styles.backButton}>
-                <Link href="/">    
-                    <PiBackspace />
-                </Link>
-            </div>
             <Login />
             <CreateUser />
         </div>
