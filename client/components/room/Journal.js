@@ -241,6 +241,7 @@ function Journal() {
             <div className={styles.journalInner}>
             
                 <JournalMonthPicker
+                    activeTab={activeTab}
                     years={years}
                     currentMonth={currentMonth}
                     currentYear={currentYear}

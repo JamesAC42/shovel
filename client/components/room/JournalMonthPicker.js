@@ -1,12 +1,28 @@
 import { MdOutlineExpandMore } from "react-icons/md";
 import styles from "../../styles/room/journal.module.scss";
+import { useState } from 'react';
 
 function JournalMonthPicker({
     years,
     currentMonth, 
     currentYear,
-    setMonth
+    setMonth,
+    activeTab
 }) {
+
+    let [collapsedYears, setCollapsedYears] = useState({});
+
+    const toggleCollapse = (year) => {
+        let years = JSON.parse(JSON.stringify(collapsedYears));
+        if(!activeTab) return;
+        if(!years[activeTab]) years[activeTab] = {};
+        if(!years[activeTab][year]) {
+            years[activeTab][year] = 1;
+        } else {
+            delete years[activeTab][year];
+        }
+        setCollapsedYears(years);
+    }
 
     const getMonthStyle = (month, year, cMonth, cYear) => {
         let style = styles.journalMonth;
@@ -14,6 +30,11 @@ function JournalMonthPicker({
             style += " " + styles.journalMonthActive;
         }
         return style;
+    }
+
+    const yearIsCollapsed = (year) => {
+        if(!collapsedYears[activeTab]) return false;
+        return collapsedYears[activeTab][year];
     }
 
     const handleMonthChange = (month, year) => {
@@ -44,9 +65,12 @@ function JournalMonthPicker({
                 renderYears.map((year) => 
                     <div
                         key={year.year} 
-                        className={styles.journalYear}>
+                        className={`${styles.journalYear} ${
+                            yearIsCollapsed(year.year) ? styles.journalYearCollapsed : ''}`}>
                         {year.year}
-                        <div className={styles.journalYearExpand}>
+                        <div
+                            onClick={() => toggleCollapse(year.year)} 
+                            className={styles.journalYearExpand}>
                             <MdOutlineExpandMore />
                         </div>
                         {
