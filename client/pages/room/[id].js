@@ -150,6 +150,21 @@ export default function Room () {
                 return oldData;
             })
         });
+        newSocket.on('editTask', (data) => {
+            setRoomData(prevRoomData => {
+                const oldData = JSON.parse(JSON.stringify(prevRoomData));
+                const {task} = data;
+                const {userId, goalId} = task;
+                const taskIndex = oldData.users[userId].goals[goalId].tasks.findIndex(t => t.id === task.id);
+                if (taskIndex > -1) {
+                    oldData.users[userId].goals[goalId].tasks[taskIndex] = {
+                        ...task,
+                        tags: task.TaskTags.map(tag => tag.tag)
+                    };
+                }
+                return oldData;
+            })
+        });
 
         newSocket.on('toggleTask', (data) => {
             setRoomData(prevRoomData => {

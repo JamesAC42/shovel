@@ -129,6 +129,47 @@
                     display:flex;
                     flex-direction:row;
                     align-items:center;
+                    .editTask {
+                        width:0;
+                        display:inline-block;
+                        @include flex-center-row;
+                        overflow:hidden;
+                        padding:2px 0;
+                        color:var(--primary-color);
+                        cursor:pointer;
+                        &:hover {
+                            filter:brightness(0.7);
+                        }
+                        svg {
+                            transform:translateY(0px);
+                        }
+                        &.showEditTask {
+                            animation: expand-edit 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1;
+                            width:2rem; 
+                            // margin-right: 0.2rem;
+                        }
+                    }
+                    .editModeContainer {
+                        flex-direction: column;
+                        gap: 8px;
+                        color:var(--primary-color)
+
+                    }
+                    .editModeInput{
+                        border: none;
+                        background-color: transparent;
+                        color:var(--primary-color)
+                        
+                    }
+                    .saveEdit{
+                        background:var(--primary-color);
+                        color:var(--background-color)
+                    }
+                    .cancelEdit{
+                        background: var(--primary-color);
+                        color:var(--background-color)
+
+                    }
                     .deleteTask {
                         width:0;
                         display:inline-block;
@@ -145,7 +186,7 @@
                         }
                         &.showDeleteTask {
                             animation: expand-delete 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1;
-                            width:2rem; 
+                            width:2rem;
                         }
                     }
                     .taskTag {
@@ -164,7 +205,7 @@
                         @include flex-center-col;
                         font-size:0.8rem;
                         color:var(--primary-color);
-                        //background: var(--secondary-color);
+                        background: var(--secondary-color);
                     }
                     .taskName {
                         text-decoration: line-through;

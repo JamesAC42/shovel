@@ -40,6 +40,7 @@ const validateRoom = require('./controllers/validateRoom');
 const createRoom = require('./controllers/createRoom');
 const roomData = require('./controllers/roomData');
 const getUserRooms = require('./controllers/getUserRooms');
+const editTask = require('./controllers/roomControllers/editTask');
 const saveWorkHours = require('./controllers/roomControllers/saveWorkHours');
 const respondRequest = require('./controllers/roomControllers/respondRequest');
 const handleConnection = require('./socket');
@@ -135,6 +136,10 @@ app.post('/addTask', async (req, res) => {
 
 app.post('/deleteTask', async (req, res) => {
   deleteTask(req, res, models, io);
+});
+
+app.post('/editTask', async (req, res) => {
+  editTask(req, res, models, io);
 });
 
 app.post('/toggleTask', async (req, res) => {
