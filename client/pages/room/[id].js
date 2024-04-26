@@ -13,7 +13,6 @@ import UserSession from '../../components/UserSession';
 import { io } from 'socket.io-client';
 import UserContext from '../../contexts/UserContext';
 import updateWorkHours from '../../reducers/updateWorkHours';
-import Script from 'next/script'
 
 export default function Room () {
 
@@ -240,7 +239,6 @@ export default function Room () {
                 <Head>
                     <title>{roomData ? `Shovel - ${roomData.name}` : ''}</title>
                     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-                    <Script defer src="https://umami.ovel.sh/script.js" data-website-id="e4ae69a4-87b0-4bc9-acc6-abd1e533316f"></Script>
                 </Head>
                 <UserSession />
                 <StatsPanel/>
