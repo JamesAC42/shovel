@@ -3,7 +3,7 @@ import styles from '../styles/home.module.scss';
 import { FaGithubAlt } from "react-icons/fa";
 import { FaCircleArrowRight } from "react-icons/fa6";
 import Link from 'next/link'; 
-import Image from 'next/Image';
+import Image from 'next/image';
 
 export default function Home() {
   return (
