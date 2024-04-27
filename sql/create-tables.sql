@@ -47,7 +47,7 @@ CREATE TABLE deep_work_hour_tracker
     was_notable boolean,
     accomplishment text COLLATE pg_catalog."default",
     room integer NOT NULL,
-    CONSTRAINT deep_work_hour_tracker_pkey PRIMARY KEY (user_id, room),
+    CONSTRAINT deep_work_hour_tracker_pkey PRIMARY KEY (user_id, room, date),
     CONSTRAINT deep_work_hour_tracker_user_id_fkey FOREIGN KEY (user_id)
         REFERENCES public.users (id) MATCH SIMPLE
         ON UPDATE NO ACTION
