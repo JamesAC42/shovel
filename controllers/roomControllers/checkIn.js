@@ -99,6 +99,8 @@ async function checkIn(req, res, models, io) {
                     endDate: highScoreEndDate
                 });
             } else {
+                highScoreStartDate = highScoreEntry.startDate;
+                highScoreEndDate = highScoreEntry.endDate;
                 let currentHighScore = getElapsedDays(highScoreEntry.startDate, highScoreEntry.endDate) + 1;
                 if(currentStreak > currentHighScore) {
                     highScoreStartDate = startDate;
