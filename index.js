@@ -24,7 +24,11 @@ if(config.local) {
   });
 } else {
   io = new Server(httpServer, {
-  	path:'/socket'
+  	path:'/socket',
+    cors: {
+        origin: 'https://ovel.sh',
+        methods: ['GET','POST']
+    } 
   });
 }
 

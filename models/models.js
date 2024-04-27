@@ -53,7 +53,7 @@ const RoomRequest = sequelize.define('RoomRequest', {
     type: DataTypes.INTEGER,
     primaryKey: true,
     references: {
-      model: 'room',
+      model: 'Room',
       key: 'id',
     },
   },
@@ -62,7 +62,7 @@ const RoomRequest = sequelize.define('RoomRequest', {
     primaryKey: true,
     field: 'user_id',
     references: {
-      model: 'users',
+      model: 'User',
       key: 'id',
     },
   },
@@ -76,7 +76,7 @@ const RoomUser = sequelize.define('RoomUser', {
     type: DataTypes.INTEGER,
     primaryKey: true,
     references: {
-      model: 'room',
+      model: 'Room',
       key: 'id',
     },
   },
@@ -85,7 +85,7 @@ const RoomUser = sequelize.define('RoomUser', {
     field: 'user_id',
     primaryKey: true,
     references: {
-      model: 'users',
+      model: 'User',
       key: 'id',
     },
   },
@@ -101,7 +101,7 @@ const DeepWorkHourTracker = sequelize.define('DeepWorkHourTracker', {
     primaryKey: true,
     field: 'user_id',
     references: {
-      model: 'users',
+      model: 'User',
       key: 'id',
     }
   },
@@ -110,7 +110,7 @@ const DeepWorkHourTracker = sequelize.define('DeepWorkHourTracker', {
     allowNull: false,
     primaryKey: true,
     references: {
-      model: 'room',
+      model: 'Room',
       key: 'id',
     }
   },
@@ -140,7 +140,7 @@ const StreakTracker = sequelize.define('StreakTracker', {
     field: 'user_id',
     primaryKey: true,
     references: {
-      model: 'users',
+      model: 'User',
       key: 'id',
     },
   },
@@ -148,7 +148,7 @@ const StreakTracker = sequelize.define('StreakTracker', {
     type: DataTypes.INTEGER,
     primaryKey: true,
     references: {
-      model: 'room',
+      model: 'Room',
       key: 'id',
     },
   },
@@ -171,7 +171,7 @@ const StreakHighscore = sequelize.define('StreakHighscore', {
     field: 'user_id',
     primaryKey: true,
     references: {
-      model: 'users',
+      model: 'User',
       key: 'id',
     },
   },
@@ -179,7 +179,7 @@ const StreakHighscore = sequelize.define('StreakHighscore', {
     type: DataTypes.INTEGER,
     primaryKey: true,
     references: {
-      model: 'room',
+      model: 'Room',
       key: 'id',
     },
   },
@@ -205,7 +205,7 @@ const Goal = sequelize.define('Goal', {
   room: {
     type: DataTypes.INTEGER,
     references: {
-      model: 'room',
+      model: 'Room',
       key: 'id',
     },
   },
@@ -213,7 +213,7 @@ const Goal = sequelize.define('Goal', {
     type: DataTypes.INTEGER,
     field: 'user_id',
     references: {
-      model: 'users',
+      model: 'User',
       key: 'id',
     },
   },
@@ -249,7 +249,7 @@ const Task = sequelize.define('Task', {
     type: DataTypes.INTEGER,
     field: 'goal_id',
     references: {
-      model: 'goals',
+      model: 'Goal',
       key: 'id',
     },
   },
@@ -257,7 +257,7 @@ const Task = sequelize.define('Task', {
     type: DataTypes.INTEGER,
     field: 'user_id',
     references: {
-      model: 'users',
+      model: 'User',
       key: 'id',
     },
   },
@@ -290,14 +290,14 @@ const Journal = sequelize.define('Journal', {
     type: DataTypes.INTEGER,
     field: 'user_id',
     references: {
-      model: 'users',
+      model: 'User',
       key: 'id',
     },
   },
   room: {
     type: DataTypes.INTEGER,
     references: {
-      model: 'room',
+      model: 'Room',
       key: 'id',
     },
   },

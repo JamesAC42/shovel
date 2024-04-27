@@ -7,3 +7,10 @@ things to add:
 - filtering by tag and searching
 - ability to reorder the tasks and goals
 - mobile version or just nuke it if viewing on mobile tbh
+- edit tasks
+- Create future tasks
+- Multiple journal entries per day
+- Hide daily journal entries with dropdown
+- Attach artifacts to tasks and journal entries(code, links, pdfs)
+- Community rooms(popular rooms focused on a research field, area of interest anything advertised on the main page)
+- AI assistant(we have to add AI to every single product NOW)
