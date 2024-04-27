@@ -1,5 +1,6 @@
 import styles from '../../styles/room/todo.module.scss';
-import { FaTrashAlt, FaSave } from "react-icons/fa";
+import { FaTrashAlt, FaSave} from "react-icons/fa";
+import { TiCancel } from "react-icons/ti";
 import {useState, useContext} from 'react';
 import UserContext from "../../contexts/UserContext";
 import RoomContext from "../../contexts/RoomContext";
@@ -147,11 +148,23 @@ function Task({goal, activeTab, taskItem}) {
                     className={styles.editModeInput}
                     />
 
-                <button onClick={handleSaveClick} className={styles.saveEdit}><FaSave /></button>
-                <button onClick={handleCancelClick} className={styles.cancelEdit}>cancel</button>
+                    <div onClick={handleSaveClick} className={styles.saveEdit}>
+                        <FaSave />
+                        </div>
+                    <div onClick={handleCancelClick} className={styles.cancelEdit}>
+                        <TiCancel />
+                    </div>
                 </div>
             ) : (
-            <div className={styles.TaskName}>
+
+                <div className={styles.taskName}>
+                <div
+                    onClick={handleEditClick}
+                    className={`${styles.editTask} ${showEdit ? styles.showEditTask : ''}`}>
+                    <HiPencilAlt />
+                    </div>
+                
+            
                 <div
                     onClick={() => deleteTask()}
                     className={`${styles.deleteTask} ${showDelete ? styles.showDeleteTask : ''}`}>
@@ -159,14 +172,8 @@ function Task({goal, activeTab, taskItem}) {
                 </div>
                 <div
                 >
-                    {taskItem.title}
-                    <span
-                        onClick={handleEditClick}
-                        className={`${styles.editTask} ${showEdit ? styles.showEditTask : ''}`}
-                    >
-                    <HiPencilAlt />
-                    </span>
-                </div>
+                {taskItem.title}
+            </div>
                 
             </div>
         )}

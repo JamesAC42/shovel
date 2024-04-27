@@ -43,6 +43,7 @@ async function editTask(req, res, models, io) {
         await taskItem.save();
 
         // Update the task tags
+        /*
         if(tags) {
             await models.TaskTag.destroy({ where: { taskId: task } });
             for(let tag of tags) {
@@ -51,7 +52,7 @@ async function editTask(req, res, models, io) {
                     tag
                 });
             }
-        }
+        }*/
         
         res.status(200).json({ success: true, message: 'Task updated successfully' });
         io.to(room).emit('editTask', { task: taskItem });

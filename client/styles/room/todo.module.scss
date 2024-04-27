@@ -134,7 +134,7 @@
                         display:inline-block;
                         @include flex-center-row;
                         overflow:hidden;
-                        padding:2px 0;
+                        padding:0px 0;
                         color:var(--primary-color);
                         cursor:pointer;
                         &:hover {
@@ -150,24 +150,50 @@
                         }
                     }
                     .editModeContainer {
-                        flex-direction: column;
+                        display: flex;
                         gap: 8px;
                         color:var(--primary-color)
 
                     }
                     .editModeInput{
+                        flex: 1;
                         border: none;
                         background-color: transparent;
-                        color:var(--primary-color)
+                        color: var(--primary-color);
+                        font-size: 1rem;
+                        padding: 0.2rem 0;
+                        border-bottom: 1px solid var(--secondary-color);
+                        outline: none;
                         
                     }
                     .saveEdit{
+                        display: flex;
                         background:var(--primary-color);
-                        color:var(--background-color)
+                        color:var(--background-color);
+                        border-radius: 0.5rem;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        width: 2rem;
+                        height: 2rem;
+                        &:hover {
+                            filter:brightness(0.7);
+                        }
+
                     }
                     .cancelEdit{
-                        background: var(--primary-color);
-                        color:var(--background-color)
+                        display: flex;
+                        background:var(--primary-color);
+                        color:var(--error-color);
+                        border-radius: 0.5rem;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        width: 2rem;
+                        height: 2rem;
+                        &:hover {
+                            filter:brightness(0.7);
+                        }
 
                     }
                     .deleteTask {
