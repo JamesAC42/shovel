@@ -11,9 +11,10 @@ export default function App({ Component, pageProps }) {
     const [theme, setTheme] = useState('default');
     const [userInfo, setUserInfo] = useState(null);
     const [view, setView] = useState({
-        showShareBanner: false,
+        showBanner: false,
         showCustomThemePicker: false
     });
+    let intervalId;
 
     useEffect(() => {
 
@@ -28,6 +29,39 @@ export default function App({ Component, pageProps }) {
         }
 
     }, [theme])
+
+    useEffect(() => {
+        
+        const bannerTimer = localStorage.getItem('bannerTimer');
+        if(!bannerTimer) {
+            localStorage.setItem('bannerTimer', new Date().getTime() + (1000 * 60 * 5));
+        }
+
+        if(intervalId) {
+            clearInterval(intervalId);
+        }
+        intervalId = setInterval(() => {
+        
+            const bannerTimer = localStorage.getItem('bannerTimer');
+            if(bannerTimer) {
+                const showTime = parseInt(bannerTimer);
+                if (new Date().getTime() > showTime) {
+                    let v = JSON.parse(JSON.stringify(view));
+                    v.showBanner = true;
+                    setView(v);
+                    localStorage.setItem('bannerTimer', showTime + (1000 * 60 * 60 * 24 * 7));
+                }
+            }
+
+        }, 1000 * 60);
+
+        return () => {
+            if(intervalId) {
+                clearInterval(intervalId);
+            }
+        }
+
+    }, []);
 
     return (
         <ThemeContext.Provider value={{theme, setTheme}}>
