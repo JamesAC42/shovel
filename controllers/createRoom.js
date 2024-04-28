@@ -16,7 +16,7 @@ const createRoom = async (req, res, models) => {
         user = await getUserFromUsername(models, req.session.user.username);
 
         const rooms = await models.RoomUser.findAll({ where: { userId: user.id } });
-        if (rooms.length > 5) {
+        if (rooms.length >= 5) {
             return res.status(400).json({ success: false, message: 'You are already in the max number of rooms.' });
         }
         const existingRoom = await models.Room.findOne({ where: { name: roomName } });
