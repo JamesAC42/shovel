@@ -44,12 +44,12 @@ const validateRoom = async (req, res, models, io) => {
                 return res.status(500).json({ success: false, message: 'Error counting users in room.' });
             }
 
-            if(roomUsersCount > 6) {
+            if(roomUsersCount >= 5) {
                 return res.status(400).json({ success: false, message: 'Max number of users already in this room.' });
             }
 
             const roomsUserIn = await models.RoomUser.findAll({ where: { userId: user.id } });
-            if (roomsUserIn.length > 5) {
+            if (roomsUserIn.length >= 5) {
                 return res.status(400).json({ success: false, message: 'You are already in the max number of rooms.' });
             }
 
