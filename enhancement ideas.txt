@@ -14,3 +14,7 @@ things to add:
 - Attach artifacts to tasks and journal entries(code, links, pdfs)
 - Community rooms(popular rooms focused on a research field, area of interest anything advertised on the main page)
 - AI assistant(we have to add AI to every single product NOW)
+- Banner to encourage people to share
+- Make login page nicer 
+- Nested todo
+- Get people to share how they're using it and put on site

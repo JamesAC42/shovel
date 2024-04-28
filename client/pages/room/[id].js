@@ -13,6 +13,7 @@ import UserSession from '../../components/UserSession';
 import { io } from 'socket.io-client';
 import UserContext from '../../contexts/UserContext';
 import updateWorkHours from '../../reducers/updateWorkHours';
+import CustomThemePicker from '../../components/room/CustomThemePicker';
 
 export default function Room () {
 
@@ -235,6 +236,7 @@ export default function Room () {
 
     return (
         <RoomContext.Provider value={{roomData, setRoomData}}>
+            <CustomThemePicker />
             <div className={styles.roomOuter}>
                 <Head>
                     <title>{roomData ? `Shovel - ${roomData.name}` : ''}</title>

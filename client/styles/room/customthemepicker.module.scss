@@ -1,0 +1,93 @@
+@import "../variables.module.scss";
+
+.customthemebackground {
+    height:100vh;width:100vw;
+    position:fixed;top:0;left:0;
+    @include cover;
+    z-index:1000000;
+    @include fade-in;
+}
+
+.customthemeinner {
+    height:100vh;width:100vw;
+    position:relative;top:0;left:0;
+    @include flex-center-col;
+}
+
+.customthemecontainer {
+    @include slide-fade-in;
+    background:var(--background-color);
+    border:1px solid var(--secondary-color);
+    color:var(--primary-color);
+    border-radius:0.5rem;
+    padding:0.9rem 1.5rem;
+
+    .customthemeheader {
+        font-size:1.2rem;
+        font-weight:bold;
+        text-align:center;
+        border-bottom:1px solid var(--secondary-color);
+        padding-bottom:0.5rem;
+    }
+
+    .customthemeform {
+        .colorformitem {
+            display:flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin-top:0.5rem;
+
+            label {
+                margin-right:7rem;
+            }
+
+            input {
+                outline:none;
+                border:none;
+            }
+
+        }
+    }
+
+    .customthemeactions {
+        display:flex;
+        flex-direction: row;
+        gap:1rem;
+        align-items:center;
+        padding:0;
+        margin-top:1rem;
+
+        .save, .close, .reset {
+            padding:0.2rem 0.5rem;
+            border-radius:0.2rem;
+            background:var(--primary-color);
+            color:var(--background-color);
+            cursor:pointer;
+            &:hover {
+                opacity:0.5;
+            }
+            svg {
+                transform:translateY(2px);
+            }
+        }
+
+        .save {
+            margin-left:auto;
+            svg {
+                color:var(--glow);
+            }
+            &.saveDisabled {
+                opacity:0.5;
+                cursor:default;
+            }
+        }
+        
+        .close {
+            svg {
+                color:var(--background-slightly-dark);
+            }
+        }
+    }
+
+}

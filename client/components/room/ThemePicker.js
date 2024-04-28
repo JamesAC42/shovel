@@ -1,21 +1,42 @@
 import { useContext, useState } from 'react';
 import ThemeContext from '../../contexts/ThemeContext';
 import { FaPaintBrush } from "react-icons/fa";
+import { TbPencilPlus } from "react-icons/tb";
 import themes from "../../utilities/themes";
 import styles from "../../styles/room/themepicker.module.scss";
+import ViewContext from '../../contexts/ViewContext';
+import setSavedCustomThemeColors from '../../utilities/setSavedCustomThemeColors';
 
 function ThemePicker() {
 
     const {theme, setTheme} = useContext(ThemeContext);
+    const {view, setView} = useContext(ViewContext);
     const [showThemes, setShowThemes] = useState(false);
 
     const saveTheme = (t) => {
+
+        if(t === "custom") {
+            setSavedCustomThemeColors();
+        } else {
+            let themeParent = document.querySelector('.theme-parent');
+            if(themeParent) {
+                themeParent.removeAttribute('style');
+            }
+        }
+
         try {
             localStorage.setItem('theme', t);
         } catch(err) {
             console.error(err);
         }
+        
         setTheme(t);
+    }
+
+    const showCustomThemePicker = () => {
+        let v = JSON.parse(JSON.stringify(view));
+        v.showCustomThemePicker = !v.showCustomThemePicker;
+        setView(v);
     }
 
     return (
@@ -40,6 +61,17 @@ function ThemePicker() {
                                 </div> 
                             )
                         }
+                        
+                        <div    
+                            onClick={() => saveTheme('custom')} 
+                            className={`${styles.themeItem} ${styles.custom}`}>
+                            custom 
+                            <div
+                                onClick={() => showCustomThemePicker()} 
+                                className={styles.editCustomTheme}>
+                                <TbPencilPlus/>
+                            </div>
+                        </div> 
                     </div>
                 </div> : null
             }
