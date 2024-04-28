@@ -1,18 +1,26 @@
 @import './variables.module.scss';
 
 .homeOuter {
+
+    margin-top:-1px;
     color: var(--primary-color);
     background: var(--background-color);
     @include fixed-center;
-    @include flex-center-col;
-    height:100vh;width:100vw;
-    gap:0.5rem;
-    padding:1rem;
-    border:0.15rem solid var(--primary-color);
-    border:none;
-    border-radius:0.4rem;
-    box-shadow:0 0.16rem 0.8rem 0.1rem var(--background-dark);
+    overflow-y:scroll;
+    overflow-x:hidden;
+    height:100vh;
+    width:100vw;
     @include fade-in;
+
+    .homeSection {
+        width:100vw;
+    }
+    
+    .homeSectionMain {
+        @include flex-center-col;
+        height:100vh;
+    }
+
 }
 
 .title {
@@ -37,6 +45,11 @@
             cursor:pointer;
         }
     }
+}
+
+.subheader {
+    font-size:1.2rem;
+    margin-bottom:0.5rem;
 }
 
 .enter {
@@ -100,8 +113,161 @@
     border:2px solid var(--secondary-color);
     box-shadow:0 1rem 1rem 0.3rem var(--background-dark);
     @include flex-center-col;
+    @include slide-fade-in;
     img {
         height:69vh;
         width:auto;
     }
+}
+
+.infoSection {
+
+    padding:2rem 0;
+
+    .infoContainer {
+        padding:0 10rem;
+        text-align:center;
+        margin-bottom:5rem;
+        .infoHeader {
+            font-size:1.5rem;
+            font-weight:bold;
+            margin-bottom:1rem;
+            background:var(--background-dark);
+            padding:0.5rem 0;
+            border-radius:0.5rem;
+        }
+        .infoContent {
+            font-size:1.2rem;
+            a {
+                color:var(--link-color);
+                text-decoration:none;
+            }
+        }
+    }
+
+}
+
+.screenshotsOuter {
+
+    padding:2rem 0;
+    padding-bottom:0;
+
+    .screenshotItem {
+        @include flex-center-row;
+        gap:2rem;
+        div {flex: 1;}
+        margin-bottom:5rem;
+        
+        .screenshotPicture {
+            @include flex-center-row;
+            img {
+                margin-left:auto;
+                border:2px solid var(--secondary-color);
+                border-radius:1.2rem;
+                max-width:50%;height:auto;
+                box-shadow: 0 0.5rem 0.8rem 0.4rem var(--background-dark);
+            }
+        }
+
+        .screenshotDescription {
+            @include flex-center-row;
+            align-items: center;
+            .descInner {
+                max-width:50%;
+                margin-right:auto;
+                @include flex-center-col;
+                .descHeader {
+                    font-size:1.4rem;
+                    font-weight:bold;
+                    margin-bottom:1rem;
+                }
+                .descText {
+                    font-size:1.2rem;
+                    text-align:center;
+                }
+            }
+        }
+    }
+
+}
+
+.enterButtonContainer {
+    @include flex-center-row;
+    align-items:center;
+    gap:2rem;
+    margin-top:4rem;
+    .enter {
+        padding:0;
+        a {
+            padding:0.5rem 1rem;
+            height:1.5rem;
+            border-radius:0.8rem;
+        }
+        margin-top:0;
+    }
+    .linkButtonContainer {
+        @include flex-center-row;
+        gap:2rem;
+        .linkButton {
+            a {
+                height:1.5rem;
+                display:block;
+                border-radius:0.8rem;
+                background:var(--primary-color);
+                color:var(--background-color);
+                text-decoration:none;
+                padding:0.5rem 1rem;
+                cursor:pointer;
+                &:hover {
+                    opacity:0.5;
+                }
+            }
+            svg {
+                margin-left:0.8rem;
+                transform:translateY(3px);
+            }
+        }
+    }
+}
+
+.testimonials {
+
+    @include flex-center-row;
+    
+    .testimonialsContainer {
+        display:flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        max-width:70vw;
+
+        .testimonialItem {
+
+            flex: 0.5 0 40%;
+            height:15vw;
+            outline:1px solid var(---secondary-color);
+
+            @include flex-center-col;
+            gap:1rem;
+            text-align:center;
+            margin:1rem;
+
+            .testimonialText {
+                font-size:1.1rem;
+            }   
+    
+            .testimonialName {
+                font-weight:bold;
+            }
+    
+        }
+    }
+
+
+}
+
+
+.footer {
+    height:10vh;
+    text-align:center;
+    padding-left:2.4rem;
 }
