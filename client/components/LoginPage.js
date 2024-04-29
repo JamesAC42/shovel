@@ -1,8 +1,8 @@
 import styles from "../styles/room.module.scss";
 import Link from 'next/link';
 import { PiBackspace } from "react-icons/pi";
-import Login from "./login";
-import CreateUser from "./createUser";
+import Login from "./Login";
+import CreateUser from "./CreateUser";
 
 export default function LoginPage() {
     return (
