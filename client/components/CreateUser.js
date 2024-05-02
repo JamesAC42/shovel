@@ -16,12 +16,17 @@ function CreateUser() {
 
     function submitForm(e) {
         e.preventDefault();
-        if (!firstName || !lastName || !username || !password || !color) {
+
+        const trimmedFirstName = firstName.trim();
+        const trimmedLastName = lastName.trim();
+        const trimmedUsername = username.trim();
+        
+        if (!trimmedFirstName || !trimmedLastName || !trimmedUsername || !password || !color) {
             setErrorMessage("All fields must be filled");
             return;
         }
 
-        if (firstName.length > 50 || lastName.length > 50 || username.length > 50 || password.length > 50) {
+        if (trimmedFirstName.length > 50 || trimmedLastName.length > 50 || trimmedUsername.length > 50 || password.length > 50) {
             setErrorMessage("Input exceeds maximum length of 50 characters");
             return;
         }
@@ -42,9 +47,9 @@ function CreateUser() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                firstName,
-                lastName,
-                username,
+                firstName: trimmedFirstName,
+                lastName: trimmedLastName,
+                username: trimmedUsername,
                 password,
                 color
             }),
