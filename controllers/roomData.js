@@ -3,10 +3,12 @@ const getDeepWorkWeek = require("../repositories/getDeepWorkWeek");
 async function roomData (req, res, models) {
 
     let roomId = req.query.id;
+    let inputDate = req.query.date;
     const username = req.session.user?.username;
-
-    if (!username) {
-        res.json({ success: false, message: "User not logged in." });
+    
+    const dateRegEx = /^\d{4}-\d{2}-\d{2}$/;
+    if(!dateRegEx.test(inputDate)) {
+        res.status(400).json({ success: false, message: 'Invalid date format. Expected format: yyyy-mm-dd' });
         return;
     }
 
@@ -23,17 +25,24 @@ async function roomData (req, res, models) {
             return;
         }
 
-        const currentUser = await models.User.findOne({ where: { username: username } });
-        if (!currentUser) {
-            res.json({ success: false, message: "User not found." });
-            return;
+        if(!room.public) {
+            if(!username) {
+                res.json({ success: false, message: "This room is not public." });
+                return;
+            } else {
+                const currentUser = await models.User.findOne({ where: { username: username } });
+                if (!currentUser) {
+                    res.json({ success: false, message: "User not found." });
+                    return;
+                }
+                const userRoom = await models.RoomUser.findOne({ where: { userId: currentUser.id, room: roomId } });
+                if (!userRoom) {
+                    res.json({ success: false, message: "User does not belong to this room." });
+                    return;
+                }
+            }
         }
 
-        const userRoom = await models.RoomUser.findOne({ where: { userId: currentUser.id, room: roomId } });
-        if (!userRoom) {
-            res.json({ success: false, message: "User does not belong to this room." });
-            return;
-        }
         
         // this is the data to be sent back and the structure:
         /* let data = {
@@ -90,7 +99,8 @@ async function roomData (req, res, models) {
             let userInfo = await models.User.findOne({ where: { id: userid } });
             delete userInfo.dataValues.password;
             
-            let deepWorkTracker = await getDeepWorkWeek(userid, roomId, models.DeepWorkHourTracker);
+            let deepWorkTracker = await getDeepWorkWeek(userid, roomId, inputDate, models.DeepWorkHourTracker);
+
             let currentStreak = await models.StreakTracker.findOne({ where: { userId: userid, room: roomId } });
             let streakHighScore = await models.StreakHighscore.findOne({ where: { userId: userid, room: roomId } });
             let goals = await models.Goal.findAll({ where: { userId: userid, room: roomId } });
@@ -177,6 +187,7 @@ async function roomData (req, res, models) {
 
         data.id = roomId;
         data.name = room.name;
+        data.public = room.public ? true : false;
 
         res.json({success:true, data});
 

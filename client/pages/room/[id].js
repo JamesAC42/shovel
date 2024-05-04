@@ -15,6 +15,7 @@ import UserContext from '../../contexts/UserContext';
 import updateWorkHours from '../../reducers/updateWorkHours';
 import CustomThemePicker from '../../components/room/CustomThemePicker';
 import Banner from '../../components/room/Banner';
+import getToday from '../../utilities/getToday';
 
 export default function Room () {
 
@@ -211,8 +212,10 @@ export default function Room () {
 
         setLoading(true);
 
+        const d = getToday();
+
         try {
-            const response = await fetch(`/api/roomData?id=${id}`);
+            const response = await fetch(`/api/roomData?id=${id}&date=${d}`);
             const data = await response.json();
             if(!data.success) {
                 Router.push("/room");
