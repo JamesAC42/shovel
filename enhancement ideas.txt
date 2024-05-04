@@ -1,6 +1,7 @@
 things to add: 
 
 - change the week to view past work hours
+- save journal input text when you switch tabs
 - edit past journal entries
 - write out what the accomplishment was for a given day
 - more detail for tasks other than title
