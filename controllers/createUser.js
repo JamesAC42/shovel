@@ -5,6 +5,10 @@ const createUser = async (req, res, models) => {
 
     let { firstName, lastName, username, password, color } = req.body;
 
+    firstName = firstName.trim();
+    lastName = lastName.trim();
+    username = username.trim();
+
     if (!firstName || !lastName || !username || !password) {
         res.status(400).json({ success: false, message: 'All fields are required' });
         return;
