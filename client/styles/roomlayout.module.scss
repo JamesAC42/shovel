@@ -35,3 +35,36 @@
         }
     }
 }
+
+.mobileNotice {
+    height:100vh;width:100vw;
+    background:rgba(4, 5, 14, 0.934);
+    z-index:9999999;
+    position:fixed;
+    top:0;left:0;
+    color:#fff;
+    @include flex-center-col;
+    font-size:1.3rem;
+    text-align:center;
+    gap:1rem;
+    display:none;
+    a {
+        display:block;
+        border:1px solid #fff;
+        border-radius:1.2rem;
+        padding:0.2rem 0.8rem;
+        text-decoration: none;
+        color:#fff;
+        cursor:pointer;
+        &:hover {
+            background:#fff;
+            color:#000;
+        }
+    }
+    @media (max-width: 900px) {
+        @include flex-center-col;
+    }
+    @media (max-width: 800px) {
+        font-size:1rem;
+    }
+}

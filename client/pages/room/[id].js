@@ -16,6 +16,7 @@ import updateWorkHours from '../../reducers/updateWorkHours';
 import CustomThemePicker from '../../components/room/CustomThemePicker';
 import Banner from '../../components/room/Banner';
 import getToday from '../../utilities/getToday';
+import Link from 'next/link';
 
 export default function Room () {
 
@@ -260,6 +261,10 @@ export default function Room () {
                         <Journal />
                     </div>
                 </div>
+            </div>
+            <div className={styles.mobileNotice}>
+                Shovel is currently only supported on desktop and laptop devices.
+                <Link href="/">Go Back</Link>
             </div>
         </RoomContext.Provider>
     )
