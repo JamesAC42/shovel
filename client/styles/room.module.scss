@@ -43,6 +43,9 @@
     border-radius:0.4rem;
     gap:2rem;
     @include fade-in;
+    @media (max-width: 800px) {
+        @include flex-center-col;
+    }
 }
 
 .backHome {
