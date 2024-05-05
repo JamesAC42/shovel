@@ -17,6 +17,18 @@
     border-radius:0.4rem;
     box-shadow:0 0.16rem 0.8rem 0.1rem var(--background-dark);
     @include fade-in;
+    
+    @media (max-width: 900px) {
+        @include flex-center-col;
+        align-items:stretch;
+        width:95vw;
+        max-height:calc(100vh - 5rem);
+        overflow-y:scroll;
+        display:block;
+        h2 {
+            text-align:center;
+        }
+    }
 }
 
 .loggedIn {
@@ -77,6 +89,13 @@
 
 .login {
     border-right:1px solid var(--secondary-color);
+    
+
+    @media (max-width: 900px) {
+        border-right:none;
+        border-bottom:1px solid var(--secondary-color);
+        padding: 0 1rem;
+    }
 }
 
 .login form, .createUser form {
@@ -94,6 +113,12 @@
     gap:1rem;
     white-space:nowrap;
     justify-content: space-between;
+
+    @media (max-width: 900px) {
+        flex-direction: column;
+        gap:0.6rem;
+        text-align:left;
+    }
 }
 
 @mixin formInput {
@@ -110,7 +135,14 @@
 .createUser form label input {
     flex:1;
     max-width:50%;
-    @include formInput
+    @include formInput;
+    @media (max-width: 900px) {
+        width:90%;
+        text-align:center;
+    }
+    @media (max-width: 500px) {
+        min-width:90%;
+    }
 }
 
 .errorMessage, .joinStatus {
