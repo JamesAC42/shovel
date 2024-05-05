@@ -1,0 +1,16 @@
+@import "../variables.module.scss";
+
+.visibilityControl {
+
+    height:2rem;
+    @include flex-center-row;
+
+    cursor:pointer;
+    font-size:1.3rem;
+
+    transform:scale(1.1);
+    margin-left:0.9rem;
+    &:hover {
+        filter:brightness(1.5);
+    }
+}

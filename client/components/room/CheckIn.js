@@ -5,7 +5,6 @@ import { FaRegCheckCircle  } from "react-icons/fa";
 import RoomContext from "../../contexts/RoomContext";
 import UserContext from "../../contexts/UserContext";
 import getToday from '../../utilities/getToday';
-import elapsedDays from '../../utilities/elapsedDays';
 
 function CheckIn() {
 
@@ -74,7 +73,10 @@ function CheckIn() {
             clearInterval(streakInterval);
         };
 
-    }, [roomData]);
+    }, [roomData, userInfo]);
+
+    if(!userInfo) return null;
+    if(!roomData) return null;
 
     return (
         <div

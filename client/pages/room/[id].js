@@ -29,7 +29,7 @@ export default function Room () {
     const [roomData, setRoomData] = useState({});
     const [loading, setLoading] = useState(true);
 
-    const reconnectSocket = (user) => {
+    const reconnectSocket = () => {
 
         if(!id) return;
 
@@ -184,27 +184,15 @@ export default function Room () {
             })
         });
 
+        newSocket.on('visibilityUpdate', (data) => {
+            setRoomData(prevRoomData => {
+                const oldData = JSON.parse(JSON.stringify(prevRoomData));
+                oldData.public = data.public;
+                return oldData;
+            })
+        });
+
     }
-
-    useEffect(() => {
-        
-        fetchData();
-        
-        if(userInfo?.id) {
-            reconnectSocket(userInfo.id);
-        }
-
-    }, [id, userInfo]);
-
-    useEffect(() => {
-
-        return () => {
-            if(socketRef.current) {
-                socketRef.current.disconnect();
-            }
-        }
-
-    }, []);
 
     const fetchData = async () => {
 
@@ -234,6 +222,23 @@ export default function Room () {
 
         setLoading(false);
     }
+
+    useEffect(() => {
+        
+        fetchData();
+        reconnectSocket();
+
+    }, [id]);
+
+    useEffect(() => {
+
+        return () => {
+            if(socketRef.current) {
+                socketRef.current.disconnect();
+            }
+        }
+
+    }, []);
     
     if(loading) return <div className={styles.loading}><div>Loading...</div></div>
     if(!roomData) return <div>Room not found</div>

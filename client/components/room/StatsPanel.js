@@ -14,6 +14,7 @@ import { IoMdBackspace } from "react-icons/io";
 import { FaQuestionCircle } from "react-icons/fa";
 import Link from 'next/link';
 import CheckIn from './CheckIn';
+import VisibilityControl from './VisibilityControl';
 
 function StatsPanel() {
 
@@ -61,6 +62,7 @@ function StatsPanel() {
                     </div>
                     <Requests />
                     <ThemePicker />
+                    <VisibilityControl />
 
                     <div
                         onClick={() => alert("For questions, comments, bug reports, or feature suggestions, please send an email to ovelsh.feedback@gmail.com")}

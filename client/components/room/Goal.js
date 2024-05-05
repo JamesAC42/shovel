@@ -108,9 +108,15 @@ function Goal({activeTab, goalItem}) {
     }
 
     const toggleDelete = (show) => {
+        if(!userInfo) return;
         if(activeTab === userInfo.id) {
             setShowDelete(show);
         }
+    }
+
+    const showNewTask = () => {
+        if(!userInfo) return null;
+        return userInfo.id === activeTab;
     }
 
     let {
@@ -158,7 +164,7 @@ function Goal({activeTab, goalItem}) {
                     )
                 }
                 {
-                    userInfo.id === activeTab ?
+                    showNewTask() ?
                     <div className={styles.newTaskContainer}>
                         <input
                             ref={inputRef}

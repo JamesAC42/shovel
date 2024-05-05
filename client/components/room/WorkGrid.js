@@ -182,7 +182,6 @@ function WorkGrid() {
     */
 
     if(roomData === null) return null;
-    if(userInfo === null) return null;
     if(dateList.length === 0) return null;
     if(Object.keys(userDates).length === 0) return null;
 

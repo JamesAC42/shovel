@@ -77,6 +77,7 @@ function Journal() {
 
     const showInput = () => {
         
+        if(!userInfo) return null;
         if(activeTab !== userInfo.id) return false;
         if(!currentYear || !currentMonth) {
             return true;
@@ -94,6 +95,10 @@ function Journal() {
         let dates = {};
 
         let monthFound = false;
+
+        let monthNow = new Date().toLocaleString('default', { month: 'long' });
+        let yearNow = new Date().getFullYear().toString();
+        dates[yearNow] = [monthNow];
 
         for(let id in journal) {
             
@@ -204,10 +209,13 @@ function Journal() {
     useEffect(() => {
         
         if(!roomData) return;
-        if(!userInfo) return;
 
         if(!activeTab) {
-            setActiveTab(userInfo.id);
+            if(userInfo) {
+                setActiveTab(userInfo.id);
+            } else {
+                setActiveTab(parseInt(Object.keys(roomData.users)[0]));
+            }
         } else {
             generateEntries();
         }
@@ -229,7 +237,6 @@ function Journal() {
     }, [activeTab]);
 
     if(!roomData) return null;
-    if(!userInfo) return null;
 
     return (
         <div className={styles.journalOuter}>

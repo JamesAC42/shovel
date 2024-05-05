@@ -19,9 +19,8 @@ function Todo() {
     const getGoals = () => {
 
         if(!roomData) return {};
-        if(!userInfo) return {};
-        
-        let userGoals = activeTab ?? userInfo.id;
+
+        let userGoals = activeTab ?? userInfo?.id ?? Object.keys(roomData.users)[0];
         return roomData.users[userGoals].goals;
 
     }
@@ -37,7 +36,7 @@ function Todo() {
         return(
             <div className={styles.noGoals}>
                 {
-                    activeTab === userInfo.id ?
+                    showNewGoal() ?
                     <>
                     Add a new goal <FaArrowDownLong />
                     </> : "No goals yet"
@@ -79,18 +78,25 @@ function Todo() {
         }
     }
 
-    useEffect(() => {
+    const showNewGoal = () => {
+        if(!userInfo) return false;
+        return activeTab === userInfo.id;
+    }
 
-        if(!userInfo) return; 
+    useEffect(() => {
         
+        if(!roomData) return;
         if(!activeTab) {
-            setActiveTab(userInfo.id);
+            if(userInfo) {
+                setActiveTab(userInfo.id);
+            } else {
+                setActiveTab(parseInt(Object.keys(roomData.users)[0]));
+            }
         }
     
-    }, [userInfo]);
+    }, [roomData]);
 
     if(!roomData) return null;
-    if(!userInfo) return null;
 
     return (
         <div className={styles.todoOuter}>
@@ -107,7 +113,7 @@ function Todo() {
                 }
 
                 { 
-                    activeTab === userInfo.id ? 
+                    showNewGoal() ? 
                     <div className={styles.newGoal}>
                         <input
                             onChange={(e) => setGoalInput(e.target.value)}

@@ -42,6 +42,9 @@ const Room = sequelize.define('Room', {
   },
   name: {
     type: DataTypes.STRING(50),
+  },
+  public: {
+    type: DataTypes.BOOLEAN
   }
 }, {
   tableName: 'room',

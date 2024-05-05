@@ -128,6 +128,8 @@ export default function DeepWorkButtons() {
 
     };
 
+    if(!userInfo) return null;
+
     return (
         <div className={styles.workButtons}>
             <div className={styles.addButtons}>

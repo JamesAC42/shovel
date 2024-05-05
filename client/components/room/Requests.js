@@ -6,11 +6,13 @@ import { CgCloseO } from "react-icons/cg";
 import { FaCheck } from "react-icons/fa";
 
 import styles from "../../styles/room/requests.module.scss";
+import UserContext from "../../contexts/UserContext";
 
 function Requests() {
 
     const [showRequests, setShowRequests] = useState(false);
     const {roomData, setRoomData} = useContext(RoomContext);
+    const {userInfo} = useContext(UserContext);
 
     const requestReply = async (username, accept) => {
         
@@ -37,6 +39,8 @@ function Requests() {
     }
 
     const requests = roomData.joinRequests;
+
+    if(!userInfo) return null;
 
     return (
         

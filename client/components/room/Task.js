@@ -44,6 +44,7 @@ function Task({goal, activeTab, taskItem}) {
 
     const toggleTask = async () => {
 
+        if(!userInfo) return;
         if(activeTab !== userInfo.id) return;
         const response = await fetch('/api/toggleTask', {
             method: 'POST',
@@ -65,7 +66,8 @@ function Task({goal, activeTab, taskItem}) {
     }
 
     const toggleDelete = (show) => {
-        if(activeTab === userInfo.id) {
+        if(!userInfo) return;
+        if(activeTab === userInfo?.id) {
             setShowDelete(show);
         }
     }
@@ -83,7 +85,7 @@ function Task({goal, activeTab, taskItem}) {
             className={`${styles.taskItem} ${dateCompleted ? styles.taskItemCompleted : ''}`}>
             <div
                 onClick={() => toggleTask()} 
-                className={`${styles.taskCheck} ${activeTab === userInfo.id ? styles.taskCheckEditable : ''}`}>
+                className={`${styles.taskCheck} ${activeTab === userInfo?.id ? styles.taskCheckEditable : ''}`}>
                 {
                     dateCompleted ? <FaCheck /> : null
                 }
