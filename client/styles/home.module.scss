@@ -28,6 +28,10 @@
     font-weight:bold;
     font-size:1.6rem;
     gap:10px;
+    text-align:center;
+    @media (max-width: 500px) {
+        font-size:2rem;
+    }
 }
 
 .links {
@@ -45,11 +49,21 @@
             cursor:pointer;
         }
     }
+    @media (max-width: 500px) {
+        margin:1rem 0;
+    }
 }
 
 .subheader {
     font-size:1.2rem;
     margin-bottom:0.5rem;
+    text-align:center;
+    @media (max-width: 500px) {
+        font-size:1rem;
+    }
+    @media (max-width: 300px) {
+        padding:0 3rem;
+    }
 }
 
 .enter {
@@ -118,6 +132,13 @@
         height:69vh;
         width:auto;
     }
+    
+    @media (max-width: 1200px) {
+        img {
+            height:auto;
+            width:90vw;
+        }
+    }
 }
 
 .infoSection {
@@ -142,6 +163,12 @@
                 color:var(--link-color);
                 text-decoration:none;
             }
+        }
+        @media (max-width: 800px) {
+            padding:0 5rem;
+        }
+        @media (max-width: 600px) {
+            padding:0 2rem;
         }
     }
 
@@ -187,6 +214,33 @@
                 }
             }
         }
+        @media (max-width: 1300px) {
+            .screenshotPicture {
+                img {
+                    max-width:70%;
+                }
+            }
+            .screenshotDescription {
+                .descInner {
+                    max-width:70%;
+                }
+            }
+        }
+        @media (max-width: 900px) {
+            @include flex-center-col;
+            .screenshotPicture {
+                img {
+                    max-width:70%;
+                    margin:0;
+                }
+            }
+            .screenshotDescription {
+                .descInner {
+                    margin:0;
+                    max-width:70%;
+                }
+            }
+        }
     }
 
 }
@@ -228,6 +282,9 @@
             }
         }
     }
+    @media (max-width: 900px) {
+        @include flex-center-col;
+    }
 }
 
 .testimonials {
@@ -262,6 +319,13 @@
         }
     }
 
+    @media (max-width: 900px) {
+        @include flex-center-col;
+        .testimonialsContainer {
+            @include flex-center-col;
+        }
+    }
+
 
 }
 
@@ -270,4 +334,7 @@
     height:10vh;
     text-align:center;
     padding-left:2.4rem;
+    @media (max-width: 900px) {
+        padding-left:0;
+    }
 }
