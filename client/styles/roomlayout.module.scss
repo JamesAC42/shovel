@@ -37,7 +37,7 @@
 }
 
 .mobileNotice {
-    height:100vh;width:100vw;
+    height:100vh;width:calc(100vw - 2rem);
     background:rgba(4, 5, 14, 0.934);
     z-index:9999999;
     position:fixed;
@@ -48,6 +48,7 @@
     text-align:center;
     gap:1rem;
     display:none;
+    padding:1rem;
     a {
         display:block;
         border:1px solid #fff;

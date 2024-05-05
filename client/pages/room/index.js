@@ -15,7 +15,7 @@ export default function Room() {
     return (
         <div className={styles.roomTop}>
             <Head>
-                <title>Shovel</title>
+                <title>shovel</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             <div className={styles.roomOuter}>

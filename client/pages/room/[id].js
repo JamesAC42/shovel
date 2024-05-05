@@ -250,7 +250,7 @@ export default function Room () {
             <Banner />
             <div className={styles.roomOuter}>
                 <Head>
-                    <title>{roomData ? `Shovel - ${roomData.name}` : ''}</title>
+                    <title>{roomData ? `shovel - ${roomData.name}` : ''}</title>
                     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                 </Head>
                 <UserSession />

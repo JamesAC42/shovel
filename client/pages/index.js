@@ -13,7 +13,7 @@ const EnterButton = () => {
         target="_self"
         href="/room">
         <span>
-          Try Now for Free 
+          try now for free
           <FaCircleArrowRight />
         </span>
       </Link>
@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Shovel</title>
+        <title>shovel</title>
         <link rel="icon" href="/favicon.ico" />                
       </Head>
       <div className={styles.homeOuter}>
@@ -41,7 +41,7 @@ export default function Home() {
             </Link>
           </div>
           <div className={styles.subheader}>
-            A Productivity Tool for Going Deep
+            a productivity tool for going deep
           </div>
           <EnterButton />
 
@@ -57,28 +57,10 @@ export default function Home() {
 
           <div className={styles.infoContainer}>
             <div className={styles.infoHeader}>
-              what is deep work? 
-            </div>
-            <div className={styles.infoContent}>
-              deep work is defined as "distraction free concentration that pushes cognitive abilities to their limit." The fruits of a deep work session are usually hard to reproduce and create new value. see the book <Link href="https://www.amazon.com/Deep-Work-Focused-Success-Distracted/dp/1455586692" target="_blank">Deep Work</Link> by Cal Newport.
-            </div>
-          </div>
-
-          <div className={styles.infoContainer}>
-            <div className={styles.infoHeader}>
-              why should I care?
-            </div>
-            <div className={styles.infoContent}>
-              the ability to go deep is becoming increasingly rare. to be able to go deep gives one an enormous economical advantage over others.
-            </div>
-          </div>
-
-          <div className={styles.infoContainer}>
-            <div className={styles.infoHeader}>
               what is shovel?
             </div>
             <div className={styles.infoContent}>
-              shovel is a productivity tool to help you go deep in your work. it aims to provide a sleek and simple way to organize your thoughts, minimize distractions, and stay consistent with getting things done.
+              shovel is a productivity tool to help you go deep in your work. it aims to eliminate distractions with a sleek and simple interface that holds your tasks, notes, thoughts, and progress all in one view. create or join a room with up to 5 people to collaborate asynchronously. a daily check in button allows you to build a streak and ensures you get something done every day.
             </div>
           </div>
 
@@ -88,6 +70,24 @@ export default function Home() {
             </div>
             <div className={styles.infoContent}>
               shovel puts the <span className={styles.infoBold}>past</span>, <span className={styles.infoBold}>present</span>, and <span className={styles.infoBold}>future</span> in one space so your mind can focus on the work in front of you. your goals and tasks are for future work, your work grid is for making sure you committed hours of deep work towards your goals every day, and your journal is for jogging down ideas, progress notes, and updates so that there's never too many distracting thoughts running through your mind at once.
+            </div>
+          </div>
+
+          <div className={styles.infoContainer}>
+            <div className={styles.infoHeader}>
+              what is deep work? 
+            </div>
+            <div className={styles.infoContent}>
+              deep work is defined as <span className={styles.infoBold}>"distraction free concentration that pushes cognitive abilities to their limit."</span> the fruits of a deep work session are usually hard to reproduce and create new value. it is also known as working in a <span className={styles.infoBold}>flow state</span>. see the book <Link href="https://www.amazon.com/Deep-Work-Focused-Success-Distracted/dp/1455586692" target="_blank">Deep Work</Link> by Cal Newport for more information.
+            </div>
+          </div>
+
+          <div className={styles.infoContainer}>
+            <div className={styles.infoHeader}>
+              why should I care?
+            </div>
+            <div className={styles.infoContent}>
+              the ability to go deep is becoming increasingly rare in the modern world due a misguided work culture of quick wins and multitasking. one who can consistently go deep has an <span className={styles.infoBold}>enormous economical advantage </span> over others because the results are meaningful and impossible to reproduce from shallow work - it often results in new insights or difficult to find solutions. deep work can also make you <span className={styles.infoBold}>happier </span>- humans are problem solvers and enjoy being challenged. the flow state is the pinnacle of this mindset and it feels good to be there, even better than relaxing. 
             </div>
           </div>
 
@@ -104,10 +104,10 @@ export default function Home() {
               <div className={styles.screenshotDescription}>
                 <div className={styles.descInner}>
                   <div className={styles.descHeader}>
-                    Goals and Tasks  
+                    goals and tasks  
                   </div>
                   <div className={styles.descText}>
-                    Track goals with start and end dates, and add sub-tasks to prioritize and maintain remaining work. Give tasks individual tags to help categorize types of work (coming soon: filtering and searching by tag)
+                    track goals with start and end dates, and add sub-tasks to prioritize and maintain remaining work. give tasks individual tags to help categorize types of work (coming soon: filtering and searching by tag)
                   </div>
                 </div>
               </div>
@@ -124,10 +124,10 @@ export default function Home() {
               <div className={styles.screenshotDescription}>
                 <div className={styles.descInner}>
                   <div className={styles.descHeader}>
-                    Daily Journal
+                    daily journal
                   </div>
                   <div className={styles.descText}>
-                    Write down progress made, notes, ideas, and anything else on your mind in a daily journal entry. Your entry can be edited throughout the day, but is locked once the day is over. This is to keep you focused on current affairs instead of worrying about the past.
+                    write down progress made, notes, ideas, and anything else on your mind in a daily journal entry. your entry can be edited throughout the day, but is locked once the day is over. this is to keep you focused on current affairs instead of worrying about the past.
                   </div>
                 </div>
               </div>
@@ -144,10 +144,10 @@ export default function Home() {
               <div className={styles.screenshotDescription}>
                 <div className={styles.descInner}>
                   <div className={styles.descHeader}>
-                    Work Grid
+                    work grid
                   </div>
                   <div className={styles.descText}>
-                    Quickly record how many hours of deep work you were able to get in each day, indicated by dots in a weekly grid so it's easy to see at a glance the kind of time you are able to dedicate towards your goals. Give a day a special highlight to show you accomplished something that day and be reminded that hard work pays off.
+                    quickly record how many hours of deep work you were able to get in each day, indicated by dots in a weekly grid so it's easy to see at a glance the kind of time you are able to dedicate towards your goals. give a day a special highlight to show you accomplished something that day and be reminded that hard work pays off.
                   </div>
                 </div>
               </div>
@@ -164,10 +164,10 @@ export default function Home() {
               <div className={styles.screenshotDescription}>
                 <div className={styles.descInner}>
                   <div className={styles.descHeader}>
-                    Daily Check In
+                    daily check in
                   </div>
                   <div className={styles.descText}>
-                    Check in each day and maintain a streak so you know you're putting in the time every day and building momentum. 
+                    check in each day and maintain a streak so you know you're putting in the time every day and building momentum. 
                   </div>
                 </div>
 
@@ -185,10 +185,10 @@ export default function Home() {
               <div className={styles.screenshotDescription}>
                 <div className={styles.descInner}>
                   <div className={styles.descHeader}>
-                    Multi-User Rooms
+                    multi-user rooms
                   </div>
                   <div className={styles.descText}>
-                    Join or create up to 5 different rooms, each with up to 5 people, so you can keep up with what your friends/coworkers are up to, get the latest updates, offer support, provide accountability, or be inspired. See everyone's goals, tasks, journals, hours, and streak in the same room and updated in real time.
+                    join or create up to 5 different rooms, each with up to 5 people, so you can keep up with what your friends/coworkers are up to, get the latest updates, offer support, provide accountability, or be inspired. see everyone's goals, tasks, journals, hours, and streak in the same room and updated in real time.
                   </div>
                 </div>
               </div>
@@ -205,10 +205,10 @@ export default function Home() {
               <div className={styles.screenshotDescription}>
                 <div className={styles.descInner}>
                   <div className={styles.descHeader}>
-                    Themes
+                    themes
                   </div>
                   <div className={styles.descText}>
-                    Choose from over 30 themes or customize your own so that your workspace feels like yours.
+                    choose from over 30 themes or customize your own so that your workspace feels like yours.
                   </div>
                 </div>
               </div>

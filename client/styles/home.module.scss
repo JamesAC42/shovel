@@ -163,6 +163,9 @@
                 color:var(--link-color);
                 text-decoration:none;
             }
+            .infoBold {
+                font-weight:bold;
+            }
         }
         @media (max-width: 800px) {
             padding:0 5rem;
