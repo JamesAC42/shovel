@@ -64,6 +64,7 @@ const deleteUpdate = require('./controllers/socialControllers/deleteUpdate');
 const editFeedbackPost = require('./controllers/socialControllers/editFeedbackPost');
 const getAdminUsernames = require('./controllers/socialControllers/getAdmins');
 const deleteFeedbackPostAdmin = require('./controllers/socialControllers/deleteFeedbackPostAdmin');
+const getStats = require('./controllers/getStats');
 
 sequelize.sync()
   .then(() => {
@@ -209,6 +210,10 @@ app.get('/getUpdates', (req, res) => {
 
 app.get('/getAdminUsernames', (req, res) => {
   getAdminUsernames(req, res, redisClient);
+});
+
+app.get('/getStats', (req, res) => {
+  getStats(req, res, models);
 });
 
 io.on('connection', handleConnection);

@@ -6,6 +6,7 @@ import { IoMail } from "react-icons/io5";
 import Link from 'next/link'; 
 import Image from 'next/image';
 import NavBar from '../components/NavBar';
+import { useEffect, useState } from 'react';
 
 const EnterButton = () => {
   return (
@@ -23,6 +24,25 @@ const EnterButton = () => {
 }
 
 export default function Home() {
+
+  let [stats, setStats] = useState({});
+  
+  const getStats = async () => {
+    try {
+        const response = await fetch(`/api/getStats`);
+        const data = await response.json();
+        if(data.success) { 
+            setStats(data.data);
+        }
+    } catch(err) {
+        console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    getStats();
+  }, []);
+
   return (
     <div>
       <Head>
@@ -94,6 +114,8 @@ export default function Home() {
           </div>
 
           <div className={styles.screenshotsOuter}>
+
+            <div className={styles.screenshotsHeader}>features</div>
 
             <div className={styles.screenshotItem}>
               <div className={styles.screenshotPicture}>
@@ -217,6 +239,30 @@ export default function Home() {
             </div>
 
           </div>
+
+          {
+            stats.numberOfRooms ?
+            <div className={styles.statsOuter}>
+              <div className={styles.statsItem}>
+                <span className={styles.statsFigure}>{stats.numberOfUsers}</span> users
+              </div>
+              <div className={styles.statsItem}>
+                <span className={styles.statsFigure}>{stats.numberOfRooms}</span> rooms
+              </div>
+              <div className={styles.statsItem}>
+                <span className={styles.statsFigure}>{stats.totalGoals}</span> goals in progress
+              </div>
+              <div className={styles.statsItem}>
+                <span className={styles.statsFigure}>{stats.totalTasksCompleted}</span> tasks completed
+              </div>
+              <div className={styles.statsItem}>
+                <span className={styles.statsFigure}>{stats.totalHoursTracked}</span> hours of deep work logged
+              </div>
+              <div className={styles.statsItem}>
+                <span className={styles.statsFigure}>{stats.totalJournalEntries}</span> journal entries
+              </div>
+            </div> : null
+          }
 
           <div className={styles.testimonials}>
             <div className={styles.testimonialsContainer}>

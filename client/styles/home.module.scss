@@ -180,14 +180,24 @@
 
 .screenshotsOuter {
 
-    padding:2rem 0;
     padding-bottom:0;
+
+    .screenshotsHeader {
+        font-size:1.8rem;
+        font-weight:700;
+        text-align:center;
+        margin-bottom:2rem;
+    }
 
     .screenshotItem {
         @include flex-center-row;
         gap:2rem;
         div {flex: 1;}
         margin-bottom:5rem;
+
+        &:last-child {
+            margin-bottom:8rem;
+        }
         
         .screenshotPicture {
             @include flex-center-row;
@@ -245,6 +255,48 @@
                 }
             }
         }
+    }
+
+}
+
+.statsOuter {
+
+    @include flex-center-row;
+    flex-wrap:wrap;
+
+    margin-bottom:3rem;
+    margin-top:4rem;
+
+    gap:2rem;
+    padding:0 15rem;
+
+    .statsItem {
+        @include flex-center-col;
+        
+        font-size:1.4rem;
+        text-align:center;
+        background:var(--journal-entry-background);
+        padding:1rem;
+        border-radius:0.6rem;
+        border:2px solid var(--secondary-color);
+        box-shadow:0 0.5rem 2rem 0.5rem var(--background-dark);
+
+        transition:transform .1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+        &:hover {
+            transform:translateY(-5px) scale(1.1);
+        }
+        
+        .statsFigure {
+            font-weight:700;
+            color:var(--glow);
+        }
+    }
+    @media (max-width: 1100px) {
+        padding: 0 10rem;
+    }
+    @media (max-width: 600px) {
+        padding: 0 5rem;
     }
 
 }
@@ -323,10 +375,17 @@
         }
     }
 
+    @media (max-width: 1000px) {
+        .testimonialsContainer {
+            max-width:85vw;
+        }
+    }
+
     @media (max-width: 900px) {
         @include flex-center-col;
         .testimonialsContainer {
             @include flex-center-col;
+            max-width:80vw;
         }
     }
 
