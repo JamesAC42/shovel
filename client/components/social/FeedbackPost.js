@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaReply } from "react-icons/fa";
 import { TbLayoutNavbarExpandFilled,TbLayoutBottombarExpandFilled } from "react-icons/tb";
 import { FaTrashAlt } from "react-icons/fa";
+import { FaShield } from "react-icons/fa6";
 import styles from "../../styles/social/feedback.module.scss";
+import UserContext from "../../contexts/UserContext";
 
-function FeedbackPost({postInfo, isAdmin}) {
+function FeedbackPost({postInfo, admins}) {
+
+    let {userInfo} = useContext(UserContext);
 
     let [inputExpanded, setInputExpanded] = useState(false);
     let [repliesExpanded, setRepliesExpanded] = useState(true);
@@ -61,6 +65,8 @@ function FeedbackPost({postInfo, isAdmin}) {
 
     if(!postInfo) return null;
 
+    const isAdmin = admins.indexOf(userInfo?.username) !== -1;
+
     return (
         <div className={styles.feedbackPost}>
             <div className={styles.feedbackPostHeader}>
@@ -70,6 +76,10 @@ function FeedbackPost({postInfo, isAdmin}) {
                         color: `${getForegroundFromBackground(postInfo.color)}`
                     }} 
                     className={styles.user}>{postInfo.username}</div>
+                {
+                    admins.indexOf(postInfo.username) !== -1 ?
+                    <FaShield /> : null
+                }
                 <div className={styles.timestamp}>{new Date(postInfo.timestamp).toLocaleString()}</div>
             </div>
             <div className={styles.feedbackPostContent}>
@@ -142,7 +152,7 @@ function FeedbackPost({postInfo, isAdmin}) {
                     <FeedbackPost 
                         key={childPost.id} 
                         postInfo={childPost} 
-                        isAdmin={isAdmin}/>
+                        admins={admins}/>
                 ) : null
             }
 

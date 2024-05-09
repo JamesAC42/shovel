@@ -149,7 +149,6 @@ function Feedback({admins}) {
     }, []);
 
     const posts = collapsePosts(postIndex);
-    const isAdmin = userInfo ? admins.indexOf(userInfo.username) !== -1 : false;
 
     return(
         <div className={styles.feedbackOuter}>
@@ -192,7 +191,7 @@ function Feedback({admins}) {
                         <FeedbackPost 
                             key={post.id} 
                             postInfo={post}
-                            isAdmin={isAdmin}/>
+                            admins={admins}/>
                     )
                 }
 
