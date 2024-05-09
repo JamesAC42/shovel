@@ -9,7 +9,7 @@ function CreateUser() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
-    const [color, setColor] = useState("");
+    const [color, setColor] = useState("#000000");
     const [errorMessage, setErrorMessage] = useState("");
 
     const {setUserInfo} = useContext(UserContext);
