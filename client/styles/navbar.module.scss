@@ -1,0 +1,36 @@
+@import "variables.module.scss";
+
+.navbar {
+    position:fixed;
+    top:0;left:0;
+    width:calc(100vw - 17px);
+    height:3rem;
+    background:var(--background-color);
+    transform:translateY(-1px);
+    box-shadow:-10px 2px 15px 1px var(--background-dark);
+    z-index:1;
+
+    @include flex-center-row;
+    justify-content: space-between;
+    
+    .navRight, .navLeft {
+        @include flex-center-row;
+    }
+
+    a {
+        display:block;
+        color:var(--primary-color);
+        text-decoration: none;
+        margin-left:2rem;
+        &:last-child {
+            margin-right:1rem;
+        }
+
+        svg {
+            transform: scale(1.3) translateY(1px);
+            &:hover {
+                filter:brightness(1.5);
+            }
+        }
+    }
+}

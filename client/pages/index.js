@@ -5,6 +5,7 @@ import { FaCircleArrowRight } from "react-icons/fa6";
 import { IoMail } from "react-icons/io5";
 import Link from 'next/link'; 
 import Image from 'next/image';
+import NavBar from '../components/NavBar';
 
 const EnterButton = () => {
   return (
@@ -28,6 +29,7 @@ export default function Home() {
         <title>shovel</title>
         <link rel="icon" href="/favicon.ico" />                
       </Head>
+      <NavBar />
       <div className={styles.homeOuter}>
         <div className={styles.homeSection + " " + styles.homeSectionMain}>
           <div className={styles.title}>

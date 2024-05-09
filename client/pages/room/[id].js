@@ -17,6 +17,7 @@ import CustomThemePicker from '../../components/room/CustomThemePicker';
 import Banner from '../../components/room/Banner';
 import getToday from '../../utilities/getToday';
 import Link from 'next/link';
+import SocketPath from '../../utilities/socketPath';
 
 export default function Room () {
 
@@ -36,8 +37,8 @@ export default function Room () {
 
         if(socketRef.current) return;
 
-        const socketUrl = 'http://localhost:5000';
-        const socketPath = '';
+        const socketUrl = SocketPath.URL;
+        const socketPath = SocketPath.Path;
         const query = {room: `room_${id}`};
         // const socketUrl = 'https://ovel.sh';
         // const socketPath = '/socket';

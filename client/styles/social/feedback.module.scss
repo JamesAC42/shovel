@@ -1,0 +1,153 @@
+@import "../variables.module.scss";
+
+@mixin input-style {
+    background:var(--background-dark);
+    outline:none;
+    border:1px solid var(--secondary-color);
+    color:var(--primary-color);
+    border-radius:0.5rem;
+    resize:none;
+    font-family:'Figtree',sans-serif;
+}
+
+.feedbackOuter {
+    margin-top:15vh;
+    padding:0 10rem 2rem 2rem;
+    .feedbackHeader {
+        text-align:center;
+        font-size:1.5rem;
+        font-weight:bold;
+        margin-bottom:1rem;
+    }
+
+    .newPost {
+        @include flex-center-row;
+        gap:1rem;
+        @include slide-fade-in;
+        textarea {
+            @include input-style;
+            padding:1rem;
+            width:45%;
+            height:6rem;
+        }
+        .submitPost {
+            border-radius:0.5rem;
+            background:var(--primary-color);
+            color:var(--background-color);
+            padding:0.5rem;
+            cursor:pointer;
+            &:hover {
+                filter:brightness(1.5);
+            }
+        }
+        margin-bottom:1rem;
+    }
+    
+    .postContainer {
+        background:var(--journal-entry-background);
+    }
+
+    .noPosts, .errorMessage {
+        text-align:center;
+        padding:2rem;
+        background:var(--background-color);
+        border-radius:0.5rem;
+        @include slide-fade-in;
+    }
+
+    .noPosts {
+        color:var(--secondary-color);
+        border:1px solid var(--secondary-color);
+    }
+    
+    .errorMessage {
+        color:var(--error-color);
+        border:1px solid var(--error-color);
+        margin-bottom:1rem;
+    }
+
+    .feedbackPost {
+        background:var(--journal-entry-background);
+        padding:0 1.5rem;
+        padding-top:1rem;
+        padding-bottom:0;
+        @include slide-fade-in;
+
+        border-left:1px solid var(--secondary-color);
+
+        .feedbackPostHeader {
+            display:flex;
+            flex-direction: row;
+            margin-bottom:0.5rem;
+            gap:1rem;
+            align-items: center;
+            .user {
+                font-weight:bold;
+                padding:0.1rem 0.5rem;
+                border-radius:0.2rem;
+                opacity:0.9;
+            }
+            .timestamp {
+                color:var(--secondary-color);
+            }
+        }
+
+        @mixin action-button {
+            padding:0.2rem 0.5rem;
+            color:var(--secondary-color);
+            cursor:pointer;
+            &:hover {
+                background:var(--primary-color);
+                color:var(--background-color);
+                border-radius:0.5rem;
+            }
+        }
+
+        .actionOuter {
+            display:flex;
+            flex-direction:row;
+            gap:1rem;
+            .expandInput, .expandReplies, .deleteReply {
+                margin-bottom:0.5rem;
+                @include action-button;
+                svg {
+                    margin-right:0.4rem;
+                }
+            }
+            .expandInput, .deleteReply {
+                svg {
+                    transform:translateY(2px);
+                }
+            }
+            .expandReplies {
+                svg {
+                    transform:scale(1.2) translateY(2px);
+                }
+            }
+        }
+
+        .feedbackPostContent {
+            margin-bottom:0.5rem;
+        }
+        
+        .replyOuter {
+            margin-top:0.75rem;
+            margin-bottom:0.5rem;
+            display:flex;
+            flex-direction: row;
+            align-items:center;
+            gap:1rem;
+            input {
+                @include input-style;
+                border:none;
+                flex:1;
+                font-size:1rem;
+                padding:0.6rem 1rem;
+            }
+            .submitReply, .hideReply, .deleteReply {
+                @include action-button;
+            }
+        }
+
+    }
+}

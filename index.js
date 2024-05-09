@@ -55,6 +55,15 @@ const deleteTask = require('./controllers/roomControllers/deleteTask');
 const toggleTask = require('./controllers/roomControllers/toggleTask');
 const saveJournalEntry = require('./controllers/roomControllers/saveJournalEntry');
 const toggleRoomVisibility = require('./controllers/roomControllers/toggleRoomVisibility');
+const getFeedback = require('./controllers/socialControllers/getFeedback');
+const getUpdates = require('./controllers/socialControllers/getUpdates');
+const addFeedbackPost = require('./controllers/socialControllers/addFeedbackPost');
+const addUpdate = require('./controllers/socialControllers/addUpdate');
+const deleteFeedbackPost = require('./controllers/socialControllers/deleteFeedbackPost');
+const deleteUpdate = require('./controllers/socialControllers/deleteUpdate');
+const editFeedbackPost = require('./controllers/socialControllers/editFeedbackPost');
+const getAdminUsernames = require('./controllers/socialControllers/getAdmins');
+const deleteFeedbackPostAdmin = require('./controllers/socialControllers/deleteFeedbackPostAdmin');
 
 sequelize.sync()
   .then(() => {
@@ -154,6 +163,30 @@ app.post('/toggleRoomVisibility', async (req, res) => {
   toggleRoomVisibility(req, res, models, io);
 });
 
+app.post('/addFeedbackPost', async (req, res) => {
+  addFeedbackPost(req, res, models, io);
+});
+
+app.post('/addUpdate', async (req, res) => {
+  addUpdate(req, res, models, redisClient, io);
+});
+
+app.post('/deleteFeedbackPost', async (req, res) => {
+  deleteFeedbackPost(req, res, models, io);
+});
+
+app.post('/deleteUpdate', async (req, res) => {
+  deleteUpdate(req, res, models, redisClient, io);
+});
+
+app.post('/editFeedbackPost', async (req, res) => {
+  editFeedbackPost(req, res, models, io);
+});
+
+app.post('/deleteFeedbackPostAdmin', async (req, res) => {
+  deleteFeedbackPostAdmin(req, res, models, redisClient, io);
+});
+
 app.get('/room', (req, res) => {
   room(req, res, models);
 });
@@ -164,6 +197,18 @@ app.get('/roomData', (req, res) => {
 
 app.get('/getUserRooms', (req, res) => {
   getUserRooms(req, res, models);
+});
+
+app.get('/getFeedback', (req, res) => {
+  getFeedback(req, res, models);
+});
+
+app.get('/getUpdates', (req, res) => {
+  getUpdates(req, res, models);
+});
+
+app.get('/getAdminUsernames', (req, res) => {
+  getAdminUsernames(req, res, redisClient);
 });
 
 io.on('connection', handleConnection);

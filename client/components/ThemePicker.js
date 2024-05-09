@@ -1,11 +1,11 @@
 import { useContext, useState } from 'react';
-import ThemeContext from '../../contexts/ThemeContext';
+import ThemeContext from '../contexts/ThemeContext';
 import { FaPaintBrush } from "react-icons/fa";
 import { TbPencilPlus } from "react-icons/tb";
-import themes from "../../utilities/themes";
-import styles from "../../styles/room/themepicker.module.scss";
-import ViewContext from '../../contexts/ViewContext';
-import setSavedCustomThemeColors from '../../utilities/setSavedCustomThemeColors';
+import themes from "../utilities/themes";
+import styles from "../styles/room/themepicker.module.scss";
+import ViewContext from '../contexts/ViewContext';
+import setSavedCustomThemeColors from '../utilities/setSavedCustomThemeColors';
 
 function ThemePicker() {
 

@@ -7,6 +7,7 @@ import EnterRoom from '../../components/EnterRoom';
 import UserData from '../../components/UserSession';
 import { IoMdBackspace } from "react-icons/io";
 import Link from 'next/link';
+import NavBar from '../../components/NavBar';
 
 export default function Room() {
 
@@ -18,6 +19,7 @@ export default function Room() {
                 <title>shovel</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
+            <NavBar/>
             <div className={styles.roomOuter}>
                 <div className={styles.backHome}>
                     <Link

@@ -1,7 +1,7 @@
 import styles from '../../styles/room/statspanel.module.scss';
 
 import Requests from './Requests';
-import ThemePicker from './ThemePicker';
+import ThemePicker from '../ThemePicker';
 import WorkGrid from './WorkGrid';
 import DeepWorkButtons from './DeepWorkButtons';
 

@@ -1,0 +1,55 @@
+@import "variables.module.scss";
+
+.socialTop {
+    height:100vh;width:100vw;
+    background: var(--background-color);
+    position:fixed;top:0;left:0;
+    overflow:hidden;
+}
+
+.socialOuter {
+    height:100vh;width:100vw;
+    position:relative;
+    overflow-y:scroll;
+    
+    display:flex;
+    flex-direction:row;
+
+    color: var(--primary-color);
+    
+    .socialNav {
+        
+        flex:1;
+        height:100vh;
+        position:sticky;
+        top:0;
+
+        @include flex-center-col;
+
+        align-items:last baseline;
+
+        .navItemContainer {
+            @include flex-center-col;
+            gap:1rem;
+            border-right:1px solid var(--secondary-color);
+            padding:1rem;
+            .navItem {
+                font-size:1.2rem;
+                cursor:pointer;
+                @include slide-fade-in;
+                &:hover {
+                    text-decoration: underline;;
+                }
+                &.navItemActive {
+                    filter:brightness(1.5);
+                }
+            }
+        }
+
+
+    }
+    .socialContent {
+        flex:3.5;
+        min-height:100vh;
+    }
+}

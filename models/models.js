@@ -390,6 +390,61 @@ const TaskTag = sequelize.define('TaskTag', {
   ]
 });
 
+const Update = sequelize.define('Update', {
+  id: {
+    type: DataTypes.INTEGER,
+    field: 'id',
+    primaryKey:true,
+    autoIncrement: true
+  },
+  date: {
+    type: DataTypes.DATEONLY
+  },
+  info: {
+    type: DataTypes.TEXT
+  }
+}, {
+  tableName: 'updates',
+  timestamps: false
+});
+
+const Feedback = sequelize.define('Feedback', {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    field: 'user_id',
+    references: {
+      model: 'User',
+      key: 'id',
+    },
+    onUpdate: 'NO ACTION',
+    onDelete: 'NO ACTION',
+  },
+  post: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  timestamp: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  parent: {
+    type: DataTypes.INTEGER,
+  },
+  deleted: {
+    type: DataTypes.BOOLEAN
+  }
+ }, {
+  tableName: 'feedback',
+  schema: 'public',
+  timestamps: false,
+ });
+
 User.hasMany(RoomRequest, {foreignKey: "user_id"});
 User.hasMany(DeepWorkHourTracker, {foreignKey: "user_id"});
 User.hasMany(StreakHighscore, {foreignKey: "user_id"});
@@ -399,6 +454,8 @@ User.hasMany(Journal, {foreignKey: "user_id"});
 User.hasMany(RoomUser, {foreignKey: "user_id"});
 User.hasMany(Tag, {foreignKey: "user_id"});
 User.hasMany(Task, {foreignKey: "user_id"});
+User.hasMany(Update, {foreignKey: "user_id"});
+User.hasMany(Feedback, {foreignKey: "user_id"});
 
 Room.hasMany(RoomRequest, {foreignKey: 'room'});
 Room.hasMany(RoomUser, {foreignKey: 'room'});
@@ -447,6 +504,9 @@ JournalTag.belongsTo(Tag, { foreignKey: 'tag', targetKey: 'id' });
 TaskTag.belongsTo(Task, { foreignKey: 'task_id', targetKey: 'id' });
 TaskTag.belongsTo(Tag, { foreignKey: 'tag', targetKey: 'id', as: 'Tag' });
 
+Update.belongsTo(User, {foreignKey: 'user_id'});
+Feedback.belongsTo(User, {foreignKey: 'user_id'});
+
 module.exports = {
   User,
   Room,
@@ -460,5 +520,7 @@ module.exports = {
   Journal,
   Tag,
   JournalTag,
-  TaskTag
+  TaskTag,
+  Update,
+  Feedback
 };
