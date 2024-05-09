@@ -116,3 +116,13 @@
 @mixin cover {
     background:#00000077;
 }
+
+@mixin social-input-style {
+    background:var(--background-dark);
+    outline:none;
+    border:1px solid var(--secondary-color);
+    color:var(--primary-color);
+    border-radius:0.5rem;
+    resize:none;
+    font-family:'Figtree',sans-serif;
+}

@@ -4,7 +4,7 @@ async function getUpdates(req, res, models) {
         const updates = await models.Update.findAll({
             order: [['date', 'DESC']]
         });
-        res.json({updates});
+        res.json({success:true, updates});
     } catch (error) {
         res.status(500).send({ error: 'Failed to fetch updates' });
     }

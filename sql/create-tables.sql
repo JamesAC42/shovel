@@ -168,7 +168,7 @@ CREATE TABLE task_tags
 
 CREATE TABLE updates
 (
-    id integer NOT NULL,
+    id integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     date date NOT NULL,
     info text COLLATE pg_catalog."default" NOT NULL,
     CONSTRAINT updates_pkey PRIMARY KEY (id)

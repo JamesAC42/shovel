@@ -393,7 +393,6 @@ const TaskTag = sequelize.define('TaskTag', {
 const Update = sequelize.define('Update', {
   id: {
     type: DataTypes.INTEGER,
-    field: 'id',
     primaryKey:true,
     autoIncrement: true
   },
@@ -454,7 +453,6 @@ User.hasMany(Journal, {foreignKey: "user_id"});
 User.hasMany(RoomUser, {foreignKey: "user_id"});
 User.hasMany(Tag, {foreignKey: "user_id"});
 User.hasMany(Task, {foreignKey: "user_id"});
-User.hasMany(Update, {foreignKey: "user_id"});
 User.hasMany(Feedback, {foreignKey: "user_id"});
 
 Room.hasMany(RoomRequest, {foreignKey: 'room'});
@@ -504,7 +502,6 @@ JournalTag.belongsTo(Tag, { foreignKey: 'tag', targetKey: 'id' });
 TaskTag.belongsTo(Task, { foreignKey: 'task_id', targetKey: 'id' });
 TaskTag.belongsTo(Tag, { foreignKey: 'tag', targetKey: 'id', as: 'Tag' });
 
-Update.belongsTo(User, {foreignKey: 'user_id'});
 Feedback.belongsTo(User, {foreignKey: 'user_id'});
 
 module.exports = {

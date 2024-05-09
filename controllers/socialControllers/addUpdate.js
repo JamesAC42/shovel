@@ -24,8 +24,15 @@ async function addUpdate(req, res, models, redisClient, io) {
             info: post
         }).then(update => {
             res.status(201).json({ success: true, message: 'Update added successfully', updateId: update.id });
-            io.emit('newUpdate', { date: currentDate, info: post, id: update.id });
+            io.emit('newUpdate', { 
+                update: {
+                    date: currentDate,
+                    info: post,
+                    id: update.id
+                }
+            });
         }).catch(error => {
+            console.log(error);
             res.status(500).json({ success: false, message: 'Failed to add update', error: error.message });
         });
 

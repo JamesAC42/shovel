@@ -1,0 +1,68 @@
+
+@import "../variables.module.scss";
+
+.updatesOuter {
+    margin-top:15vh;
+    padding:0 10rem 2rem 2rem;
+    .updatesHeader {
+        text-align:center;
+        font-size:1.5rem;
+        font-weight:bold;
+        margin-bottom:1rem;
+    }
+    .newUpdate {
+        @include flex-center-row;
+        gap:1rem;
+        @include slide-fade-in;
+        textarea {
+            @include social-input-style;
+            padding:1rem;
+            width:80%;
+            height:12rem;
+        }
+        .submitPost {
+            border-radius:0.5rem;
+            background:var(--primary-color);
+            color:var(--background-color);
+            padding:0.5rem;
+            cursor:pointer;
+            &:hover {
+                filter:brightness(1.5);
+            }
+        }
+        margin-bottom:1rem;
+    }
+
+    .noUpdates {
+        text-align:center;
+        border-radius:0.5rem;
+        border:1px solid var(--secondary-color);
+        padding:2rem 0;
+        @include slide-fade-in;
+    }
+
+    .updateItem {
+        padding:2rem;
+        position:relative;
+        background:var(--journal-entry-background);
+        margin-bottom:1rem;
+        border-radius:0.5rem;
+        @include slide-fade-in;
+        .updateDate {
+            font-size:1.8rem;
+            font-weight:700;
+            border-bottom:1px solid var(--secondary-color);
+            margin-bottom:1rem;
+        }
+
+        .deleteUpdate {
+            position:absolute;
+            top:0;right:0;
+            margin:1rem;
+            cursor:pointer;
+            &:hover {
+                filter:brightness(1.5);
+            }
+        }
+    }
+}

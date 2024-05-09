@@ -1,15 +1,5 @@
 @import "../variables.module.scss";
 
-@mixin input-style {
-    background:var(--background-dark);
-    outline:none;
-    border:1px solid var(--secondary-color);
-    color:var(--primary-color);
-    border-radius:0.5rem;
-    resize:none;
-    font-family:'Figtree',sans-serif;
-}
-
 .feedbackOuter {
     margin-top:15vh;
     padding:0 10rem 2rem 2rem;
@@ -25,7 +15,7 @@
         gap:1rem;
         @include slide-fade-in;
         textarea {
-            @include input-style;
+            @include social-input-style;
             padding:1rem;
             width:45%;
             height:6rem;
@@ -138,7 +128,7 @@
             align-items:center;
             gap:1rem;
             input {
-                @include input-style;
+                @include social-input-style;
                 border:none;
                 flex:1;
                 font-size:1rem;

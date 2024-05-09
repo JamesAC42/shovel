@@ -87,7 +87,7 @@ function FeedbackPost({postInfo, admins}) {
             </div>
 
             {
-                inputExpanded ?
+                inputExpanded && userInfo ?
                 <div className={styles.replyOuter}>
                     <input 
                         type="text"
@@ -106,7 +106,7 @@ function FeedbackPost({postInfo, admins}) {
 
             <div className={styles.actionOuter}>
                 {
-                    !inputExpanded ?
+                    !inputExpanded && userInfo ?
                     <div
                         onClick={() => setInputExpanded(true)} 
                         className={styles.expandInput}>

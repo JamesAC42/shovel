@@ -22,14 +22,11 @@ export default function Social() {
         try {
             const response = await fetch(`/api/getAdminUsernames`);
             const data = await response.json();
-            if(!data.success) {
-                setError(data.message);    
-            } else {
+            if(data.success) { 
                 setAdmins(data.adminUsernames);
             }
         } catch(err) {
             console.log(err);
-            setError("error");    
         }
     }
 

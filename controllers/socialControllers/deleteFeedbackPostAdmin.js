@@ -30,6 +30,12 @@ async function deleteFeedbackPostAdmin(req, res, models, redisClient, io) {
                 res.status(404).json({ success: false, message: 'Feedback post not found' });
                 return;
             }
+
+            const authorUser = await models.User.findByPk(feedbackPost.user_id);
+            if (!authorUser) {
+                res.status(404).json({ success: false, message: 'Author user not found' });
+                return;
+            }
     
             feedbackPost.deleted = true;
             await feedbackPost.save();
@@ -38,8 +44,8 @@ async function deleteFeedbackPostAdmin(req, res, models, redisClient, io) {
                 user_id: feedbackPost.user_id,
                 post: "[deleted]",
                 deleted: feedbackPost.deleted,
-                color:user.color,
-                username:username,
+                color:authorUser.color,
+                username:authorUser.username,
                 parent: feedbackPost.parent,
                 timestamp: feedbackPost.timestamp + "UTC"
             }
