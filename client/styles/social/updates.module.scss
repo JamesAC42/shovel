@@ -4,6 +4,12 @@
 .updatesOuter {
     margin-top:15vh;
     padding:0 10rem 2rem 2rem;
+
+    @media (max-width: 1100px) {
+        margin:2rem 0;
+        padding:0 1rem;
+    }
+
     .updatesHeader {
         text-align:center;
         font-size:1.5rem;
@@ -31,6 +37,10 @@
             }
         }
         margin-bottom:1rem;
+
+        @media (max-width: 500px) {
+            flex-direction: column;
+        }
     }
 
     .noUpdates {

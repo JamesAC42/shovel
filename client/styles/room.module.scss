@@ -8,6 +8,11 @@
 
 .roomOuter {
     @include fixed-center;
+    @media (max-width: 900px) {
+        overflow-y:scroll;
+        margin-top:1rem;
+        max-height:calc(100vh - 6rem);
+    }
 }
 
 .loggedOut {
@@ -23,7 +28,6 @@
         @include flex-center-col;
         align-items:stretch;
         width:95vw;
-        max-height:calc(100vh - 5rem);
         overflow-y:scroll;
         display:block;
         h2 {

@@ -3,6 +3,12 @@
 .feedbackOuter {
     margin-top:15vh;
     padding:0 10rem 2rem 2rem;
+
+    @media (max-width: 1100px) {
+        margin:2rem 0;
+        padding:0 1rem;
+    }
+
     .feedbackHeader {
         text-align:center;
         font-size:1.5rem;
@@ -31,6 +37,12 @@
             }
         }
         margin-bottom:1rem;
+        @media (max-width: 500px) {
+            textarea {
+                width:85%;
+            }
+            flex-direction: column;
+        }
     }
     
     .postContainer {
@@ -134,8 +146,47 @@
                 font-size:1rem;
                 padding:0.6rem 1rem;
             }
+            @media (max-width: 500px) {
+                flex-wrap:wrap;
+                input {
+                    max-width:80%;
+                }
+            }
             .submitReply, .hideReply, .deleteReply {
                 @include action-button;
+            }
+        }
+        
+        @media (max-width: 500px) {
+            padding:0 1rem;
+            padding-top:0.9rem;
+            .feedbackPostHeader {
+                font-size:0.9rem;
+            }
+            .feedbackPostContent {
+                font-size:0.9rem;
+            }
+
+            .actionOuter {
+                gap:0.2rem;
+                .expandInput, .expandReplies, .deleteReply {
+                    margin-bottom:0.4rem;
+                    font-size:0.9rem;
+                }
+            }
+        
+            .replyOuter {
+                margin-top:0.5rem;
+                margin-bottom:0rem;
+                gap:0.4rem;
+                font-size:0.9rem;
+                input {
+                    font-size:0.9rem;
+                    padding:0.4rem 0.9rem;
+                }
+                .submitReply, .hideReply, .deleteReply {
+                    @include action-button;
+                }
             }
         }
 

@@ -52,4 +52,27 @@
         flex:3.5;
         min-height:100vh;
     }
+
+
+    @media (max-width: 1100px) {
+        flex-direction:column;
+        position:relative;
+        .socialNav {
+            min-height:8rem;
+            position:relative;
+            top:auto;
+            flex-direction:row;
+            align-items:last baseline;
+            .navItemContainer {
+                @include flex-center-row;
+                border-right:none;
+                border-bottom:1px solid var(--secondary-color);
+            }
+        }
+
+        .socialContent {
+            flex:1;
+        }
+    }
+
 }
