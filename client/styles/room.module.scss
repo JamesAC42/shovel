@@ -23,17 +23,26 @@
     border-radius:0.4rem;
     box-shadow:0 0.16rem 0.8rem 0.1rem var(--background-dark);
     @include fade-in;
+    overflow:hidden;
     
-    @media (max-width: 900px) {
+    @media (max-width: 1130px) {
         @include flex-center-col;
         align-items:stretch;
-        width:95vw;
+        max-width:50vw;
+        max-height:calc(100vh - 5rem);
+        transform:translateY(1.5rem);
         overflow-y:scroll;
         display:block;
         h2 {
             text-align:center;
         }
     }
+
+    @media (max-width: 650px) {
+        width:80vw;
+        max-width:80vw;
+    }
+
 }
 
 .loggedIn {
@@ -87,7 +96,7 @@
     margin-top:0.4rem;
 }
 
-.login, .createUser {
+.login, .createUser, .guest {
     flex:1;
     display:flex;
     flex-direction: column;
@@ -95,13 +104,55 @@
     padding:0 2rem 0.6rem 2rem;
 }
 
-.login {
+.guest {
+    background:var(--journal-entry-background);
+    color:var(--primary-color);
+    
+    width:15rem;
+    @media (max-width: 1130px) {
+        width:auto;
+    }
+    h2 {
+        white-space:nowrap;
+    }
+    p {
+        text-align:justify;
+        margin-top:0;
+        svg {
+            margin-right:0.3rem;
+            transform:translateY(2px);
+        }
+
+        &.existingGuestRoom {
+            color:var(--glow);
+            font-weight:500;
+        }
+    }
+
+    a {
+        display:block;
+        text-align:center;
+        text-decoration: none;
+        color:var(--primary-color);
+        background:var(--background-dark);
+        border-radius:0.5rem;
+        padding:0.5rem 0;
+        &:hover {
+            outline:2px solid var(--secondary-color);
+        }
+    }
+
+}
+
+.login, .createUser {
     border-right:1px solid var(--secondary-color);
     
-
-    @media (max-width: 900px) {
+    @media (max-width: 1130px) {
         border-right:none;
         border-bottom:1px solid var(--secondary-color);
+    }
+
+    @media (max-width: 900px) {
         padding: 0 1rem;
     }
 }
@@ -147,8 +198,6 @@
     @media (max-width: 900px) {
         width:90%;
         text-align:center;
-    }
-    @media (max-width: 500px) {
         min-width:90%;
     }
 }
@@ -178,6 +227,14 @@
     padding:0.2rem 0;
     border-radius:0.4rem;
     font-size:1rem;
+    &:hover {
+        outline:2px solid var(--secondary-color);
+    }
+    @media (max-width: 900px) {
+        max-width:50%;
+        margin:1rem auto;
+        padding:0.2rem 2rem;
+    }
 }
 
 .accountStatus {
@@ -226,9 +283,27 @@
         padding-left:0;
     }
 
-    ul li a {
+    a {
         text-decoration: none;
         color:var(--link-color);
+        text-align:left;
     }
 
+}
+
+.guestRoomLinkOuter {
+
+    a.guestRoomLink {
+        text-decoration: none;
+        color:var(--link-color);
+        text-align:left;
+        display:block;
+        width:100%;
+        margin-top:0.2rem;
+    }
+
+    p {
+        text-align:left;
+        margin-bottom:0;
+    }
 }

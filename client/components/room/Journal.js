@@ -77,8 +77,9 @@ function Journal() {
 
     const showInput = () => {
         
-        if(!userInfo) return null;
-        if(activeTab !== userInfo.id) return false;
+        if(!userInfo && !roomData.guest) return null;
+        let userId = roomData.guest ? 1 : userInfo.id;
+        if(activeTab !== userId) return false;
         if(!currentYear || !currentMonth) {
             return true;
         }
@@ -211,7 +212,7 @@ function Journal() {
         if(!roomData) return;
 
         if(!activeTab) {
-            if(userInfo) {
+            if(userInfo && !roomData.guest) {
                 setActiveTab(userInfo.id);
             } else {
                 setActiveTab(parseInt(Object.keys(roomData.users)[0]));

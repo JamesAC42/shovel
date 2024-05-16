@@ -11,7 +11,7 @@ import UserContext from "../../contexts/UserContext";
 function Requests() {
 
     const [showRequests, setShowRequests] = useState(false);
-    const {roomData, setRoomData} = useContext(RoomContext);
+    const {roomData} = useContext(RoomContext);
     const {userInfo} = useContext(UserContext);
 
     const requestReply = async (username, accept) => {

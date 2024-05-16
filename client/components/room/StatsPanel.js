@@ -58,7 +58,7 @@ function StatsPanel() {
                         </Link>
                     </div>
                     <div className={styles.roomId}>
-                        {roomData.name} | {roomData.id}
+                        {roomData.name} {roomData.guest ? "" : ` | ${roomData.id}`}
                     </div>
                     <Requests />
                     <ThemePicker />

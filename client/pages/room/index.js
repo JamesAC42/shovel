@@ -21,13 +21,6 @@ export default function Room() {
             </Head>
             <NavBar/>
             <div className={styles.roomOuter}>
-                <div className={styles.backHome}>
-                    <Link
-                        target="_self" 
-                        href="/">
-                        <IoMdBackspace />
-                    </Link>
-                </div>
                 <UserData />
                 {
                     userInfo ?

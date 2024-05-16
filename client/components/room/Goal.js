@@ -29,7 +29,7 @@ function Goal({activeTab, goalItem}) {
         ]
     };
     */
-    let { roomData } = useContext(RoomContext);
+    let { roomData, setRoomData } = useContext(RoomContext);
     let { userInfo } = useContext(UserContext);
 
     let [showDelete, setShowDelete] = useState(false);
@@ -41,16 +41,25 @@ function Goal({activeTab, goalItem}) {
 
     const deleteGoal = async () => {
 
-        const response = await fetch('/api/deleteGoal', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ goal: goalItem.id }),
-        });
-        const data = await response.json();
-        if (!data.success) {
-            console.error(data.message);
+        if(roomData.guest) {
+
+            let newData = JSON.parse(JSON.stringify(roomData));
+            delete newData.users[1].goals[goalItem.id];
+            localStorage.setItem("guest-room", JSON.stringify(newData));
+            setRoomData(newData);
+
+        } else {
+            const response = await fetch('/api/deleteGoal', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ goal: goalItem.id }),
+            });
+            const data = await response.json();
+            if (!data.success) {
+                console.error(data.message);
+            }
         }
     }
 
@@ -75,29 +84,52 @@ function Goal({activeTab, goalItem}) {
             }
         }
 
-        const response = await fetch('/api/addTask', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ 
-                room: roomData.id,
-                task: taskValue,
-                date: getToday(),
-                goal: goalItem.id,
-                tags: filteredTags
-            }),
-        });
-        const data = await response.json();
-        if (!data.success) {
-            console.error(data.message);
+        if(roomData.guest) {
+
+            let newData = JSON.parse(JSON.stringify(roomData));
+            let taskIDs = newData.users[1].goals[goalItem.id].tasks.map((t) => t.id).sort();
+            let nextID = taskIDs.length > 0 ? taskIDs[taskIDs.length - 1] + 1 : 1;
+            let newTask = {
+                id: nextID,
+                title: taskValue,
+                description: taskValue,
+                dateCreated: getToday(),
+                dateCompleted: null,
+                tags: filteredTags, 
+            }
+            newData.users[1].goals[goalItem.id].tasks.push(newTask);
+            newData.users[1].goals[goalItem.id].endDate = null;
+            localStorage.setItem("guest-room", JSON.stringify(newData));
+            setRoomData(newData);
+
         } else {
-            setTaskValue("");
-            setTagValue("");
-            if(inputRef.current) {
-                inputRef.current.focus();
+
+            const response = await fetch('/api/addTask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    room: roomData.id,
+                    task: taskValue,
+                    date: getToday(),
+                    goal: goalItem.id,
+                    tags: filteredTags
+                }),
+            });
+            const data = await response.json();
+            if (!data.success) {
+                console.error(data.message);
+                return;
             }
         }
+
+        setTaskValue("");
+        setTagValue("");
+        if(inputRef.current) {
+            inputRef.current.focus();
+        }
+
 
     }
 
@@ -108,14 +140,15 @@ function Goal({activeTab, goalItem}) {
     }
 
     const toggleDelete = (show) => {
-        if(!userInfo) return;
-        if(activeTab === userInfo.id) {
+        if(!userInfo && !roomData.guest) return;
+        if(roomData.guest || (activeTab === userInfo)) {
             setShowDelete(show);
         }
     }
 
     const showNewTask = () => {
-        if(!userInfo) return null;
+        if(!userInfo && !roomData.guest) return null;
+        if(roomData.guest) return true;
         return userInfo.id === activeTab;
     }
 

@@ -20,56 +20,145 @@ function Task({goal, activeTab, taskItem}) {
     */
 
     let { userInfo } = useContext(UserContext);
-    let { roomData } = useContext(RoomContext);
+    let { roomData, setRoomData } = useContext(RoomContext);
     let [showDelete, setShowDelete] = useState(false);
 
-    const deleteTask = async () => { 
+    const deleteTask = async () => {
+        
+        if(roomData.guest) {
 
-        const response = await fetch('/api/deleteTask', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ 
-                room: roomData.id,
-                goal,
-                task: taskItem.id
-            }),
-        });
-        const data = await response.json();
-        if (!data.success) {
-            console.error(data.message);
+            let newData = JSON.parse(JSON.stringify(roomData));
+            let index;
+            let latestDate;
+            let latestTime = 0;
+            let incompleteRemaining = false;
+            for(let i = 0; i < newData.users[1].goals[goal].tasks.length; i++) {
+                let task = newData.users[1].goals[goal].tasks[i];
+                if(task.id === taskItem.id) {
+                    index = i;
+                } else {
+                    if(!task.dateCompleted) {
+                        incompleteRemaining = true;
+                    } else {
+                        let time = new Date(task.dateCompleted).getTime(); 
+                        if(time > latestTime) {
+                            latestDate = task.dateCompleted;
+                            latestTime = time;
+                        }
+                    }
+                }
+            }
+            if(!incompleteRemaining) {
+                newData.users[1].goals[goal].endDate = latestDate;
+            }
+            newData.users[1].goals[goal].tasks.splice(index, 1);
+            if(latestDate) {
+
+            }
+            localStorage.setItem("guest-room", JSON.stringify(newData));
+            setRoomData(newData);
+
+        } else {
+
+            const response = await fetch('/api/deleteTask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    room: roomData.id,
+                    goal,
+                    task: taskItem.id
+                }),
+            });
+            const data = await response.json();
+            if (!data.success) {
+                console.error(data.message);
+            }
         }
+
     }
 
     const toggleTask = async () => {
 
-        if(!userInfo) return;
-        if(activeTab !== userInfo.id) return;
-        const response = await fetch('/api/toggleTask', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ 
-                room: roomData.id,
-                goal,
-                task: taskItem.id,
-                date: getToday()
-            }),
-        });
-        const data = await response.json();
-        if (!data.success) {
-            console.error(data.message);
+        if(!userInfo && !roomData.guest) return;
+        let userId = roomData.guest ? 1 : userInfo.id;
+        if(activeTab !== userId) return;
+
+        if(roomData.guest) {
+
+            let newData = JSON.parse(JSON.stringify(roomData));
+            let index;
+            let latestDate;
+            let latestTime = 0;
+            let incompleteRemaining = false;
+            for(let i = 0; i < newData.users[1].goals[goal].tasks.length; i++) {
+                let task = newData.users[1].goals[goal].tasks[i];
+                if(task.id === taskItem.id) {
+                    index = i;
+                } else {
+                    if(!task.dateCompleted) {
+                        incompleteRemaining = true;
+                    } else {
+                        let time = new Date(task.dateCompleted).getTime(); 
+                        if(time > latestTime) {
+                            latestDate = task.dateCompleted;
+                            latestTime = time;
+                        }
+                    }
+                }
+            }
+            if(newData.users[1].goals[goal].tasks[index].dateCompleted) {
+                newData.users[1].goals[goal].tasks[index].dateCompleted = null; 
+                newData.users[1].goals[goal].endDate = null;
+            } else {
+                let today = getToday();
+                if(!incompleteRemaining) {
+                    newData.users[1].goals[goal].endDate = today;
+                }
+                newData.users[1].goals[goal].tasks[index].dateCompleted = today;
+            }
+            localStorage.setItem("guest-room", JSON.stringify(newData));
+            setRoomData(newData);
+
+        } else {
+            const response = await fetch('/api/toggleTask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    room: roomData.id,
+                    goal,
+                    task: taskItem.id,
+                    date: getToday()
+                }),
+            });
+            const data = await response.json();
+            if (!data.success) {
+                console.error(data.message);
+            }
         }
+
 
     }
 
     const toggleDelete = (show) => {
-        if(!userInfo) return;
+        if(!userInfo && !roomData.guest) return;
+        if(roomData.guest) {
+            setShowDelete(show);
+            return;
+        }
         if(activeTab === userInfo?.id) {
             setShowDelete(show);
         }
+    }
+
+    const editable = () => {
+        if(!roomData) return false;
+        if(roomData.guest) return true;
+        if(!userInfo) return false;
+        return activeTab === userInfo.id;
     }
 
     let {
@@ -85,7 +174,7 @@ function Task({goal, activeTab, taskItem}) {
             className={`${styles.taskItem} ${dateCompleted ? styles.taskItemCompleted : ''}`}>
             <div
                 onClick={() => toggleTask()} 
-                className={`${styles.taskCheck} ${activeTab === userInfo?.id ? styles.taskCheckEditable : ''}`}>
+                className={`${styles.taskCheck} ${editable() ? styles.taskCheckEditable : ''}`}>
                 {
                     dateCompleted ? <FaCheck /> : null
                 }

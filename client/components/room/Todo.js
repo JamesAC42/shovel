@@ -10,7 +10,7 @@ import getToday from '../../utilities/getToday';
 
 function Todo() {
 
-    const {roomData} = useContext(RoomContext);
+    const { roomData, setRoomData } = useContext(RoomContext);
     const { userInfo } = useContext(UserContext);
 
     let [activeTab, setActiveTab] = useState(null);
@@ -18,10 +18,9 @@ function Todo() {
 
     const getGoals = () => {
 
-        if(!roomData) return {};
-
-        let userGoals = activeTab ?? userInfo?.id ?? Object.keys(roomData.users)[0];
-        return roomData.users[userGoals].goals;
+        if(!roomData || !activeTab) return {};
+        if(!userInfo && !roomData.guest) return {};
+        return roomData.users[activeTab].goals;
 
     }
 
@@ -51,24 +50,47 @@ function Todo() {
         if(goalInput.length > 100) return;
         if(!roomData?.id) return;
 
-        try {
-            const today = getToday();
-            const response = await fetch('/api/addGoal', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ goal: goalInput, room: roomData.id, date:today }),
-            });
-            const data = await response.json();
-            if (!data.success) {
-                console.error(data.message);
-            } else {
-                setGoalInput("");
+        if(roomData.guest) {
+
+            let newData = JSON.parse(JSON.stringify(roomData));
+            let goalIDs = Object.keys(newData.users[1].goals).map((k) => parseInt(k)).sort();
+            let newID = goalIDs.length > 0 ? goalIDs[goalIDs.length - 1] + 1 : 1;
+            newData.users[1].goals[newID] = {
+                id: newID,
+                startDate: getToday(),
+                endDate: null,
+                status: "",
+                title: goalInput,
+                description: goalInput,
+                tasks: []
             }
-        } catch(err) {
-            console.error(err);
+
+            localStorage.setItem("guest-room", JSON.stringify(newData));
+            setRoomData(newData);
+            setGoalInput("");
+
+        } else {
+
+            try {
+                const today = getToday();
+                const response = await fetch('/api/addGoal', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ goal: goalInput, room: roomData.id, date:today }),
+                });
+                const data = await response.json();
+                if (!data.success) {
+                    console.error(data.message);
+                } else {
+                    setGoalInput("");
+                }
+            } catch(err) {
+                console.error(err);
+            }
         }
+
 
     }
 
@@ -79,7 +101,8 @@ function Todo() {
     }
 
     const showNewGoal = () => {
-        if(!userInfo) return false;
+        if(!userInfo && !roomData.guest) return false;
+        if(roomData.guest) return true;
         return activeTab === userInfo.id;
     }
 
@@ -87,7 +110,7 @@ function Todo() {
         
         if(!roomData) return;
         if(!activeTab) {
-            if(userInfo) {
+            if(userInfo && !roomData.guest) {
                 setActiveTab(userInfo.id);
             } else {
                 setActiveTab(parseInt(Object.keys(roomData.users)[0]));

@@ -9,7 +9,7 @@ import getToday from "../../utilities/getToday";
 
 function JournalInput({entries,currentYear,currentMonth,collapsed}) {
 
-    let { roomData } = useContext(RoomContext);
+    let { roomData, setRoomData } = useContext(RoomContext);
     let { userInfo } = useContext(UserContext);
 
     let [entryValue, setEntryValue] = useState("");
@@ -30,29 +30,77 @@ function JournalInput({entries,currentYear,currentMonth,collapsed}) {
             }
         }
 
-        const response = await fetch('/api/saveJournalEntry', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ 
-                room: roomData.id,
-                entry,
-                date: getToday(),
-                tags: filteredTags
-            }),
-        });
-        const data = await response.json();
-        if (!data.success) {
-            console.error(data.message);
+        if(roomData.guest) {
+
+            let newData = JSON.parse(JSON.stringify(roomData));
+            let today = getToday();
+
+            let journalIDs = Object.keys(newData.users[1].journal).map((k) => parseInt(k)).sort();
+            let existingID;
+            for(let i = journalIDs.length - 1; i >= 0; i--) {
+                if(newData.users[1].journal[journalIDs[i]].date === today) {
+                    existingID = newData.users[1].journal[journalIDs[i]].id;
+                }
+            }
+            if(entry.trim().length === 0) {
+                
+                if(journalIDs.length === 0) return;
+                if(existingID) {
+                    delete newData.users[1].journal[existingID];
+                }
+
+            } else {
+
+                let newID;
+                let newEntry = {
+                    room: roomData.id,
+                    date: today,
+                    entry,
+                    tags: filteredTags
+                };
+
+                if(existingID) {
+                    newID = existingID;
+                    newEntry.id = existingID;
+                } else {
+                    newID = journalIDs.length > 0 ? journalIDs[journalIDs.length - 1] + 1 : 1;
+                    newEntry.id = newID;
+                }
+
+                newData.users[1].journal[newID] = newEntry;
+            }
+
+            localStorage.setItem("guest-room", JSON.stringify(newData));
+            setRoomData(newData);
+
+
+        } else {
+
+            const response = await fetch('/api/saveJournalEntry', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    room: roomData.id,
+                    entry,
+                    date: getToday(),
+                    tags: filteredTags
+                }),
+            });
+            const data = await response.json();
+            if (!data.success) {
+                console.error(data.message);
+            }
         }
+
 
     }
 
     const saveEntry = async () => {
 
         if(!roomData) return;
-        if(!userInfo) return;
+        if(!userInfo && !roomData.guest) return;
         if(entryValue.length === 0 || entryValue.length > 5000) return;
         saveEntryHandle(entryValue, tagValue);
 
@@ -76,7 +124,7 @@ function JournalInput({entries,currentYear,currentMonth,collapsed}) {
     const loadEntry = () => {
 
         if(!roomData) return;
-        if(!userInfo) return;
+        if(!userInfo && !roomData.guest) return;
         
         if(!currentYear || !currentMonth) return;
 

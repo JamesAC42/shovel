@@ -14,6 +14,8 @@ export default function EnterRoom({userInfo, setUserInfo}) {
 
     const [userRooms, setUserRooms] = useState([]);
 
+    const [hasGuestRoom, setHasGuestRoom] = useState(false);
+
     const validateRoom = () => {
 
         if(roomId.length < 1 || roomId.length > 50) {
@@ -135,6 +137,16 @@ export default function EnterRoom({userInfo, setUserInfo}) {
 
     }, [userInfo]);
 
+    useEffect(() => {
+
+        if(hasGuestRoom) return;
+        const guestData = localStorage.getItem("guest-room");
+        if(guestData) {
+            setHasGuestRoom(true);
+        }
+
+    }, []);
+
     if (userInfo === null) return;
 
     let {
@@ -182,6 +194,15 @@ export default function EnterRoom({userInfo, setUserInfo}) {
                             )
                         }
                         </ul>
+                    </div> : null
+                }
+                {
+                    hasGuestRoom ?
+                    <div className={styles.guestRoomLinkOuter}>
+                        <p>You have a guest room:</p>
+                        <Link href="/guest" className={styles.guestRoomLink}>
+                            Guest Room
+                        </Link>
                     </div> : null
                 }
             </div>

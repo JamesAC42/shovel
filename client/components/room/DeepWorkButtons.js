@@ -44,16 +44,17 @@ function WorkButton({className, onClick, spanClass, children}) {
 
 export default function DeepWorkButtons() {
 
-    let { roomData } = useContext(RoomContext);
+    let { roomData, setRoomData } = useContext(RoomContext);
     let { userInfo } = useContext(UserContext);
 
     const getHourInfo = () => {
 
         if(!roomData?.id) return;
-        if(!userInfo?.id) return;
+        if(!userInfo?.id && !roomData.guest) return;
 
         let date, hours, wasNotable;
-        const deepWorkHours = roomData.users[userInfo.id].deepWorkTracker;
+        let userId = roomData.guest ? 1 : userInfo.id;
+        const deepWorkHours = roomData.users[userId].deepWorkTracker;
 
         let today = getWeekDay(new Date().getDay());
         let found = false;
@@ -114,21 +115,45 @@ export default function DeepWorkButtons() {
         if(!roomId) return;
         if(!date) return;
 
-        const response = await fetch('/api/saveWorkHours', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ date, hours, wasNotable, room: roomId }),
-        });
-        const data = await response.json();
-        if (!data.success) {
-            console.error(data.message);
+        if(roomData.guest) {
+
+            let newData = JSON.parse(JSON.stringify(roomData));
+            let found = false;
+            for(let entry of newData.users[1].deepWorkTracker) {
+                if(entry.date === date) {
+                    entry.hours = hours;
+                    entry.wasNotable = wasNotable;
+                    found = true;
+                }
+            }
+            if(!found) {
+                newData.users[1].deepWorkTracker.push({
+                    hours,
+                    date,
+                    wasNotable
+                });
+            }
+            localStorage.setItem("guest-room", JSON.stringify(newData));
+            setRoomData(newData);
+
+        } else {
+            const response = await fetch('/api/saveWorkHours', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ date, hours, wasNotable, room: roomId }),
+            });
+            const data = await response.json();
+            if (!data.success) {
+                console.error(data.message);
+            }
         }
+
 
     };
 
-    if(!userInfo) return null;
+    if(!userInfo && !roomData.guest) return null;
 
     return (
         <div className={styles.workButtons}>
