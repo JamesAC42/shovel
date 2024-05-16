@@ -60,9 +60,15 @@ function StatsPanel() {
                     <div className={styles.roomId}>
                         {roomData.name} {roomData.guest ? "" : ` | ${roomData.id}`}
                     </div>
-                    <Requests />
+                    {
+                        !roomData.guest ?
+                        <Requests /> : null
+                    }
                     <ThemePicker />
-                    <VisibilityControl />
+                    {
+                        !roomData.guest ?
+                        <VisibilityControl /> : null
+                    }
 
                     <div
                         onClick={() => alert("For questions, comments, bug reports, or feature suggestions, please send an email to ovelsh.feedback@gmail.com")}
