@@ -6,6 +6,8 @@
     height: 100%;
     flex: 1;
     align-items: stretch;
+    position:relative;
+    max-width:64vw;
 }
 
 .journalInner {
@@ -18,11 +20,14 @@
     @include theme-scrollbar;
     flex: 1;
     max-height: 100%;
+    max-width: 100%;
+    overflow-x:hidden;
 
     .journalDates {
         position: sticky;
         top: 0;
         width: 6rem;
+        min-width: 6rem;
         padding-top: 1.4rem;
         max-height: 100%;
         overflow-y: scroll;
@@ -83,6 +88,7 @@
 
     .journalContent {
         flex: 1;
+        max-width:calc(100% - 8.5rem);
 
         h2 {
             position:relative;
@@ -195,6 +201,8 @@
                 background: var(--background-dark);
                 font-family: 'SourceCodePro',monospace;
                 font-size:0.8rem;
+                white-space:pre-line;
+                word-wrap:break-word;
             }
         }
     }
