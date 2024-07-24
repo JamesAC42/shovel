@@ -1,0 +1,44 @@
+@import "./variables.module.scss";
+
+@mixin fill-screen {
+    height:100dvh;
+    width:100dvw;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+}
+
+.popupOuter {
+    @include fixed-center;
+    @include fill-screen;
+    top:50dvh;left:50dvw;
+    z-index:1000000;
+    .popupInner {
+        position:relative;
+        @include fill-screen;
+        
+        .popupBackground,
+        .popupContent {
+            position:fixed;
+            top:50dvh;left:50dvw;
+            transform:translate(-50%,-50%);
+        }
+        
+        .popupBackground {
+            @include fill-screen;
+            background:#0000004f;
+            animation: fade-in 0.1s ease-in-out 1;
+        }
+        
+        .popupContent {
+
+        }
+
+    }
+}

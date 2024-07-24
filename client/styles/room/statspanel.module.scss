@@ -70,6 +70,30 @@
                 transform:translateY(3px);
             }
         }
+        .socialLink {
+            position:relative;
+            height:2rem;
+            width:2rem;
+            @include flex-center-row;
+            a {
+                color:var(--primary-color);
+            }
+            svg {
+                font-size:1.2rem;
+                margin-left:1rem;
+                cursor:pointer;
+                transform:translateY(3px);
+                &:hover {
+                    filter:brightness(1.5);
+                }
+            }
+            .socialNotif {
+                background:var(--background-color);
+                border-radius:0.5rem;
+                padding:1rem;
+                box-shadow:0 0 10px 0 var(--glow);
+            }
+        }
     }
 
     span.workMarker,

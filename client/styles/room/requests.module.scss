@@ -24,11 +24,8 @@
         width:15rem;
         max-height:8rem;
         border-radius:0.5rem;
-        position:absolute;
-        left:0;bottom:0;
         background:var(--background-dark);
         z-index:100000;
-        transform:translate(0.3rem, calc(100% + 0.4rem));
         border:1px solid var(--tertiary-color);
         overflow-y:scroll;
         .request {

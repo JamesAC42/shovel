@@ -141,7 +141,7 @@ function Goal({activeTab, goalItem}) {
 
     const toggleDelete = (show) => {
         if(!userInfo && !roomData.guest) return;
-        if(roomData.guest || (activeTab === userInfo)) {
+        if(roomData.guest || (activeTab === userInfo.id)) {
             setShowDelete(show);
         }
     }

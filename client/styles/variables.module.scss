@@ -76,12 +76,14 @@
 
 @keyframes expand-requests {
     0% {
-        max-width:0;
-        max-height:0;
+        opacity:0;
+        filter:blur(10px);
+        transform:translateY(20px);
     }
     100% {
-        max-width:15rem;
-        max-height:8rem;
+        opacity:1;
+        filter:blur(0px);
+        transform:translateY(0px);
     }
 }
 

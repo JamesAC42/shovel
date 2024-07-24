@@ -6,6 +6,7 @@ import themes from "../utilities/themes";
 import styles from "../styles/room/themepicker.module.scss";
 import ViewContext from '../contexts/ViewContext';
 import setSavedCustomThemeColors from '../utilities/setSavedCustomThemeColors';
+import Popup from './Popup';
 
 function ThemePicker() {
 
@@ -34,6 +35,7 @@ function ThemePicker() {
     }
 
     const showCustomThemePicker = () => {
+        setShowThemes(false);
         let v = JSON.parse(JSON.stringify(view));
         v.showCustomThemePicker = !v.showCustomThemePicker;
         setView(v);
@@ -46,34 +48,37 @@ function ThemePicker() {
             </div>
             {
                 showThemes ?
-                <div className={styles.themes}>
-                    <h4>themes</h4>
-                    <div className={styles.themeContainer}>
-                        {
-                            themes.map(t => 
-                                <div    
-                                    onClick={() => saveTheme(t)} 
-                                    className={`${styles.themeItem} ${
-                                            theme === t ? 
-                                            styles.themeItemActive : ""
-                                        } ${styles[t]}`}>
-                                    {t}
-                                </div> 
-                            )
-                        }
-                        
-                        <div    
-                            onClick={() => saveTheme('custom')} 
-                            className={`${styles.themeItem} ${styles.custom}`}>
-                            custom 
-                            <div
-                                onClick={() => showCustomThemePicker()} 
-                                className={styles.editCustomTheme}>
-                                <TbPencilPlus/>
-                            </div>
-                        </div> 
+                
+                <Popup onClose={() => setShowThemes(false)}>
+                    <div className={styles.themes}>
+                        <h4>themes</h4>
+                        <div className={styles.themeContainer}>
+                            {
+                                themes.map(t => 
+                                    <div    
+                                        onClick={() => saveTheme(t)} 
+                                        className={`${styles.themeItem} ${
+                                                theme === t ? 
+                                                styles.themeItemActive : ""
+                                            } ${styles[t]}`}>
+                                        {t}
+                                    </div> 
+                                )
+                            }
+                            
+                            <div    
+                                onClick={() => saveTheme('custom')} 
+                                className={`${styles.themeItem} ${styles.custom}`}>
+                                custom 
+                                <div
+                                    onClick={() => showCustomThemePicker()} 
+                                    className={styles.editCustomTheme}>
+                                    <TbPencilPlus/>
+                                </div>
+                            </div> 
+                        </div>
                     </div>
-                </div> : null
+                </Popup> : null
             }
         </div>
     )

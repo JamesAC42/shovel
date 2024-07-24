@@ -127,7 +127,7 @@ function JournalInput({entries,currentYear,currentMonth,collapsed}) {
         if(!userInfo && !roomData.guest) return;
         
         if(!currentYear || !currentMonth) return;
-
+        if(!entries[currentYear] || !entries[currentYear][currentMonth]) return;
         let entry = entries[currentYear][currentMonth][0];
         setEntryValue(entry.entry);
         setTagValue(entry.tags.join(", "));

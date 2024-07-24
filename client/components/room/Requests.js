@@ -7,6 +7,7 @@ import { FaCheck } from "react-icons/fa";
 
 import styles from "../../styles/room/requests.module.scss";
 import UserContext from "../../contexts/UserContext";
+import Popup from "../Popup";
 
 function Requests() {
 
@@ -53,34 +54,37 @@ function Requests() {
             </div>
             {
                 showRequests ?
-                <div className={styles.requests}>
-                    <h4>join requests</h4>
-                    {
-                        requests.map((request) => 
-                        <div className={styles.request}>
-                            <div className={styles.requestName}>
-                                {request}
-                            </div>
-                            <div className={styles.requestActions}>
-                                <div
-                                    onClick={() => requestReply(request, true)} 
-                                    className={styles.approveRequest}>
-                                    <FaCheck/>
+                
+                <Popup onClose={() => setShowRequests(false)}>
+                    <div className={styles.requests}>
+                        <h4>join requests</h4>
+                        {
+                            requests.map((request) => 
+                            <div className={styles.request}>
+                                <div className={styles.requestName}>
+                                    {request}
                                 </div>
-                                <div
-                                    onClick={() => requestReply(request, false)}  
-                                    className={styles.declineRequest}>
-                                    <CgCloseO />
+                                <div className={styles.requestActions}>
+                                    <div
+                                        onClick={() => requestReply(request, true)} 
+                                        className={styles.approveRequest}>
+                                        <FaCheck/>
+                                    </div>
+                                    <div
+                                        onClick={() => requestReply(request, false)}  
+                                        className={styles.declineRequest}>
+                                        <CgCloseO />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        )
-                    }
-                    {
-                        requests.length === 0 ?
-                        <h5>no requests</h5> : null
-                    }
-                </div> : null
+                            )
+                        }
+                        {
+                            requests.length === 0 ?
+                            <h5>no requests</h5> : null
+                        }
+                    </div>
+                </Popup>: null
             }
         </div>
     )

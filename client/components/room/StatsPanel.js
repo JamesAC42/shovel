@@ -4,22 +4,33 @@ import Requests from './Requests';
 import ThemePicker from '../ThemePicker';
 import WorkGrid from './WorkGrid';
 import DeepWorkButtons from './DeepWorkButtons';
+import { BsFillPeopleFill } from "react-icons/bs";
 
-import {useContext, useState} from 'react';
+import {useContext, useState, useEffect} from 'react';
 import RoomContext from '../../contexts/RoomContext';
 
 import { MdOutlineExpandMore } from "react-icons/md";
 import { IoChevronBackCircle, IoChevronForwardCircle } from "react-icons/io5";
 import { IoMdBackspace } from "react-icons/io";
-import { FaQuestionCircle } from "react-icons/fa";
 import Link from 'next/link';
 import CheckIn from './CheckIn';
 import VisibilityControl from './VisibilityControl';
+import Popup from '../Popup';
 
 function StatsPanel() {
 
     const {roomData} = useContext(RoomContext);
     const [statsExpanded, setStatsExpanded] = useState(true);
+
+    const [showSocialNotif, setShowSocialNotif] = useState(false);
+
+    useEffect(() => {
+        const seenSocial = localStorage.getItem('shovel:seenSocial');
+        if (!seenSocial || seenSocial === 'false') {
+            setShowSocialNotif(true);
+            localStorage.setItem('shovel:seenSocial', 'true');
+        }
+    }, []);
 
     const collapsedStyle = () => (
         statsExpanded ? "" : styles.statsPanelCollapsed
@@ -69,11 +80,19 @@ function StatsPanel() {
                         !roomData.guest ?
                         <VisibilityControl /> : null
                     }
+                    <div className={styles.socialLink}>
+                        <Link href="/social">
+                            <BsFillPeopleFill/>
+                        </Link>
 
-                    <div
-                        onClick={() => alert("For questions, comments, bug reports, or feature suggestions, please send an email to ovelsh.feedback@gmail.com")}
-                        className={styles.question}>
-                        <FaQuestionCircle />
+                        {
+                            showSocialNotif ?
+                            <Popup onClose={() => setShowSocialNotif(false)}>
+                                <div className={styles.socialNotif}>
+                                    Liking shovel? Visit the forum to leave a comment, suggest a new feature, or ask anything! Click the People icon in the top left of the workspace to visit.
+                                </div>
+                            </Popup> : null
+                        }
                     </div>
                 </div>
                 <div className={deepWorkStyle()}>

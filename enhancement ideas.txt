@@ -19,3 +19,14 @@ things to add:
 - Make login page nicer 
 - Nested todo
 - Get people to share how they're using it and put on site
+
+requests:
+- add social link to rooms
+- delete room
+- index of public rooms
+- change room name
+- latex rendering
+- pomodoro timer
+- track amount of time room was opened
+- rearrange goals and tasks
+- 
