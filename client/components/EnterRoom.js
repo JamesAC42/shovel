@@ -161,22 +161,17 @@ export default function EnterRoom({userInfo, setUserInfo}) {
                 logged in as {firstName + ' ' + lastName}
                 <div className={styles.logout} onClick={logout}>Log out</div>
             </div>
-            <div className={styles.roomInput}>
+            <div className={`${styles.roomInput} ${styles.createNew}`}>
                 <label>
-                    Enter Room ID:
+                    Create a New Room:
                 </label>
-                <input type="text" value={roomId} maxLength={10} placeholder="Room ID" onChange={e => setRoomId(e.target.value)} />
-                <input className={styles.submitForm} type="submit" value="Enter Room" onClick={validateRoom} />
-                { 
-                    joinError ? 
-                    <div className={styles.errorMessage}>
-                        {joinError}
-                    </div> : null
-                }
+                <p>Make a new room to start from scratch. First give it a name, then click Create Room.</p>
+                <input type="text" value={roomName} maxLength={50} placeholder="Name the room:" onChange={e => setRoomName(e.target.value)} />
+                <input className={styles.submitForm} type="submit" value="Create Room" onClick={createRoom} />
                 {
-                    joinStatus ?
-                    <div className={styles.joinStatus}>
-                        {joinStatus}
+                    createError ?
+                    <div className={styles.errorMessage}>
+                        {createError}
                     </div> : null
                 }
                 {
@@ -199,23 +194,30 @@ export default function EnterRoom({userInfo, setUserInfo}) {
                 {
                     hasGuestRoom ?
                     <div className={styles.guestRoomLinkOuter}>
-                        <p>You have a guest room:</p>
+                        <label>You have a guest room:</label>
                         <Link href="/guest" className={styles.guestRoomLink}>
                             Guest Room
                         </Link>
                     </div> : null
                 }
             </div>
-            <div className={styles.roomInput}>
+            <div className={styles.roomInput} id="joinExisting">
                 <label>
-                    Create a New Room:
+                    Join an existing room:
                 </label>
-                <input type="text" value={roomName} maxLength={50} placeholder="Room Name" onChange={e => setRoomName(e.target.value)} />
-                <input className={styles.submitForm} type="submit" value="Create Room" onClick={createRoom} />
-                {
-                    createError ?
+                <p>Enter the ID of the room you wish to join. The ID is the number in the top left of the room while you're in it.</p>
+                <input type="text" value={roomId} maxLength={10} placeholder="Room ID" onChange={e => setRoomId(e.target.value)} />
+                <input className={styles.submitForm} type="submit" value="Enter Room" onClick={validateRoom} />
+                { 
+                    joinError ? 
                     <div className={styles.errorMessage}>
-                        {createError}
+                        {joinError}
+                    </div> : null
+                }
+                {
+                    joinStatus ?
+                    <div className={styles.joinStatus}>
+                        {joinStatus}
                     </div> : null
                 }
             </div>

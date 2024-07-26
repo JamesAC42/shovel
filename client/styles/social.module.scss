@@ -1,14 +1,14 @@
 @import "variables.module.scss";
 
 .socialTop {
-    height:100vh;width:100vw;
+    height:100dvh;width:100dvw;
     background: var(--background-color);
     position:fixed;top:0;left:0;
     overflow:hidden;
 }
 
 .socialOuter {
-    height:100vh;width:100vw;
+    height:100dvh;width:100dvw;
     position:relative;
     overflow-y:scroll;
     
@@ -20,7 +20,7 @@
     .socialNav {
         
         flex:1;
-        height:100vh;
+        height:100dvh;
         position:sticky;
         top:0;
 
@@ -50,7 +50,7 @@
     }
     .socialContent {
         flex:3.5;
-        min-height:100vh;
+        min-height:100dvh;
     }
 
 

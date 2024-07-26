@@ -4,14 +4,20 @@
     height:100vh;width:100vw;
     overflow-y:scroll;
     background: var(--background-color);
+    @media screen and (max-width:1180px) {
+        overflow:hidden;
+    }
 }
 
 .roomOuter {
     @include fixed-center;
-    @media (max-width: 900px) {
-        overflow-y:scroll;
-        margin-top:1rem;
-        max-height:calc(100vh - 6rem);
+    max-height:calc(100dvh - 3rem);
+    @media screen and (max-width:1180px) {
+        top:3rem;
+        left:0;
+        transform:none;
+        height:calc(100dvh - 3rem);
+        overflow:hidden;
     }
 }
 
@@ -24,25 +30,15 @@
     box-shadow:0 0.16rem 0.8rem 0.1rem var(--background-dark);
     @include fade-in;
     overflow:hidden;
-    
-    @media (max-width: 1130px) {
-        @include flex-center-col;
-        align-items:stretch;
-        max-width:50vw;
-        max-height:calc(100vh - 5rem);
-        transform:translateY(1.5rem);
-        overflow-y:scroll;
-        display:block;
-        h2 {
-            text-align:center;
-        }
-    }
 
-    @media (max-width: 650px) {
-        width:80vw;
-        max-width:80vw;
+    @media screen and (max-width:1180px) {
+        flex-direction: column;
+        justify-content: flex-start;
+        max-height:calc(100dvh - 3rem);
+        min-width:100dvw;
+        width:100dvw;
+        overflow-y:auto;
     }
-
 }
 
 .loggedIn {
@@ -57,8 +53,15 @@
     border-radius:0.4rem;
     gap:2rem;
     @include fade-in;
-    @media (max-width: 800px) {
-        @include flex-center-col;
+    @media screen and (max-width:1180px) {
+        border:none;
+        max-height:calc(100dvh - 4rem - 3rem);
+        height:calc(100dvh - 4rem - 3rem);
+        width:calc(100dvw - 4rem);
+        margin:0;
+        overflow-x:hidden;
+        overflow-y:scroll;
+        display:block;
     }
 }
 
@@ -109,9 +112,6 @@
     color:var(--primary-color);
     
     width:15rem;
-    @media (max-width: 1130px) {
-        width:auto;
-    }
     h2 {
         white-space:nowrap;
     }
@@ -141,19 +141,27 @@
             outline:2px solid var(--secondary-color);
         }
     }
+    
+    @media screen and (max-width:1180px) {
+        padding-bottom:2rem;
+        width:auto;
+    }
 
 }
 
 .login, .createUser {
     border-right:1px solid var(--secondary-color);
     
-    @media (max-width: 1130px) {
+    @media screen and (max-width:1180px) {
         border-right:none;
         border-bottom:1px solid var(--secondary-color);
     }
+}
 
-    @media (max-width: 900px) {
-        padding: 0 1rem;
+.login h2, .createUser h2 {
+    margin-bottom:0.5rem;
+    @media screen and (max-width:470px) {
+        margin-bottom:0;
     }
 }
 
@@ -173,11 +181,14 @@
     white-space:nowrap;
     justify-content: space-between;
 
-    @media (max-width: 900px) {
+    @media screen and (max-width:470px) {
         flex-direction: column;
-        gap:0.6rem;
         text-align:left;
+        align-items: normal;
+        gap:0.1rem;
+        margin-top:1rem;
     }
+
 }
 
 @mixin formInput {
@@ -195,10 +206,8 @@
     flex:1;
     max-width:50%;
     @include formInput;
-    @media (max-width: 900px) {
-        width:90%;
-        text-align:center;
-        min-width:90%;
+    @media screen and (max-width:470px) {
+        max-width:100%;
     }
 }
 
@@ -230,11 +239,6 @@
     &:hover {
         outline:2px solid var(--secondary-color);
     }
-    @media (max-width: 900px) {
-        max-width:50%;
-        margin:1rem auto;
-        padding:0.2rem 2rem;
-    }
 }
 
 .accountStatus {
@@ -243,6 +247,10 @@
     align-items: stretch;
     min-width:10rem;
     justify-content: space-between;
+    position:relative;
+    @media screen and (max-width:1180px) {
+        margin-bottom:2rem;
+    }
 }
 
 .roomInput {
@@ -262,6 +270,24 @@
         margin:0.8rem 0 0.8rem 0;
         border:none;
         margin-bottom:0;
+    }
+
+    p {
+        margin:0.5rem 0;
+        opacity:0.7;
+        text-align:justify;
+        min-height:6rem;
+        @media screen and (max-width:1180px) {
+            min-height:0;
+        }
+    }
+}
+
+.roomInput.createNew {
+    @media screen and (max-width:1180px) {
+        padding-bottom:2rem;
+        border-bottom:1px solid var(--secondary-color);
+        margin-bottom:2rem;
     }
 }
 
@@ -293,6 +319,7 @@
 
 .guestRoomLinkOuter {
 
+    margin-top:0.5rem;
     a.guestRoomLink {
         text-decoration: none;
         color:var(--link-color);
@@ -302,8 +329,4 @@
         margin-top:0.2rem;
     }
 
-    p {
-        text-align:left;
-        margin-bottom:0;
-    }
 }
