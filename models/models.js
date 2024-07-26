@@ -29,6 +29,10 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING(50),
     allowNull: false,
   },
+  email: {
+    type: DataTypes.STRING(200),
+    allowNull: true
+  }
 }, {
   tableName: 'users',
   timestamps: false,

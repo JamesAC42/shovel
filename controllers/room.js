@@ -15,6 +15,7 @@ const room = (req, res, models) => {
                         firstName: user.firstName,
                         lastName: user.lastName,
                         username: user.username,
+                        email: user.email,
                         color: user.color,
                         dateCreated: user.dateCreated
                     }

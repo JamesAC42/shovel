@@ -1,15 +1,17 @@
 const sanitize = require('sanitize-html');
 const bcrypt = require('bcrypt');
+const { Op } = require('sequelize');
 
 const createUser = async (req, res, models) => {
 
-    let { firstName, lastName, username, password, color } = req.body;
+    let { firstName, lastName, username, password, color, email } = req.body;
 
     firstName = firstName.trim();
     lastName = lastName.trim();
     username = username.trim();
+    email = email.trim();
 
-    if (!firstName || !lastName || !username || !password) {
+    if (!firstName || !lastName || !username || !password || !email) {
         res.status(400).json({ success: false, message: 'All fields are required' });
         return;
     }
@@ -23,16 +25,32 @@ const createUser = async (req, res, models) => {
         return;
     }
 
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+        setErrorMessage("Invalid email format");
+        return;
+    }
+
     firstName = sanitize(firstName);
     lastName = sanitize(lastName);
     username = sanitize(username);
     password = sanitize(password);
+    email = sanitize(email);
     color = sanitize(color);
 
     try {
-        const existingUser = await models.User.findOne({ where: { username: username } });
+
+        const existingUser = await models.User.findOne({
+            where: {
+                [Op.or]: [
+                    { username: username },
+                    { email: email }
+                ]
+            }
+        });
         if (existingUser) {
-            res.status(400).json({ success: false, message: 'Username already exists' });
+            const message = existingUser.username === username ? 'Username already exists' : 'Email already exists';
+            res.status(400).json({ success: false, message });
             return;
         }
 
@@ -44,6 +62,7 @@ const createUser = async (req, res, models) => {
             username,
             password: hashedPassword,
             color,
+            email,
             dateCreated
         });
 
@@ -58,6 +77,7 @@ const createUser = async (req, res, models) => {
                 lastName,
                 username,
                 color,
+                email,
                 dateCreated
             },
         });

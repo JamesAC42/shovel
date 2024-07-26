@@ -1,44 +1,51 @@
 const bcrypt = require('bcrypt');
+const { Op } = require('sequelize');
 
-const login = (req, res, models) => {
+const login = async (req, res, models) => {
 
-    const { username, password } = req.body;
-    if(!username || !password || username.trim() === "" || password.trim() === "") {
-        res.send({ success: false, message: "Username or password cannot be empty." });
+    const { user, password } = req.body;
+    if (!user || !password || user.trim() === "" || password.trim() === "") {
+        res.send({ success: false, message: "Username/Email or password cannot be empty." });
         return;
     }
 
-    models.User.findOne({ where: { username: username } })
-        .then(user => {
-            if (!user) {
-                res.send({ success: false, message: "Username or password is incorrect." });
-            } else {
-                bcrypt.compare(password, user.password, function (err, result) {
-                    if (err) {
-                        console.error('Error comparing passwords:', err);
-                        res.status(500).json({ error: 'Internal Server Error' });
-                    } else if (!result) {
-                        res.send({ success: false, message: "Username or password is incorrect." });
-                    } else {
-                        req.session.user = { username };
-                        res.json({ 
-                            success: true,
-                            user: { 
-                                id: user.id,
-                                firstName: user.firstName,
-                                lastName: user.lastName,
-                                username: user.username,
-                                color: user.color,
-                                dateCreated: user.dateCreated
-                            }
-                        });
-                    }
-                });
+    try {
+        const foundUser = await models.User.findOne({
+            where: {
+                [Op.or]: [
+                    { email: user },
+                    { username: user }
+                ]
             }
-        })
-        .catch(err => {
-            console.error('Error retrieving user from the database:', err);
-            res.status(500).json({ error: 'Internal Server Error' });
         });
+
+        if (!foundUser) {
+            res.send({ success: false, message: "Username/Email or password is incorrect." });
+            return;
+        }
+
+        const result = await bcrypt.compare(password, foundUser.password);
+        if (!result) {
+            res.send({ success: false, message: "Username/Email or password is incorrect." });
+            return;
+        }
+
+        req.session.user = { username: foundUser.username };
+        res.json({ 
+            success: true,
+            user: { 
+                id: foundUser.id,
+                firstName: foundUser.firstName,
+                lastName: foundUser.lastName,
+                username: foundUser.username,
+                email: foundUser.email,
+                color: foundUser.color,
+                dateCreated: foundUser.dateCreated
+            }
+        });
+    } catch (err) {
+        console.error('Error during login process:', err);
+        res.status(500).json({ success: false, message: 'Internal Server Error' });
+    }
 }
 module.exports = login;

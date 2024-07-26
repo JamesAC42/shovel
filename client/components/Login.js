@@ -4,7 +4,7 @@ import UserContext from '../contexts/UserContext';
 
 function Login() {
 
-    const [username, setUsername] = useState("");
+    const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -12,8 +12,8 @@ function Login() {
 
     function submitForm(e) {
         e.preventDefault();
-        if (username === "" || password === "") {
-            setErrorMessage("Username and password cannot be empty");
+        if (user === "" || password === "") {
+            setErrorMessage("Fields cannot be empty");
             return;
         } else {
             fetch('/api/login', {
@@ -22,7 +22,7 @@ function Login() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    username,
+                    user,
                     password
                 }),
             })
@@ -46,8 +46,8 @@ function Login() {
             <h2>Login</h2>
             <form>
                 <label>
-                    Username:
-                    <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
+                    Email or Username:
+                    <input type="text" value={user} onChange={e => setUser(e.target.value)} />
                 </label>
                 <label>
                     Password:

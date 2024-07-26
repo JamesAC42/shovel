@@ -8,6 +8,7 @@ function CreateUser() {
     const [lastName, setLastName] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
     const [color, setColor] = useState("#000000");
     const [errorMessage, setErrorMessage] = useState("");
@@ -20,14 +21,21 @@ function CreateUser() {
         const trimmedFirstName = firstName.trim();
         const trimmedLastName = lastName.trim();
         const trimmedUsername = username.trim();
+        const trimmedEmail = email.trim();
         
-        if (!trimmedFirstName || !trimmedLastName || !trimmedUsername || !password || !color) {
+        if (!trimmedFirstName || !trimmedLastName || !trimmedUsername || !password || !color || !trimmedEmail) {
             setErrorMessage("All fields must be filled");
             return;
         }
 
         if (trimmedFirstName.length > 50 || trimmedLastName.length > 50 || trimmedUsername.length > 50 || password.length > 50) {
             setErrorMessage("Input exceeds maximum length of 50 characters");
+            return;
+        }
+
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(trimmedEmail)) {
+            setErrorMessage("Invalid email format");
             return;
         }
 
@@ -50,6 +58,7 @@ function CreateUser() {
                 firstName: trimmedFirstName,
                 lastName: trimmedLastName,
                 username: trimmedUsername,
+                email: trimmedEmail,
                 password,
                 color
             }),
@@ -84,6 +93,10 @@ function CreateUser() {
                 <label>
                     Username:
                     <input type="text" value={username} maxLength={50} onChange={e => setUsername(e.target.value)} />
+                </label>
+                <label>
+                    Email:
+                    <input type="text" value={email} maxLength={200} onChange={e => setEmail(e.target.value)} />
                 </label>
                 <label>
                     Password:
