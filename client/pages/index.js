@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import styles from '../styles/home.module.scss';
 import { FaGithubAlt } from "react-icons/fa";
-import { FaCircleArrowRight } from "react-icons/fa6";
+import { FaCircleArrowRight, FaQ } from "react-icons/fa6";
 import { IoMail } from "react-icons/io5";
 import Link from 'next/link'; 
 import Image from 'next/image';
@@ -9,6 +9,7 @@ import NavBar from '../components/NavBar';
 import { useEffect, useState } from 'react';
 import CustomThemePicker from '../components/room/CustomThemePicker';
 import { IoPersonCircleSharp } from "react-icons/io5";
+import { IoIosArrowDropdown } from "react-icons/io";
 
 const EnterButton = () => {
   return (
@@ -23,6 +24,29 @@ const EnterButton = () => {
       </Link>
     </div>
   )
+}
+
+const FAQSection = ({question, children}) => {
+
+  let [collapsed, setCollapsed] = useState(true);
+
+  return (
+    <div className={styles.infoContainer}>
+      <div className={styles.infoHeader}>
+        { question }
+
+        <div 
+          onClick={() => setCollapsed(!collapsed)}
+          className={`${styles.collapseButton} ${collapsed ? styles.collapsed : ''}`}>
+          <IoIosArrowDropdown/>
+        </div>
+      </div>
+      <div className={`${styles.infoContent} ${collapsed ? styles.infoCollapsed : ''}`}>
+        { children }
+      </div>
+    </div>
+  )
+
 }
 
 export default function Home() {
@@ -48,7 +72,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>shovel</title>
+        <title>shovel - productivity tool with journal & todo list</title>
         <link rel="icon" href="/favicon.ico" />                
       </Head>
       <NavBar />
@@ -62,6 +86,9 @@ export default function Home() {
                 <span className={styles.highlight}>focus,</span>
                 {" "} boost <span className={styles.highlight}>productivity,</span> and 
                 achieve <span className={`${styles.highlight} ${styles.deepWork}`}>{" deep work."}</span>
+              </div>
+              <div className={styles.subheader}>
+              The minimalist productivity app for effortless task management, journaling, and ADHD-friendly time tracking. Simplify your workflow today.
               </div>
               <EnterButton />
             </div>
@@ -145,46 +172,31 @@ export default function Home() {
             </div>
           </div>
 
-
-          <div className={styles.infoContainer}>
-            <div className={styles.infoHeader}>
-              what is shovel?
-            </div>
-            <div className={styles.infoContent}>
-              shovel is a productivity tool to help you go deep in your work. it aims to eliminate distractions with a sleek and simple interface that holds your tasks, notes, thoughts, and progress all in one view. create or join a room with up to 5 people to collaborate asynchronously. a daily check in button allows you to build a streak and ensures you get something done every day.
-            </div>
+          <div className={styles.sectionHeader}>
+            <h2>FAQ</h2>
           </div>
 
-          <div className={styles.infoContainer}>
-            <div className={styles.infoHeader}>
-              how does shovel help?
-            </div>
-            <div className={styles.infoContent}>
-              shovel puts the <span className={styles.infoBold}>past</span>, <span className={styles.infoBold}>present</span>, and <span className={styles.infoBold}>future</span> in one space so your mind can focus on the work in front of you. your goals and tasks are for future work, your work grid is for making sure you committed hours of deep work towards your goals every day, and your journal is for jogging down ideas, progress notes, and updates so that there's never too many distracting thoughts running through your mind at once.
-            </div>
-          </div>
+          <FAQSection question="What is Shovel?">
+            Shovel is a cutting-edge productivity app designed to enhance focus, boost efficiency, and achieve deep work. With its sleek, minimalist interface, Shovel aims to eliminate distractions by consolidating your tasks, notes, thoughts, and progress all in one view. Perfect for ADHD management, this productivity tool allows you to create or join a collaborative room with up to 5 people, enabling asynchronous teamwork. The daily check-in feature helps you build a productivity streak and ensures consistent task completion, making it an ideal study app for students and professionals alike.
+          </FAQSection>
 
-          <div className={styles.infoContainer}>
-            <div className={styles.infoHeader}>
-              what is deep work? 
-            </div>
-            <div className={styles.infoContent}>
-              deep work is defined as <span className={styles.infoBold}>"distraction free concentration that pushes cognitive abilities to their limit."</span> the fruits of a deep work session are usually hard to reproduce and create new value. it is also known as working in a <span className={styles.infoBold}>flow state</span>. see the book <Link href="https://www.amazon.com/Deep-Work-Focused-Success-Distracted/dp/1455586692" target="_blank">Deep Work</Link> by Cal Newport for more information.
-            </div>
-          </div>
+          <FAQSection question="How does shovel help improve productivity?">
+            Shovel revolutionizes time management by unifying <span className={styles.infoBold}>past</span>, <span className={styles.infoBold}>present</span>, and <span className={styles.infoBold}>future</span> in a single space, allowing your mind to focus on the work at hand. Future-oriented goals and tasks, a work grid for tracking daily deep work hours, and a built-in journal for capturing ideas and progress notes all contribute to a distraction-free workflow. This comprehensive approach to productivity and efficiency helps manage ADHD symptoms, reduces productivity anxiety, and fosters a balanced work environment, whether you're using it on your iPhone, iPad, Android device, or Mac.
+          </FAQSection>
 
-          <div className={styles.infoContainer}>
-            <div className={styles.infoHeader}>
-              why should I care?
-            </div>
-            <div className={styles.infoContent}>
-              the ability to go deep is becoming increasingly rare in the modern world due a misguided work culture of quick wins and multitasking. one who can consistently go deep has an <span className={styles.infoBold}>enormous economical advantage </span> over others because the results are meaningful and impossible to reproduce from shallow work - it often results in new insights or difficult to find solutions. deep work can also make you <span className={styles.infoBold}>happier </span>- humans are problem solvers and enjoy being challenged. the flow state is the pinnacle of this mindset and it feels good to be there, even better than relaxing. 
-            </div>
-          </div>
+          <FAQSection question="What is deep work and why is it crucial for productivity? ">
+              Deep work, a concept popularized by Cal Newport's book "<Link href="https://www.amazon.com/Deep-Work-Focused-Success-Distracted/dp/1455586692" target="_blank">Deep Work</Link>," refers to <span className={styles.infoBold}>distraction-free concentration that pushes cognitive abilities to their limit</span>. It's synonymous with achieving a flow state, resulting in high-quality output that's difficult to replicate. In today's fast-paced world, the ability to engage in deep work is becoming increasingly rare, making it a valuable skill for both academic success and professional growth.
+          </FAQSection>
+
+          <FAQSection question="Why should you care about mastering deep work?">
+              In an era dominated by shallow work and multitasking, the capacity for deep work provides a <span className={styles.infoBold}>significant economic advantage</span>. It leads to meaningful results and innovations that are impossible to achieve through superficial efforts. Moreover, engaging in deep work can enhance overall well-being. As natural problem-solvers, humans thrive on challenges, and the flow state achieved during deep work sessions can be more fulfilling than mere relaxation. By using Shovel, you're not just organizing tasks – you're cultivating a productivity mindset that can transform your work and study habits, helping you achieve more without burnout.
+          </FAQSection>
 
           <div className={styles.screenshotsOuter}>
 
-            <div className={styles.screenshotsHeader}>features</div>
+            <div className={`${styles.screenshotsHeader} ${styles.sectionHeader}`}>
+              <h2>features</h2>
+            </div>
 
             <div className={styles.screenshotItem}>
               <div className={styles.screenshotPicture}>
@@ -197,10 +209,10 @@ export default function Home() {
               <div className={styles.screenshotDescription}>
                 <div className={styles.descInner}>
                   <div className={styles.descHeader}>
-                    goals and tasks  
+                    Goal Tracking and Task Management
                   </div>
                   <div className={styles.descText}>
-                    track goals with start and end dates, and add sub-tasks to prioritize and maintain remaining work. give tasks individual tags to help categorize types of work (coming soon: filtering and searching by tag)
+                  Boost your productivity with our goal and task tracking system. Set start and end dates for your objectives, and break them down into manageable sub-tasks to prioritize your workflow. Enhance organization with customizable tags for each task, allowing for easy categorization of your work. (Coming soon: powerful filtering and searching capabilities by tag, including AI powered summaries and organization)
                   </div>
                 </div>
               </div>
@@ -217,10 +229,10 @@ export default function Home() {
               <div className={styles.screenshotDescription}>
                 <div className={styles.descInner}>
                   <div className={styles.descHeader}>
-                    daily journal
+                    Daily Digital Journal
                   </div>
                   <div className={styles.descText}>
-                    write down progress made, notes, ideas, and anything else on your mind in a daily journal entry. your entry can be edited throughout the day, but is locked once the day is over. this is to keep you focused on current affairs instead of worrying about the past.
+                    Maximize your productivity and maintain focus with our built-in daily journal. Record your progress, brainstorm ideas, and jot down important notes throughout the day. This ADHD-friendly feature locks entries at the end of each day, encouraging you to stay present and reducing productivity anxiety related to past events.
                   </div>
                 </div>
               </div>
@@ -237,10 +249,10 @@ export default function Home() {
               <div className={styles.screenshotDescription}>
                 <div className={styles.descInner}>
                   <div className={styles.descHeader}>
-                    work grid
+                    Visual Work Grid
                   </div>
                   <div className={styles.descText}>
-                    quickly record how many hours of deep work you were able to get in each day, indicated by dots in a weekly grid so it's easy to see at a glance the kind of time you are able to dedicate towards your goals. give a day a special highlight to show you accomplished something that day and be reminded that hard work pays off.
+                    Elevate your time management skills with our intuitive work grid. Easily log your daily deep work hours, visualized as dots in a weekly layout for at-a-glance productivity assessment. Highlight significant accomplishments to reinforce the connection between consistent effort and meaningful results.
                   </div>
                 </div>
               </div>
@@ -257,10 +269,10 @@ export default function Home() {
               <div className={styles.screenshotDescription}>
                 <div className={styles.descInner}>
                   <div className={styles.descHeader}>
-                    daily check in
+                  Daily Check-In Streak
                   </div>
                   <div className={styles.descText}>
-                    check in each day and maintain a streak so you know you're putting in the time every day and building momentum. 
+                  Build a habit of productivity with our daily check-in feature. Maintain your streak to ensure consistent engagement with your goals, fostering momentum and long-term success in your personal and professional endeavors.
                   </div>
                 </div>
 
@@ -278,10 +290,10 @@ export default function Home() {
               <div className={styles.screenshotDescription}>
                 <div className={styles.descInner}>
                   <div className={styles.descHeader}>
-                    multi-user rooms
+                  Collaborative Multi-User Rooms
                   </div>
                   <div className={styles.descText}>
-                    join or create up to 5 different rooms, each with up to 5 people, so you can keep up with what your friends/coworkers are up to, get the latest updates, offer support, provide accountability, or be inspired. see everyone's goals, tasks, journals, hours, and streak in the same room and updated in real time.
+                  Enhance team productivity with our multi-user collaboration tool. Create or join up to 5 different rooms, each supporting up to 5 users. Share goals, tasks, journal entries, work hours, and streaks in real-time. Perfect for remote work teams, study groups, or accountability partnerships, this feature promotes mutual support, inspiration, and collective progress tracking.
                   </div>
                 </div>
               </div>
@@ -298,10 +310,10 @@ export default function Home() {
               <div className={styles.screenshotDescription}>
                 <div className={styles.descInner}>
                   <div className={styles.descHeader}>
-                    themes
+                  Customizable Themes
                   </div>
                   <div className={styles.descText}>
-                    choose from over 30 themes or customize your own so that your workspace feels like yours.
+                  Personalize your productivity environment with over 30 pre-designed themes or create your own custom workspace. This feature allows you to tailor your digital workspace to your preferences, enhancing focus and making your productivity journey uniquely yours.
                   </div>
                 </div>
               </div>

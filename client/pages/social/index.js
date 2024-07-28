@@ -50,7 +50,7 @@ export default function Social() {
         <div className={styles.socialTop}>
             <CustomThemePicker/>
             <Head>
-                <title>shovel - {socialViews[view]}</title>
+                <title>shovel - productivity tool with journal & todo list</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             <NavBar/>

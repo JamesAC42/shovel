@@ -64,6 +64,12 @@
         }
     }
 
+    .subheader {
+        font-size:1.3rem;
+        max-width:60dvw;
+        text-align:center;
+    }
+
     @media (max-width: 1500px) {
         .title {
             max-width:80dvw;
@@ -96,7 +102,7 @@
     @media (max-width: 700px) {
         height:80dvh;
         .bannerInner {
-            transform:translateY(-3rem);
+            transform:translateY(-1rem);
         }
         .title {
             max-width:90dvw;
@@ -104,6 +110,10 @@
             span {
                 font-size:3rem;
             }
+        }
+        .subheader {
+            max-width:90dvw;
+            font-size:1rem;
         }
     }
     @media (max-width: 500px) {
@@ -211,7 +221,7 @@
         @include flex-center-col;
         position:absolute;
         top:50%;left:50%;
-        transform:translate(-50%,calc(-50% - 2rem));
+        transform:translate(-50%,calc(-50% - 0rem));
         z-index:10;
         img {
             height:69dvh;
@@ -266,24 +276,49 @@
     .infoContainer {
         padding:0 10rem;
         text-align:center;
-        margin-bottom:5rem;
         max-width:60dvw;
         .infoHeader {
             font-size:2rem;
             font-weight:bold;
             margin-bottom:1rem;
             background:var(--background-dark);
-            padding:0.5rem 0;
+            padding:2rem 4rem;
             border-radius:0.5rem;
+            position:relative;
+            .collapseButton {
+                position:absolute;
+                right:0;top:50%;
+                transform:translate(0,-50%);
+                margin:0 1rem;
+                cursor:pointer;
+                svg {
+                    transition:transform .1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                    transform:rotate(180deg);
+                }
+                &.collapsed {
+                    svg {
+                        transform:none;
+                    }
+                }
+            }
         }
         .infoContent {
             font-size:1.5rem;
+            overflow:hidden;
+            transition:all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-height:100dvh;
+            margin-bottom:4rem;
             a {
                 color:var(--link-color);
                 text-decoration:none;
             }
             .infoBold {
                 font-weight:bold;
+            }
+
+            &.infoCollapsed {
+                margin-bottom:0;
+                max-height:0;
             }
         }
         @media (max-width: 800px) {
@@ -298,13 +333,18 @@
 
 }
 
+.sectionHeader {
+    h2 {
+        font-size:2rem;
+        font-weight:700;
+    }
+}
+
 .screenshotsOuter {
 
     padding-bottom:0;
 
     .screenshotsHeader {
-        font-size:1.8rem;
-        font-weight:700;
         text-align:center;
         margin-bottom:2rem;
     }
@@ -333,6 +373,7 @@
         .screenshotDescription {
             @include flex-center-row;
             align-items: center;
+            text-align:center;
             .descInner {
                 max-width:50%;
                 margin-right:auto;

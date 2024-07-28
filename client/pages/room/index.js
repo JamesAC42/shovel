@@ -18,7 +18,7 @@ export default function Room() {
         <div className={styles.roomTop}>
             <CustomThemePicker/>
             <Head>
-                <title>shovel</title>
+                <title>shovel - productivity tool with journal & todo list</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             <NavBar/>

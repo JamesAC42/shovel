@@ -50,7 +50,7 @@ function Guest() {
             <CustomThemePicker />
             <div className={styles.roomOuter}>
                 <Head>
-                    <title>shovel - guest</title>
+                    <title>shovel - productivity tool with journal & todo list - guest</title>
                     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                 </Head>
                 <StatsPanel/>

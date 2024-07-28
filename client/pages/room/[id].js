@@ -251,7 +251,7 @@ export default function Room () {
             <Banner />
             <div className={styles.roomOuter}>
                 <Head>
-                    <title>{roomData ? `shovel - ${roomData.name}` : ''}</title>
+                    <title>{roomData ? `shovel - productivity tool with journal & todo list - ${roomData.name}` : ''}</title>
                     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                 </Head>
                 <UserSession />
