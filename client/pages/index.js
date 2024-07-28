@@ -7,6 +7,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import NavBar from '../components/NavBar';
 import { useEffect, useState } from 'react';
+import CustomThemePicker from '../components/room/CustomThemePicker';
+import { IoPersonCircleSharp } from "react-icons/io5";
 
 const EnterButton = () => {
   return (
@@ -15,7 +17,7 @@ const EnterButton = () => {
         target="_self"
         href="/room">
         <span>
-          try now for free
+          try now for <span className={styles.free}> free</span>
           <FaCircleArrowRight />
         </span>
       </Link>
@@ -50,32 +52,99 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />                
       </Head>
       <NavBar />
+      <CustomThemePicker />
       <div className={styles.homeOuter}>
         <div className={styles.homeSection + " " + styles.homeSectionMain}>
-          <div className={styles.title}>
-            shovel
+          <div className={styles.banner}>
+            <div className={styles.bannerInner}>
+              <div className={styles.title}>
+                Streamline your {" "}
+                <span className={styles.highlight}>focus,</span>
+                {" "} boost <span className={styles.highlight}>productivity,</span> and 
+                achieve <span className={`${styles.highlight} ${styles.deepWork}`}>{" deep work."}</span>
+              </div>
+              <EnterButton />
+            </div>
           </div>
-          <div className={styles.links}>
-            <Link
-              target="_blank" 
-              href="https://github.com/JamesAC42/shovel">
-              <FaGithubAlt />
-            </Link>
-          </div>
-          <div className={styles.subheader}>
-            a productivity tool for going deep
-          </div>
-          <EnterButton />
 
-          <div className={styles.screenshots}>
-            <Image src="/images/screenshots.gif"
-              width="100"
-              height="50"
-              alt="Screenshots"/>
+          <div className={styles.screenshotOuter}>
+            <div className={styles.screenshots}>
+              <Image src="/images/screenshots.gif"
+                width="100"
+                height="50"
+                alt="Screenshots"/>
+            </div>
           </div>
 
         </div>
         <div className={styles.homeSection + " " + styles.infoSection}>
+
+          {
+            stats.numberOfRooms ?
+            <div className={styles.statsOuter}>
+              <div className={styles.statsItem}>
+                <span className={styles.statsFigure}>{stats.numberOfUsers}</span> users
+              </div>
+              <div className={styles.statsItem}>
+                <span className={styles.statsFigure}>{stats.numberOfRooms}</span> rooms
+              </div>
+              <div className={styles.statsItem}>
+                <span className={styles.statsFigure}>{stats.totalGoals}</span> goals in progress
+              </div>
+              <div className={styles.statsItem}>
+                <span className={styles.statsFigure}>{stats.totalTasksCompleted}</span> tasks completed
+              </div>
+              <div className={styles.statsItem}>
+                <span className={styles.statsFigure}>{stats.totalHoursTracked}</span> hours of deep work logged
+              </div>
+              <div className={styles.statsItem}>
+                <span className={styles.statsFigure}>{stats.totalJournalEntries}</span> journal entries
+              </div>
+            </div> : null
+          }
+
+          <div className={styles.testimonials}>
+            <div className={styles.testimonialsContainer}>
+              <div className={styles.testimonialItem}>
+                <div className={styles.testimonialText}>
+                "As someone with ADHD, I LOVE that you can see everything at once."
+                </div>
+                <div className={styles.testimonialName}>
+                <IoPersonCircleSharp />
+                /u/Ecstatic-Report6131
+                </div>
+              </div>
+              <div className={styles.testimonialItem}>
+                <div className={styles.testimonialText}>
+                "Shovel is really good because it's simple, elegant and authentic -- you can tell someone is making it with love because they want to help people."
+                </div>
+                <div className={styles.testimonialName}>
+                <IoPersonCircleSharp />
+                Anonymous
+                </div>
+              </div>
+              <div className={styles.testimonialItem}>
+                <div className={styles.testimonialText}>
+                "I really enjoy using shovel as it makes my days so much more productive. It allows me to see exactly what I want to get done, what I've accomplished, and I can look back at past journals and refresh myself on what I've studied in past days. It helps me to organize task, thoughts, and makes me feel more accomplished!"
+                </div>
+                <div className={styles.testimonialName}>
+                <IoPersonCircleSharp />
+                Anonymous
+                </div>
+              </div>
+              <div className={styles.testimonialItem}>
+                <div className={styles.testimonialText}>
+                "I love that this can be used for teams, too. And it's SUPER simple, an uncluttered UI, no confusing 'pages' to sort through - the least amount of clicks for me to see everything."
+                </div>
+                <div className={styles.testimonialName}>
+                <IoPersonCircleSharp />
+                /u/Suspicious-Main4788
+                </div>
+              </div>
+  
+            </div>
+          </div>
+
 
           <div className={styles.infoContainer}>
             <div className={styles.infoHeader}>
@@ -240,67 +309,7 @@ export default function Home() {
 
           </div>
 
-          {
-            stats.numberOfRooms ?
-            <div className={styles.statsOuter}>
-              <div className={styles.statsItem}>
-                <span className={styles.statsFigure}>{stats.numberOfUsers}</span> users
-              </div>
-              <div className={styles.statsItem}>
-                <span className={styles.statsFigure}>{stats.numberOfRooms}</span> rooms
-              </div>
-              <div className={styles.statsItem}>
-                <span className={styles.statsFigure}>{stats.totalGoals}</span> goals in progress
-              </div>
-              <div className={styles.statsItem}>
-                <span className={styles.statsFigure}>{stats.totalTasksCompleted}</span> tasks completed
-              </div>
-              <div className={styles.statsItem}>
-                <span className={styles.statsFigure}>{stats.totalHoursTracked}</span> hours of deep work logged
-              </div>
-              <div className={styles.statsItem}>
-                <span className={styles.statsFigure}>{stats.totalJournalEntries}</span> journal entries
-              </div>
-            </div> : null
-          }
-
-          <div className={styles.testimonials}>
-            <div className={styles.testimonialsContainer}>
-              <div className={styles.testimonialItem}>
-                <div className={styles.testimonialText}>
-                "I really enjoy using shovel as it makes my days so much more productive. It allows me to see exactly what I want to get done, what I've accomplished, and I can look back at past journals and refresh myself on what I've studied in past days. It helps me to organize task, thoughts, and makes me feel more accomplished!"
-                </div>
-                <div className={styles.testimonialName}>
-                -Anonymous
-                </div>
-              </div>
-              <div className={styles.testimonialItem}>
-                <div className={styles.testimonialText}>
-                "Shovel is really good because it's simple, elegant and authentic -- you can tell someone is making it with love because they want to help people."
-                </div>
-                <div className={styles.testimonialName}>
-                -Anonymous
-                </div>
-              </div>
-              <div className={styles.testimonialItem}>
-                <div className={styles.testimonialText}>
-                "As someone with ADHD, I LOVE that you can see everything at once."
-                </div>
-                <div className={styles.testimonialName}>
-                -/u/Ecstatic-Report6131
-                </div>
-              </div>
-              <div className={styles.testimonialItem}>
-                <div className={styles.testimonialText}>
-                "I love that this can be used for teams, too. And it's SUPER simple, an uncluttered UI, no confusing 'pages' to sort through - the least amount of clicks for me to see everything."
-                </div>
-                <div className={styles.testimonialName}>
-                -/u/Suspicious-Main4788
-                </div>
-              </div>
-  
-            </div>
-          </div>
+          
           <div className={styles.enterButtonContainer}>
             <div className={styles.linkButtonContainer}>
               <div className={styles.linkButton}>

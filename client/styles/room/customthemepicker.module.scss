@@ -1,6 +1,6 @@
 @import "../variables.module.scss";
 
-.customthemebackground {
+.customthemeouter {
     height:100vh;width:100vw;
     position:fixed;top:0;left:0;
     @include cover;
@@ -14,6 +14,13 @@
     @include flex-center-col;
 }
 
+.customthemebackground {
+    @include fixed-center;
+    height:100vh;width:100vw;
+    @include cover;
+    z-index:1000000;
+}
+
 .customthemecontainer {
     @include slide-fade-in;
     background:var(--background-color);
@@ -21,6 +28,13 @@
     color:var(--primary-color);
     border-radius:0.5rem;
     padding:0.9rem 1.5rem;
+
+    max-height:100dvh;
+    max-width:100dvw;
+
+    z-index:1000001;
+
+    overflow-y:auto;
 
     .customthemeheader {
         font-size:1.2rem;

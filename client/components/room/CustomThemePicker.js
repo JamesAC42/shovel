@@ -102,8 +102,11 @@ function CustomThemePicker() {
     if(!view.showCustomThemePicker) return <div></div>; 
     
     return(
-        <div className={styles.customthemebackground}>
+        <div className={styles.customthemeouter}>
             <div className={styles.customthemeinner}>
+                <div
+                    onClick={() => closeThemePicker()} 
+                    className={styles.customthemebackground}></div>
                 <div className={styles.customthemecontainer}>
                     <div className={styles.customthemeheader}>
                         Customize a Theme

@@ -80,7 +80,7 @@ function CreateUser() {
 
     return (
         <div className={styles.createUser}>
-            <h2>Create User</h2>
+            <h2>Create Account</h2>
             <form>
                 <label>
                     First Name:

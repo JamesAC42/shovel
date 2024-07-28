@@ -8,6 +8,7 @@ import UserData from '../../components/UserSession';
 import { IoMdBackspace } from "react-icons/io";
 import Link from 'next/link';
 import NavBar from '../../components/NavBar';
+import CustomThemePicker from '../../components/room/CustomThemePicker';
 
 export default function Room() {
 
@@ -15,6 +16,7 @@ export default function Room() {
 
     return (
         <div className={styles.roomTop}>
+            <CustomThemePicker/>
             <Head>
                 <title>shovel</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />

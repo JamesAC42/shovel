@@ -1,7 +1,4 @@
 import styles from "../styles/navbar.module.scss";
-import { RiHomeFill } from "react-icons/ri";
-import { TbShovel } from "react-icons/tb";
-import { BsFillPeopleFill } from "react-icons/bs";
 import Link from "next/link";
 import ThemePicker from "./ThemePicker";
 
@@ -11,7 +8,7 @@ function NavBar() {
             <div className={styles.navLeft}>
                 <div className={styles.navitem}>
                     <Link href="/">
-                        <RiHomeFill/>
+                        shovel
                     </Link>
                 </div>
                 <div className={styles.navitem}>
@@ -21,12 +18,12 @@ function NavBar() {
             <div className={styles.navRight}>
                 <div className={styles.navitem}>
                     <Link href="/social">
-                        <BsFillPeopleFill/>
+                        connect
                     </Link>
                 </div>
                 <div className={styles.navitem}>
                     <Link href="/room">
-                        <TbShovel/>
+                        rooms
                     </Link>
                 </div>
             </div>

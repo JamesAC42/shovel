@@ -6,6 +6,7 @@ import styles from "../../styles/guest.module.scss";
 import Link from "next/link";
 import RoomContext from '../../contexts/RoomContext';
 import { useEffect, useState } from "react";
+import CustomThemePicker from '../../components/room/CustomThemePicker';
 
 function Guest() {
 
@@ -46,6 +47,7 @@ function Guest() {
 
     return(
         <RoomContext.Provider value={{roomData, setRoomData}}>
+            <CustomThemePicker />
             <div className={styles.roomOuter}>
                 <Head>
                     <title>shovel - guest</title>

@@ -3,7 +3,7 @@
 .navbar {
     position:fixed;
     top:0;left:0;
-    width:calc(100vw - 17px);
+    width:calc(100dvw);
     height:3rem;
     background:var(--background-color);
     transform:translateY(-1px);
@@ -21,7 +21,7 @@
         display:block;
         color:var(--primary-color);
         text-decoration: none;
-        margin-left:2rem;
+        margin-left:1rem;
         &:last-child {
             margin-right:1rem;
         }

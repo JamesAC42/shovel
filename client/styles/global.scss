@@ -11,6 +11,11 @@
   src: url('/fonts/SourceCodePro.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins-Bold.ttf') format('truetype');
+}
+
 body {
   font-family: Figtree, sans-serif;
   overflow:hidden;

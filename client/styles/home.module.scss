@@ -8,62 +8,130 @@
     @include fixed-center;
     overflow-y:scroll;
     overflow-x:hidden;
-    height:100vh;
-    width:100vw;
+    height:100dvh;
+    width:100dvw;
     @include fade-in;
 
+    scrollbar-width: thin;
+
     .homeSection {
-        width:100vw;
+        width:100dvw;
     }
     
     .homeSectionMain {
         @include flex-center-col;
-        height:100vh;
     }
 
 }
 
-.title {
-    @include flex-center-row;
-    font-weight:bold;
-    font-size:1.6rem;
-    gap:10px;
-    text-align:center;
-    margin-top:1.5rem;
-    @media (max-width: 500px) {
-        font-size:2rem;
-    }
-}
+.banner {
+    width:100%;
+    height:50dvh;
+    background:var(--background-dark);
+    @include flex-center-col;
+    position:relative;
+    top:3rem;
 
-.links {
-    @include flex-center-row;
-    gap:1rem;
-    a {
+    .bannerInner {
+        transform:translateY(-4rem);
+        gap:1rem;
         @include flex-center-col;
-        text-decoration:none;
-        color:var(--secondary-color);
-        font-size:1.4rem;
-        &:hover {
-            color:var(--glow);
-        }
-        svg {
-            cursor:pointer;
-        }
     }
-    @media (max-width: 500px) {
-        margin:1rem 0;
-    }
-}
 
-.subheader {
-    font-size:1.2rem;
-    margin-bottom:0.5rem;
-    text-align:center;
-    @media (max-width: 500px) {
-        font-size:1rem;
+    .title {
+        font-family:"Poppins",sans-serif;
+        font-weight:bold;
+        font-size:3.1rem;
+        max-width:70dvw;
+        gap:10px;
+        text-align:center;
+        margin-top:1.5rem;
+        z-index:110;
+    
+        @media (max-width: 500px) {
+            font-size:2rem;
+        }
+    
+        span {
+            display:inline-block;
+            color:var(--glow);
+            font-size:3.5rem;
+    
+            &.deepWork {
+                filter:brightness(1.2);
+                text-decoration:underline;
+            }
+        }
     }
-    @media (max-width: 300px) {
-        padding:0 3rem;
+
+    @media (max-width: 1500px) {
+        .title {
+            max-width:80dvw;
+        }
+    }
+
+    @media (max-width: 1300px) {
+        height:60dvh;
+        .bannerInner {
+            transform:translateY(-2rem);
+        }
+        .title {
+            max-width:90dvw;
+        }
+    }
+
+    @media (max-width: 900px) {
+        .bannerInner {
+            transform:translateY(-1rem);
+        }
+    }
+    @media (max-width: 800px) {
+        .title {
+            font-size:2.8rem;
+            span {
+                font-size:3rem;
+            }
+        }
+    }
+    @media (max-width: 700px) {
+        height:80dvh;
+        .bannerInner {
+            transform:translateY(-3rem);
+        }
+        .title {
+            max-width:90dvw;
+            font-size:2.8rem;
+            span {
+                font-size:3rem;
+            }
+        }
+    }
+    @media (max-width: 500px) {
+        height:90dvh;
+        .title {
+            font-size:2.2rem;
+            span {
+                font-size:2.5rem;
+            }
+        }
+    }
+
+    
+    @media (max-height: 800px) {
+        height:70dvh;
+        .banner-inner {
+            transform:translate(-4rem);
+        }
+    }
+    @media (max-height: 700px) {
+        height:90dvh;
+        .title {
+            max-width:80dvw;
+            font-size:2.2rem;
+            span {
+                font-size:2.4rem;
+            }
+        }
     }
 }
 
@@ -78,6 +146,7 @@
     overflow: hidden;
     position: relative;
     opacity:0.8;
+    z-index:110;
 
     a {
         display:block;
@@ -118,26 +187,73 @@
             transform:translateY(0px);
             margin-left:1rem;
         }
+
+        .free {
+            display:inline-block;
+            color:var(--background-color);
+            margin-left:0.3rem;
+            font-weight:bold;
+            transform:translateY(-0px);
+        }
     }
 }
 
-.screenshots {
-    margin-top:1rem;
-    overflow:hidden;
-    border-radius:1.4rem;
-    border:2px solid var(--secondary-color);
-    box-shadow:0 1rem 1rem 0.3rem var(--background-dark);
-    @include flex-center-col;
-    @include slide-fade-in;
-    img {
-        height:69vh;
-        width:auto;
-    }
-    
-    @media (max-width: 1200px) {
+.screenshotOuter {
+    height:60dvh;
+    position:relative;
+    width:100%;
+    margin-bottom:2rem;
+    .screenshots {
+        overflow:hidden;
+        border-radius:1.2rem;
+        border:4px solid var(--primary-color);
+        box-shadow:0 1rem 2rem 0.5rem var(--background-dark);
+        @include flex-center-col;
+        position:absolute;
+        top:50%;left:50%;
+        transform:translate(-50%,calc(-50% - 2rem));
+        z-index:10;
         img {
-            height:auto;
-            width:90vw;
+            height:69dvh;
+            width:auto;
+        }
+    }
+
+    @media (max-width: 1500px) {
+    }
+
+    @media (max-width: 1300px) {
+        height:50dvh;
+        .screenshots {
+            img {
+                width:95dvw;
+                height:auto;
+            }
+        }
+    }
+    @media (max-width: 900px) {
+    }
+    @media (max-width: 800px) {
+    }
+    @media (max-width: 700px) {
+        height:20dvh;
+        .screenshots {
+            transform:translate(-50%,calc(-50% - 1rem));
+        }
+    }
+    @media (max-width: 500px) {
+        height:10dvh;
+        .screenshots {
+            transform:translate(-50%,calc(-50% + 1rem));
+            img {
+                max-width:85dvw;
+            }
+        }
+    }
+    @media (max-height: 800px) {
+        height:50dvh;
+        .screenshots {
+            transform:translate(-50%,calc(-50% + 2rem));
         }
     }
 }
@@ -145,13 +261,15 @@
 .infoSection {
 
     padding:2rem 0;
+    @include flex-center-col;
 
     .infoContainer {
         padding:0 10rem;
         text-align:center;
         margin-bottom:5rem;
+        max-width:60dvw;
         .infoHeader {
-            font-size:1.5rem;
+            font-size:2rem;
             font-weight:bold;
             margin-bottom:1rem;
             background:var(--background-dark);
@@ -159,7 +277,7 @@
             border-radius:0.5rem;
         }
         .infoContent {
-            font-size:1.2rem;
+            font-size:1.5rem;
             a {
                 color:var(--link-color);
                 text-decoration:none;
@@ -170,9 +288,11 @@
         }
         @media (max-width: 800px) {
             padding:0 5rem;
+            max-width:80dvw;
         }
         @media (max-width: 600px) {
             padding:0 2rem;
+            max-width:100dvw;
         }
     }
 
@@ -346,29 +466,50 @@
 .testimonials {
 
     @include flex-center-row;
-    
+
+    margin-bottom:5rem;
+
     .testimonialsContainer {
         display:flex;
         flex-direction: row;
         flex-wrap: wrap;
-        max-width:70vw;
-
+        max-width:70dvw;
+        justify-content:center;
+        
         .testimonialItem {
 
-            flex: 0.5 0 40%;
-            height:15vw;
+            background:var(--background-dark);
+            flex: 0.5 0 30%;
             outline:1px solid var(---secondary-color);
-
+            min-width:40%;
             @include flex-center-col;
             gap:1rem;
             text-align:center;
             margin:1rem;
+            border-radius:1.2rem;
+            overflow:hidden;
+            justify-content: space-between;
+            box-shadow:0 1rem 2rem 0rem var(--background-dark);
+            border:2px solid var(--secondary-color);
 
             .testimonialText {
-                font-size:1.1rem;
+                font-size:1.3rem;
+                padding:2rem;
+                flex:1;
+                @include flex-center-col;
             }   
     
             .testimonialName {
+                padding:2rem;
+                background:var(--primary-color);
+                color:var(--background-dark);
+                width:calc(100% - 4rem);
+                @include flex-center-row;
+                justify-content:space-between;
+                font-size:1.2rem;
+                svg {
+                    transform:scale(3);
+                }
                 font-weight:bold;
             }
     
@@ -377,7 +518,15 @@
 
     @media (max-width: 1000px) {
         .testimonialsContainer {
-            max-width:85vw;
+            max-width:85dvw;
+            .testimonialItem {
+                .testimonialText {
+                    font-size:1.1rem;
+                }
+                .testimonialName {
+                    font-size:1rem;
+                }
+            }
         }
     }
 
@@ -385,7 +534,7 @@
         @include flex-center-col;
         .testimonialsContainer {
             @include flex-center-col;
-            max-width:80vw;
+            max-width:90dvw;
         }
     }
 
@@ -394,7 +543,7 @@
 
 
 .footer {
-    height:10vh;
+    height:10dvh;
     text-align:center;
     padding-left:2.4rem;
     @media (max-width: 900px) {

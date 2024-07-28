@@ -5,6 +5,7 @@ import styles from "../../styles/social.module.scss";
 import Updates from "../../components/social/Updates";
 import Feedback from "../../components/social/Feedback";
 import UserSession from "../../components/UserSession";
+import CustomThemePicker from '../../components/room/CustomThemePicker';
 
 export const socialViews = {
     feedback:"1",
@@ -47,6 +48,7 @@ export default function Social() {
 
     return (
         <div className={styles.socialTop}>
+            <CustomThemePicker/>
             <Head>
                 <title>shovel - {socialViews[view]}</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
