@@ -160,7 +160,7 @@ function WorkGrid() {
         initDateList();
         intervalId = setInterval(() => {
             initDateList();
-        }, 5000);
+        }, 60000);
 
         return () => {
             if(intervalId) {

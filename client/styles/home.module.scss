@@ -226,6 +226,10 @@
         img {
             height:69dvh;
             width:auto;
+
+            &.screenshotsMobile {
+                display:none;
+            }
         }
     }
 
@@ -235,6 +239,7 @@
     @media (max-width: 1300px) {
         height:50dvh;
         .screenshots {
+            border-width:2px;
             img {
                 width:95dvw;
                 height:auto;
@@ -242,6 +247,17 @@
         }
     }
     @media (max-width: 900px) {
+        
+        .screenshots {
+            img {
+                &.screenshotsDesktop {
+                    display:none;
+                }
+                &.screenshotsMobile {
+                    display:block;
+                }
+            }
+        }
     }
     @media (max-width: 800px) {
     }
@@ -330,7 +346,7 @@
             max-width:100dvw;
             .infoHeader {
                 font-size:1.4rem;
-                padding: 1rem 2rem;
+                padding: 1rem 4rem;
             }
             .infoContent {
                 font-size:1.2rem;

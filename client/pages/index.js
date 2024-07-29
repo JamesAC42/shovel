@@ -98,7 +98,16 @@ export default function Home() {
 
           <div className={styles.screenshotOuter}>
             <div className={styles.screenshots}>
-              <Image src="/images/screenshots.gif"
+              
+              <Image 
+                className={styles.screenshotsMobile}
+                src="/images/mobile_screenshots.png"
+                width="1286"
+                height="787"
+                alt="Screenshots"/>
+              <Image 
+                className={styles.screenshotsDesktop}
+                src="/images/screenshots.gif"
                 width="100"
                 height="50"
                 alt="Screenshots"/>
