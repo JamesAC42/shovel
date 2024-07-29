@@ -154,6 +154,7 @@ export default function DeepWorkButtons() {
     };
 
     if(!userInfo && !roomData.guest) return null;
+    if(!roomData.users[userInfo.id]) return null;
 
     return (
         <div className={styles.workButtons}>

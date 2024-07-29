@@ -26,6 +26,11 @@ function NavBar() {
                         rooms
                     </Link>
                 </div>
+                <div className={styles.navitem}>
+                    <Link href="/explore">
+                        explore
+                    </Link>
+                </div>
             </div>
         </div>
     )

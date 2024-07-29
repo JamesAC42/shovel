@@ -64,6 +64,7 @@ const deleteUpdate = require('./controllers/socialControllers/deleteUpdate');
 const editFeedbackPost = require('./controllers/socialControllers/editFeedbackPost');
 const getAdminUsernames = require('./controllers/socialControllers/getAdmins');
 const deleteFeedbackPostAdmin = require('./controllers/socialControllers/deleteFeedbackPostAdmin');
+const publicRooms = require("./controllers/publicRooms");
 const getStats = require('./controllers/getStats');
 
 sequelize.sync()
@@ -214,6 +215,10 @@ app.get('/getAdminUsernames', (req, res) => {
 
 app.get('/getStats', (req, res) => {
   getStats(req, res, models);
+});
+
+app.get('/publicRooms', (req, res) => {
+  publicRooms(req, res, models);
 });
 
 io.on('connection', handleConnection);

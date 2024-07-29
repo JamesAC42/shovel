@@ -122,6 +122,8 @@ function CheckIn() {
 
         let today = getToday();
         let userId = roomData.guest ? 1 : userInfo.id;
+
+        if(!roomData?.users[userId]) return;
         let currentStreak = roomData?.users[userId].currentStreak;
         if(currentStreak) { 
             let streakEnd = currentStreak.endDate;
@@ -152,6 +154,7 @@ function CheckIn() {
 
     if(!roomData) return null;
     if(!userInfo && !roomData.guest) return null;
+    if(!roomData.users[userInfo.id]) return null;
 
     return (
         <div

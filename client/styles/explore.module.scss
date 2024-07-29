@@ -1,0 +1,110 @@
+@import "./variables.module.scss";
+
+.mainContent {
+
+    position:fixed;
+    top:50%;left:50%;
+    transform:translate(-50%,-50%);
+
+    @include flex-center-row;
+
+    color:var(--primary-color);
+
+    .exploreAbout {
+        padding:1rem 2rem;
+        background:var(--background-dark);
+        
+        width:50dvw;
+
+        border-radius:0.5rem;
+
+        max-height:70dvh;
+        overflow-y:auto;
+
+        scrollbar-width: thin;
+
+        border:2px solid var(--secondary-color);
+
+        .faqSection {
+            margin:0.5rem 0;
+            background:var(--background-color);
+            padding:0.2rem 1rem;
+            border-radius:0.5rem;
+        }
+    }
+
+    .exploreList {
+        padding:2rem;
+        width:25dvw;
+        h2 {
+            text-align:center;
+            font-size:1.8rem;
+        }
+        .loading {
+            color:var(--primary-color);
+            text-align:center;
+            font-size:1.5rem;
+        }
+        .listContent {
+            background:var(--background-dark);
+            padding:1rem;
+            border-radius:0.5rem;
+            border:2px solid var(--secondary-color);
+
+            max-height:50dvh;
+            overflow-y:auto;
+
+            scrollbar-width:thin;
+
+            ul {
+                padding-left:1rem;
+                list-style-type: none;
+                li {
+                    margin:0.5rem 0;
+                    a {
+                        font-size:1.2rem;
+                        color:var(--primary-color);
+                        font-weight:bold;
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width:900px) {
+        flex-direction:column;
+
+        justify-content: start;
+
+        overflow-x:hidden;
+
+        height:calc(100dvh - 3rem);
+        width:100dvw;
+        transform:none;
+
+        top:3rem;
+        left:0;
+
+        overflow-y:auto;
+
+        .exploreAbout {
+            max-height:200vh;
+            height:fit-content;
+            width:calc(100dvw - 4rem);
+            overflow-y:visible;
+        }
+
+        .exploreList {
+            width:calc(100dvw);
+            margin-bottom:3rem;
+            .listHeader {
+                width:100dvw;
+            }
+            .listContent {
+                width:fit-content;
+                margin:0 auto;
+            }
+        }
+    }
+}

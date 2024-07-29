@@ -87,7 +87,7 @@ function CreateUser() {
                     <input type="text" value={firstName} maxLength={50} onChange={e => setFirstName(e.target.value)} />
                 </label>
                 <label>
-                    Last Name:
+                    Last Initial:
                     <input type="text" value={lastName} maxLength={50} onChange={e => setLastName(e.target.value)} />
                 </label>
                 <label>

@@ -471,6 +471,9 @@ Room.hasMany(Tag, {foreignKey: 'room'});
 RoomUser.belongsTo(Room, { foreignKey: 'room' });
 RoomUser.belongsTo(User, { foreignKey: 'user_id' });
 
+Room.belongsToMany(User, { through: RoomUser, foreignKey: 'room' });
+User.belongsToMany(Room, { through: RoomUser, foreignKey: 'user_id' });
+
 RoomRequest.belongsTo(Room, { foreignKey: 'room' });
 RoomRequest.belongsTo(User, { foreignKey: 'user_id' });
 
