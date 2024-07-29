@@ -16,6 +16,8 @@ function Banner() {
 
     }
 
+    return null;
+
     return(
         <div className={styles.banner}>
             <div className={styles.bannerInner}>

@@ -16,7 +16,6 @@
     }
     @include theme-scrollbar;
     .requests {
-        box-shadow:0 0 5px 4px var(--background-dark);
         h4,h5 {
             text-align:center;
         }   

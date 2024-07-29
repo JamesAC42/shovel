@@ -1,10 +1,11 @@
 @import "./variables.module.scss";
 @import "./mobileNotice.module.scss";
+@import "./roomtabs.module.scss";
 
 .roomOuter {
 
-    height:100vh;
-    width:100vw;
+    height:100dvh;
+    width:100dvw;
     overflow-x:hidden;
     overflow-y:hidden;
     margin:0;
@@ -19,14 +20,15 @@
         overflow: hidden;
         position: relative;
         border-top: 1px solid var(--secondary-color);
-        z-index: 99999;
+        z-index: 1;
 
         @include fade-in;
 
         .mainContent {
-            height: 95vh;
+            height: 95dvh;
             @include flex-center-row;
             
         }
+        @include responsive-main;
     }
 }

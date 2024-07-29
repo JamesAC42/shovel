@@ -17,9 +17,12 @@
 .popupOuter {
     @include fixed-center;
     @include fill-screen;
+    width:calc(100dvw + 4px);
     top:50dvh;left:50dvw;
-    z-index:1000000;
+    transform:translate(calc(-50% + 1px),-50%);
+    z-index:88888000;
     .popupInner {
+        
         position:relative;
         @include fill-screen;
         
@@ -32,13 +35,19 @@
         
         .popupBackground {
             @include fill-screen;
-            background:#0000004f;
+            background:#000000b3;
             animation: fade-in 0.1s ease-in-out 1;
         }
-        
-        .popupContent {
+    }
 
+    @media screen and (max-width:900px) {
+        top:0;left:0;
+        z-index:1000000;
+        transform:translate(0px, -1rem);
+        .popupInner {
+            .popupBackground {
+                height:calc(100dvh + 10rem);
+            }
         }
-
     }
 }

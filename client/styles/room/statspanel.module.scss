@@ -27,6 +27,27 @@
             transform:rotate(0deg);
         }
     }
+
+    @media screen and (max-width: 900px) {
+        max-height:100dvh;
+        height:100dvh;
+        width:100dvw;
+        position:fixed;
+        top:0;left:0;
+        background:var(--background-color);
+        transform:translate(-100%,0);
+        transition:none;
+        box-shadow:none;
+        z-index:100;
+
+        .toggleStatsPanel {
+            display:none;
+        }
+
+        &.visible {
+            transform:none;
+        }
+    }
 }
 
 
@@ -42,6 +63,7 @@
         position:absolute;
         top:0;left:0;
         @include flex-center-row;
+        z-index:1000;
         .backHome {
             font-size:1.4rem;
             margin-right:1rem;
@@ -94,6 +116,15 @@
                 box-shadow:0 0 10px 0 var(--glow);
             }
         }
+        
+        @media screen and (max-width:900px) {
+            position:fixed;
+            top:0;left:50%;
+            transform:translate(-50%,0);
+            width:calc(100dvw - 2rem);
+            padding:0 1rem;
+            margin:1rem 0;
+        }
     }
 
     span.workMarker,
@@ -110,13 +141,9 @@
         //box-shadow:0 0 4px 1px var(--glow);
     }
 
-    @media (max-width: 100rem) {
     
-        span.workMarker,
-        span.workMarkerSpecial {
-            margin-right:0.1rem;
-            height:0.9rem;
-        }
+    @media screen and (max-width:900px) {
+        @include flex-center-col;
     }
 
     .deepWorkWeek {
@@ -206,33 +233,31 @@
                 }
             }
         }
+    }
 
-        @media (max-width: 100rem) {
-            // Add responsive styles here
-            .thisWeek {
-                .changeWeek {
-                    gap:0.5rem;
-                    margin-top:0.2rem;
-                    .changeWeekButton {
-                        font-size:1.2rem;
-                    }
-                }
-                .checkInButton {
-                    border-radius:0.7rem;
-                    padding:0.3rem 0.8rem;
-                    margin-top:0.3rem;
-                    font-size:0.9rem;
-                }
-            }
+    @media screen and (max-width: 900px) {
 
-            .workGrid {
-                td {
-                    padding:0.1rem 0.5rem;
-                    font-size:0.9rem;
-                }
-            }
+        @include flex-center-col;
+        max-width:100dvw;
+        height:100dvh;
+        width:100dvw;
+        padding:0;
+        background:var(--background-color);
+
+        .deepWorkWeek {
+            @include flex-center-col;
+            gap:2rem;
 
             .workButtons {
+                .addButtons {
+                    flex-direction: row;
+                }
+                .undoButton {
+                    @include flex-center-row;
+                }
+            }
+
+            @media screen and (max-height:750px) {
                 gap:0.8rem;
             }
         }

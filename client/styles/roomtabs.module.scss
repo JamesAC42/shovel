@@ -1,0 +1,58 @@
+@import "./variables.module.scss";
+
+@mixin responsive-main {
+    @media screen and (max-width: 900px) {
+        border-top:none;
+        z-index:1;
+        .mainContent {
+            top:0;left:0;
+            height:calc(100dvh - 3rem);
+            max-width:200dvw;
+            width:200dvw;
+            align-items:stretch;
+            justify-content: start;
+            &.showJournal {
+                transform:translateX(-100dvw)
+            }
+        }
+    }
+}
+
+.tabs {
+    position:fixed;
+    bottom:0;left:0;
+    height:3rem;
+    width:100dvw;
+    margin:0;padding:0;
+    display:none;
+    z-index:888880;
+
+    background:var(--background-dark);
+
+    .tabsInner {
+        @include flex-center-row;
+        gap:4rem;
+
+        .tab {
+            font-size:1.5rem;
+            color:var(--primary-color);
+            cursor:pointer;
+            svg {
+                transform:translateY(2px);
+            }
+
+            &.tabTodo,
+            &.tabJournal {
+                svg {
+                    transform:translateY(2px) scale(1.2);
+                }
+            }
+
+
+        }
+    }
+
+    @media screen and (max-width:900px) {
+        @include flex-center-row;
+    }
+}

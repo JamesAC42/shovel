@@ -10,6 +10,9 @@ import getToday from "../../utilities/getToday";
 import elapsedDays from "../../utilities/elapsedDays";
 import dateToReadable from "../../utilities/dateToReadable";
 
+import { FaCaretLeft } from "react-icons/fa6";
+import { FaCaretRight } from "react-icons/fa6";
+
 Date.prototype.addDays=function(d){return new Date(this.valueOf()+864E5*d);};
 
 function WorkGrid() {
@@ -20,6 +23,8 @@ function WorkGrid() {
     let [userDates, setUserDates] = useState({});
     let [dateList, setDateList] = useState([]);
 
+    let [activeUser, setActiveUser] = useState(1);
+
     let intervalId;
 
     const renderWorkMarkers = (user, date) => {
@@ -28,7 +33,7 @@ function WorkGrid() {
         let workMarkers = [];
         let weekDay = getWeekDay(new Date(date).getDay());
         let workHours = userDates[user][weekDay];
-        if(!workHours) return <td></td>;
+        if(!workHours) return <td>-</td>;
         for(let i = 0; i < workHours.hours; i++) {
             if(userDates[user][weekDay].wasNotable) {
                 workMarkers.push(
@@ -40,7 +45,10 @@ function WorkGrid() {
                 )
             }
         }
-        return <td key={user + weekDay}>{workMarkers}</td>
+        return <td key={user + weekDay} className={styles.workMarkersContainer}>{
+            workMarkers.length > 0 ?
+            workMarkers : "None"
+        }</td>
     }
 
     const getUserTotalHours = (user) => {
@@ -162,6 +170,56 @@ function WorkGrid() {
 
     }, [roomData]);
 
+    const nextUser = () => {
+        let userAmount = Object.keys(roomData.users).length;
+        if(activeUser === userAmount) return;
+        setActiveUser(activeUser + 1); 
+    }
+
+    const previousUser = () => {
+        if(activeUser === 1) return;
+        setActiveUser(activeUser - 1);
+    }
+
+    const renderWorkGridItem = (dateList, user) => {
+
+        const username = roomData.users[user].userInfo.username;
+
+        return (
+            <div className={styles.horizontalTableOuter}>
+                <table className={styles.horizontalTable}>
+                    <tbody>
+                        <tr>
+                            <td className={styles.username} colspan="2">{username}</td>
+                        </tr>
+                        <tr>
+                            <td 
+                                className={styles.streakCell} 
+                                colspan="2">
+                                {renderStreak(user)}
+                            </td>
+                        </tr>
+                        {
+                            dateList.map((date) => 
+                                <tr className={styles.dateRow} key={date}>
+                                    <td className={styles.dateRowDate}>{getWeekDay(date.getDay())}</td>
+                                    {renderWorkMarkers(user, date)}
+                                </tr>
+                            )
+                        }
+                        <tr>
+                            <td className={styles.totalHoursRow} colspan="2">
+                                <span className={styles.workTotal}>
+                                { getUserTotalHours(user) }
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
+
     /*
     deepWorkHours: {
         user: [{
@@ -187,7 +245,7 @@ function WorkGrid() {
 
     return (
         <div className={styles.workGrid}>
-            <table>
+            <table class={styles.horizontalTable}>
                 <thead>
                     <tr>
                         <td></td>
@@ -221,6 +279,46 @@ function WorkGrid() {
                 }
                 </tbody>
             </table>
+
+            <div className={styles.workGridTableOuter}>
+
+                <div className={styles.workGridTableContainer}>
+                    <div
+                        style={{
+                            transform: `translateX(-${20 * (activeUser - 1)}rem)`
+                        }} 
+                        className={styles.workGridTableScroll}>
+                        {
+                            Object.keys(roomData.users).map((user) => 
+                                renderWorkGridItem(dateList, user)
+                            )
+                        }
+                    </div>
+                </div>
+                {
+                    Object.keys(roomData.users).length > 1 ?
+                    <div className={styles.workGridTableOuterNav}>
+                        <div className={styles.workGridTableOuterNavInner}>
+                            <div
+                                onClick={() => previousUser()} 
+                                className={`${styles.workGridNavItem} ${
+                                    activeUser === 1 ?
+                                    styles.workGridNavDisabled : ""
+                                }`}>
+                                <FaCaretLeft />
+                            </div>
+                            <div
+                                onClick={() => nextUser()} 
+                                className={`${styles.workGridNavItem} ${
+                                    (activeUser === Object.keys(roomData.users).length) ? 
+                                    styles.workGridNavDisabled : ""
+                                }`}>
+                                <FaCaretRight />
+                            </div>
+                        </div>
+                    </div> : null
+                }
+            </div>
         </div>
     )
 }

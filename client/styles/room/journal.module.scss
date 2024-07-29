@@ -8,6 +8,11 @@
     align-items: stretch;
     position:relative;
     max-width:64vw;
+
+    @media screen and (max-width:900px) {
+        max-width:100dvw;
+        width:100dvw;
+    }
 }
 
 .journalInner {
@@ -84,6 +89,58 @@
                 }
             }
         }
+
+        .closeDatePicker {
+            display:none;
+        }
+        
+        @media screen and (max-width:900px) {
+            position:absolute;
+            top:2rem;left:0;
+            height:calc(100dvh - 3rem - 2rem - 2rem);
+            width:70dvw;
+            padding:1rem 2rem;
+            max-height:100dvh;
+            overflow-y:auto;
+            z-index:1000;
+            background:var(--background-color);
+            box-shadow: 1rem 1rem 1rem -0.5rem var(--background-dark);
+            display:block;
+
+            &.hideDates {
+                display:none;
+                transform:translateX(-100%);
+                box-shadow:none;
+            }
+
+            &.fullScreen {
+                top:0;
+                height:calc(100dvh - 3rem - 2rem);
+            }
+
+            .closeDatePicker {
+                display:block;
+                position:relative;
+                width:100%;
+                cursor:pointer;
+                .closeDatePickerBtn {
+                    color:var(--secondary-color);
+                    width:fit-content;
+                    margin-left:auto;
+                    font-size:2rem;
+                    svg {
+                        transform:rotate(180deg);
+                    }
+                }
+            }
+
+            .journalYear {
+                font-size:1.6rem;
+                .journalMonth {
+                    font-size:1.5rem;
+                }
+            }
+        }
     }
 
     .journalContent {
@@ -92,6 +149,9 @@
 
         h2 {
             position:relative;
+            .toggleDatePicker {
+                display:none;
+            }
             .toggleJournalCollapse {
                 position:absolute;
                 right:0;top:50%;
@@ -104,6 +164,18 @@
                 svg {
                     transform:translateY(5px);
                     font-size:1.3rem;   
+                }
+            }
+
+            @media screen and (max-width:900px) {
+                display:flex;
+                flex-direction: row;
+                margin-bottom:0.5rem;
+                font-size:1.4rem;
+                .toggleDatePicker {
+                    @include flex-center-row;
+                    cursor:pointer;
+                    margin:0 1rem;
                 }
             }
         }
@@ -168,6 +240,25 @@
                     @include add-button;
                 }
             }
+
+            
+            @media screen and (max-width:900px) {
+                @include flex-center-col;
+                gap:1rem;
+                margin:1rem 0;
+                .journalInputTextOuter {
+                    textarea {
+                        width:calc(100dvw - 4rem);
+                        font-size:1rem;
+                    }
+                    textarea.journalInputTags {
+                        padding:0.5rem 1rem;
+                    }
+                }
+                .journalInputControls {
+                    @include flex-center-row;
+                }
+            }
         }
 
         .journalEntry {
@@ -178,15 +269,33 @@
             @include slide-fade-in;
 
             h2 {
+                display:flex;
+                flex-direction: row;
+                flex-wrap:wrap;
+                align-items: center;
+                margin-top:0.5rem;
+                &> div {
+                    margin-right:0.5rem;
+                }
                 span.journalTag {
                     display: inline-block;
                     background: var(--primary-color);
                     border-radius: 0.8rem;
-                    margin-left: 0.6rem;
+                    margin:0.5rem 0;
+                    margin-right:0.5rem;
                     padding: 0.2rem 0.7rem;
                     color: var(--background-dark);
                     font-size: 1rem;
                     transform: translateY(-2px);
+                    height:fit-content;
+                }
+                @media screen and (max-width:900px) {
+                    font-size:1.2rem;
+                    span.journalTag {
+                        font-size:0.9rem;
+
+                        font-weight:500;
+                    }
                 }
             }
 
@@ -203,6 +312,19 @@
                 font-size:0.8rem;
                 white-space:pre-line;
                 word-wrap:break-word;
+            }
+        }
+    }
+    @media screen and (max-width:900px) {
+        max-width:100dvw;
+        width:calc(100dvw - 1rem);
+        padding:0.5rem;
+        .journalContent {
+            max-width:100dvw;
+            width:100dvw;
+            padding:0;
+            .journalEntry {
+                padding: 0.5rem 1rem;
             }
         }
     }

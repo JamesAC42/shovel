@@ -12,12 +12,13 @@ import RoomContext from '../../contexts/RoomContext';
 import { MdOutlineExpandMore } from "react-icons/md";
 import { IoChevronBackCircle, IoChevronForwardCircle } from "react-icons/io5";
 import { IoMdBackspace } from "react-icons/io";
+import { MdHome } from "react-icons/md";
 import Link from 'next/link';
 import CheckIn from './CheckIn';
 import VisibilityControl from './VisibilityControl';
 import Popup from '../Popup';
 
-function StatsPanel() {
+function StatsPanel({activeView}) {
 
     const {roomData} = useContext(RoomContext);
     const [statsExpanded, setStatsExpanded] = useState(true);
@@ -54,7 +55,7 @@ function StatsPanel() {
 
     return(
         <div 
-            className={`${styles.statsPanelOuter} ${collapsedStyle()}`}>
+            className={`${styles.statsPanelOuter} ${collapsedStyle()} ${activeView === 3 ? styles.visible : ''}`}>
             <div 
                 className={`${styles.toggleStatsPanel} ${toggleBtnStyle()}`}
                 onClick={() => setStatsExpanded(!statsExpanded)}>
@@ -65,7 +66,7 @@ function StatsPanel() {
                 <div className={styles.roomTop}>
                     <div className={styles.backHome}>
                         <Link href="/room">
-                            <IoMdBackspace />
+                            <MdHome />
                         </Link>
                     </div>
                     <div className={styles.roomId}>

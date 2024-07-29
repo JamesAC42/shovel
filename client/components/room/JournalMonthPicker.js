@@ -1,13 +1,17 @@
 import { MdOutlineExpandMore } from "react-icons/md";
 import styles from "../../styles/room/journal.module.scss";
 import { useState } from 'react';
+import { IoMdExit } from "react-icons/io";
 
 function JournalMonthPicker({
     years,
     currentMonth, 
     currentYear,
     setMonth,
-    activeTab
+    activeTab,
+    visible,
+    toggleVisible,
+    fullScreen
 }) {
 
     let [collapsedYears, setCollapsedYears] = useState({});
@@ -39,6 +43,7 @@ function JournalMonthPicker({
 
     const handleMonthChange = (month, year) => {
         if(years.length === 0) return;
+        toggleVisible();
         setMonth(month, year);
     }
 
@@ -60,7 +65,16 @@ function JournalMonthPicker({
 
     return (
 
-        <div className={styles.journalDates}>
+        <div className={`${styles.journalDates} ${visible ? "" : styles.hideDates} ${
+            fullScreen ? styles.fullScreen : ""
+        }`}>
+            <div className={styles.closeDatePicker}>
+                <div
+                    onClick={toggleVisible} 
+                    className={styles.closeDatePickerBtn}>
+                    <IoMdExit/>
+                </div>
+            </div>
             {
                 renderYears.map((year) => 
                     <div

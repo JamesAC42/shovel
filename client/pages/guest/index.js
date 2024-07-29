@@ -7,10 +7,13 @@ import Link from "next/link";
 import RoomContext from '../../contexts/RoomContext';
 import { useEffect, useState } from "react";
 import CustomThemePicker from '../../components/room/CustomThemePicker';
+import {views} from "../../components/room/NavTabs";
+import NavTabs from "../../components/room/NavTabs";
 
 function Guest() {
 
     const [roomData, setRoomData] = useState({});
+    const [activeView, setActiveView] = useState(views.todo);
 
     useEffect(() => {
 
@@ -53,14 +56,15 @@ function Guest() {
                     <title>shovel - productivity tool with journal & todo list - guest</title>
                     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                 </Head>
-                <StatsPanel/>
+                <StatsPanel activeView={activeView}/>
                 <div className={styles.mainContentOuter}>
-                    <div className={styles.mainContent}>
-                        <Todo />
-                        <Journal />
+                    <div className={`${styles.mainContent} ${activeView === views.journal ? styles.showJournal : ""}`}>
+                        <Todo  activeView={activeView}/>
+                        <Journal  activeView={activeView}/>
                     </div>
                 </div>
             </div>
+            <NavTabs setActiveView={(activeView) => setActiveView(activeView)}/>
             <div className={styles.mobileNotice}>
                 Shovel is currently only supported on desktop and laptop devices.
                 <Link href="/">Go Back</Link>

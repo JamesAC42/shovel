@@ -328,6 +328,14 @@
         @media (max-width: 600px) {
             padding:0 2rem;
             max-width:100dvw;
+            .infoHeader {
+                font-size:1.4rem;
+                padding: 1rem 2rem;
+            }
+            .infoContent {
+                font-size:1.2rem;
+                text-align:center;
+            }
         }
     }
 

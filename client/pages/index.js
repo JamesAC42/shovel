@@ -18,7 +18,7 @@ const EnterButton = () => {
         target="_self"
         href="/room">
         <span>
-          try now for <span className={styles.free}> free</span>
+          use now for <span className={styles.free}> free</span>
           <FaCircleArrowRight />
         </span>
       </Link>
@@ -32,7 +32,9 @@ const FAQSection = ({question, children}) => {
 
   return (
     <div className={styles.infoContainer}>
-      <div className={styles.infoHeader}>
+      <div
+        onClick={() => setCollapsed(!collapsed)} 
+        className={styles.infoHeader}>
         { question }
 
         <div 

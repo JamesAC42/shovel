@@ -181,10 +181,16 @@ function Task({goal, activeTab, taskItem}) {
             </div>
             <div
                 onMouseEnter={() => toggleDelete(true)}
-                onMouseLeave={() => toggleDelete(false)} 
+                onMouseLeave={() => toggleDelete(false)}
+                onTouchStart={() => toggleDelete(true)}
+                onTouchEnd={() => toggleDelete(false)} 
                 className={styles.taskName}>
                 <div
                     onClick={() => deleteTask()} 
+                    onTouchEnd={(e) => {
+                        deleteTask();
+                        e.stopPropagation();
+                    }}
                     className={`${styles.deleteTask} ${showDelete ? styles.showDeleteTask : ''}`}>
                     <FaTrashAlt />
                 </div>

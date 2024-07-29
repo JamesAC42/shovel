@@ -19,6 +19,10 @@ import getToday from '../../utilities/getToday';
 import Link from 'next/link';
 import SocketPath from '../../utilities/socketPath';
 
+import {views} from "../../components/room/NavTabs";
+import NavTabs from "../../components/room/NavTabs";
+
+
 export default function Room () {
 
     const router = useRouter();
@@ -30,6 +34,8 @@ export default function Room () {
 
     const [roomData, setRoomData] = useState({});
     const [loading, setLoading] = useState(true);
+
+    const [activeView, setActiveView] = useState(views.todo);
 
     const reconnectSocket = () => {
 
@@ -255,14 +261,17 @@ export default function Room () {
                     <meta name="viewport" content="initial-scale=1.0, width=device-width" />
                 </Head>
                 <UserSession />
-                <StatsPanel/>
+                <StatsPanel activeView={activeView}/>
                 <div className={styles.mainContentOuter}>
-                    <div className={styles.mainContent}>
-                        <Todo />
-                        <Journal />
+                    <div className={`${styles.mainContent} ${activeView === views.journal ? styles.showJournal : ""}`}>
+                        <Todo activeView={activeView}/>
+                        <Journal activeView={activeView}/>
                     </div>
                 </div>
             </div>
+
+            <NavTabs setActiveView={(activeView) => setActiveView(activeView)}/>
+
             <div className={styles.mobileNotice}>
                 Shovel is currently only supported on desktop and laptop devices.
                 <Link href="/">Go Back</Link>

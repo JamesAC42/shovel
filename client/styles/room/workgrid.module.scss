@@ -4,6 +4,7 @@
     table {
         border-collapse: collapse;
     }
+
     td {
         border-right:1px solid var(--secondary-color);
         padding:0.2rem 0.8rem;
@@ -45,11 +46,135 @@
         font-weight:bold;
         font-size:1.3rem;
     }
-    
-    @media (max-width: 100rem) {
-        .workTotal {
-            font-size:1.1rem;
+
+    .workGridTableOuter {
+        border:1px solid var(--secondary-color);
+        border-radius:0.5rem;
+        display:none;
+        flex-direction: column;
+        align-items:stretch;
+        margin-bottom:0.5rem;
+        box-shadow:0 1rem 1.5rem 0.2rem var(--background-dark);
+        .workGridTableContainer {
+            width:20rem;
+            height:fit-content;
+            overflow:hidden;
+            position:relative;
+            .workGridTableScroll {
+                @include flex-center-row;
+                justify-content:first baseline;
+                width:fit-content;
+                transition:transform .1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                .horizontalTableOuter {
+                    float:left;
+                    height:fit-content;
+                    width:20rem;
+                    table {
+                        margin:1rem auto;
+                        display:block;
+                        border: none;
+                        border-collapse: collapse;
+                        width:fit-content;
+
+                        tr.dateRow {
+                            transform:translateX(4px);
+                            td {
+                                &.dateRowDate {
+                                    padding-right:10px;
+                                }
+                                padding:0;
+                                padding:0.5rem;
+                            }
+                        }
+                        td.totalHoursRow {
+                            text-align:center;
+                        }
+
+                        td {
+                            border: none;
+                            padding: 0.5rem;
+                            height:fit-content;
+                        }
+
+                        td.username {
+                            text-align:center;
+                        }
+
+                        .streak {
+                            width:fit-content;
+                            margin:0 auto;
+                        }
+
+                        .workMarkersContainer{
+                            max-width:10rem;
+                        }
+
+                    }
+                }
+            }
         }
+        .workGridTableOuterNav {
+            @include flex-center-row;
+            background:var(--secondary-color);
+            .workGridTableOuterNavInner {
+                @include flex-center-row;
+                justify-content: space-between;
+                width:100%;
+                .workGridNavItem {
+                    margin:0.5rem 1rem;
+                    font-size:1.8rem;
+                    color:var(--background-dark);
+                    cursor:pointer;
+                    svg {
+                        transform:translateY(3px);
+                    }
+
+                    &.workGridNavDisabled {
+                        cursor:default;
+                        opacity:0.4;
+                    }
+                } 
+            }
+        }
+
+        @media screen and (max-height: 750px) {
+            box-shadow:0 1rem 1.2rem -0.5rem var(--background-dark);
+            .workGridTableContainer {
+                .workGridTableScroll {
+                    .horizontalTableOuter {
+                        table {
+                        
+                            margin:0.5rem auto;
+                            td {
+                                padding:0.2rem;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .workGridTableOuterNav {
+                .workGridTableOuterNavInner {
+                    .workGridNavItem {
+                        margin:0.2rem 0.5rem;
+                        font-size:1.4rem;
+                    }
+                }
+            }
+        }
+    }
+    
+
+    @media screen and (max-width: 900px) {
+
+        table.horizontalTable {
+            display:none;
+        }
+
+        .workGridTableOuter {
+            display:flex;
+        }
+
     }
 
 }

@@ -26,10 +26,4 @@
             color:#000;
         }
     }
-    @media (max-width: 900px) {
-        @include flex-center-col;
-    }
-    @media (max-width: 800px) {
-        font-size:1rem;
-    }
 }

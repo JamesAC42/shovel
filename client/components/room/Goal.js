@@ -167,12 +167,18 @@ function Goal({activeTab, goalItem}) {
             <div
                 className={styles.goalHeader}
                 onMouseEnter={() => toggleDelete(true)}
-                onMouseLeave={() => toggleDelete(false)}>
+                onMouseLeave={() => toggleDelete(false)}
+                onTouchStart={() => toggleDelete(true)}
+                onTouchEnd={() => toggleDelete(false)}>
 
                 <div
                     className={styles.goalTitle}>
                     <div
                         onClick={() => deleteGoal()} 
+                        onTouchEnd={(e) => {
+                            deleteGoal();
+                            e.stopPropagation();
+                        }}
                         className={`${styles.deleteGoal} ${showDelete ? styles.deleteGoalShow : ''}`}>
                         <FaTrashAlt />
                     </div>

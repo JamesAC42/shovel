@@ -8,13 +8,14 @@ import { useState, useContext, useEffect } from 'react';
 import JournalInput from './JournalInput';
 import { HiPencilAlt } from "react-icons/hi";
 import { FaChevronUp } from "react-icons/fa6";
+import { FaCalendarAlt } from "react-icons/fa";
 
 import ReactMarkdown from 'react-markdown';
 import dateToReadable from '../../utilities/dateToReadable';        
 
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-function Journal() {
+function Journal({activeView}) {
 
     /* 
     {
@@ -53,6 +54,8 @@ function Journal() {
 
     const [savedActiveMonth, setSavedActiveMonth] = useState({});
     const [activeTab, setActiveTab] = useState(null);
+
+    const [showDatePicker, toggleDatePicker] = useState(false);
 
     const setMonth = (month, year) => {
         setCurrentMonth(month);
@@ -200,6 +203,7 @@ function Journal() {
         savedMonths[activeTab] = {month: currentMonth, year: currentYear};
         setActiveTab(tab);
         setSavedActiveMonth(savedMonths);
+        toggleDatePicker(false);
         if(savedMonths[tab]) {
             setCurrentMonth(savedMonths[tab].month);
             setCurrentYear(savedMonths[tab].year);
@@ -239,6 +243,8 @@ function Journal() {
 
     if(!roomData) return null;
 
+    let fullScreen = Object.keys(roomData.users).length === 1;
+
     return (
         <div className={styles.journalOuter}>
 
@@ -249,14 +255,22 @@ function Journal() {
             <div className={styles.journalInner}>
             
                 <JournalMonthPicker
+                    visible={activeView === 2 && showDatePicker}
+                    fullScreen={fullScreen}
                     activeTab={activeTab}
                     years={years}
                     currentMonth={currentMonth}
                     currentYear={currentYear}
-                    setMonth={(month, year) => setMonth(month, year)} />
+                    setMonth={(month, year) => setMonth(month, year)}
+                    toggleVisible={() => toggleDatePicker(false)} />
             
                 <div className={styles.journalContent}>
                     <h2>
+                        <div 
+                            onClick={() => toggleDatePicker(true)}
+                            className={styles.toggleDatePicker}>
+                            <FaCalendarAlt/>
+                        </div>
                         Journal - {getSelectedTimeString()}
                         {
                             showInput() ?
@@ -289,9 +303,11 @@ function Journal() {
                             key={entry.date}
                             className={styles.journalEntry}>
                             <h2>
-                                {
-                                    dateToReadable(entry.date)
-                                }
+                                <div>
+                                    {
+                                        dateToReadable(entry.date)
+                                    }
+                                </div>
                                 {
                                     entry.tags.map(tag =>
                                     <span
