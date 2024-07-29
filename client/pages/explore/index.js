@@ -36,7 +36,8 @@ const Explore = () => {
     }, [publicRooms]);
 
     return(
-        <div>
+        <div className={styles.exploreTop}>
+        <div className={styles.exploreInner}>
             <CustomThemePicker />
             <div className={styles.roomOuter}>
                 <Head>
@@ -102,6 +103,7 @@ const Explore = () => {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     )
 
