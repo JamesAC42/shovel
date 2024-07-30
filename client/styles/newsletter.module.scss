@@ -1,0 +1,66 @@
+@import "./variables.module.scss";
+
+.newsletterOuter {
+    background:var(--background-color);
+    padding:1rem 3rem;
+    padding-bottom:2rem;
+
+    border-radius:0.5rem;
+    border:2px solid var(--secondary-color);
+
+    max-height:90dvh;
+    overflow-y:auto;
+
+    h2 {
+        text-align:center;
+    }
+
+    .input {
+        @include flex-center-col;
+        margin:2rem 0;
+        input, button {
+            font-family: 'Figtree', sans-serif;
+            padding:0.5rem 1rem;
+            font-size:1rem;
+            border-radius:0.5rem;
+            background:var(--background-color);
+            color:var(--primary-color);
+            outline:none;
+            border:1px solid var(--secondary-color);
+            max-width:20rem;
+        }
+    
+        input {
+            width:calc(100% - 2rem);
+        }
+        
+        button {
+            width:100%;
+            margin-top:0.5rem;
+            background:var(--primary-color);
+            color:var(--background-color);
+            cursor:pointer;
+            transition:all 0.1s ease-in-out;
+            &:hover {
+                opacity:0.8;
+            }
+        }
+        .error {
+            margin:0.5rem 0;
+            padding:0 2rem;
+            color:var(--error-color);
+        }
+    }
+
+    .declineOption {
+        text-align:center;
+    }
+
+    @media screen and (max-width: 800px) {
+        border-radius:0;
+        border-left:none;
+        border-right:none;
+        max-height:60dvh;
+        width:calc(100dvw - 6rem);
+    }
+}

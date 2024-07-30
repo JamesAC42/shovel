@@ -8,6 +8,7 @@ import { BsFillPeopleFill } from "react-icons/bs";
 
 import {useContext, useState, useEffect} from 'react';
 import RoomContext from '../../contexts/RoomContext';
+import UserContext from "../../contexts/UserContext";
 
 import { MdOutlineExpandMore } from "react-icons/md";
 import { IoChevronBackCircle, IoChevronForwardCircle } from "react-icons/io5";
@@ -17,19 +18,20 @@ import Link from 'next/link';
 import CheckIn from './CheckIn';
 import VisibilityControl from './VisibilityControl';
 import Popup from '../Popup';
+import NewsletterSignup from '../NewsletterSignup';
 
 function StatsPanel({activeView}) {
 
     const {roomData} = useContext(RoomContext);
+    let { userInfo } = useContext(UserContext);
     const [statsExpanded, setStatsExpanded] = useState(true);
 
     const [showSocialNotif, setShowSocialNotif] = useState(false);
 
     useEffect(() => {
-        const seenSocial = localStorage.getItem('shovel:seenSocial');
+        const seenSocial = localStorage.getItem('shovel:seenNewsletter');
         if (!seenSocial || seenSocial === 'false') {
             setShowSocialNotif(true);
-            localStorage.setItem('shovel:seenSocial', 'true');
         }
     }, []);
 
@@ -51,6 +53,12 @@ function StatsPanel({activeView}) {
         const mostRecentSunday = new Date(today.setDate(today.getDate() - dayOfWeek));
         const dateString = mostRecentSunday.toLocaleDateString();
         return dateString;
+    }
+
+    let showNewsLetter = false;
+    if(showSocialNotif && userInfo && !userInfo.email) {
+        showNewsLetter = true;
+        localStorage.setItem('shovel:seenNewsletter', 'true');
     }
 
     return(
@@ -87,11 +95,9 @@ function StatsPanel({activeView}) {
                         </Link>
 
                         {
-                            showSocialNotif ?
+                            showNewsLetter ?
                             <Popup onClose={() => setShowSocialNotif(false)}>
-                                <div className={styles.socialNotif}>
-                                    Liking shovel? Visit the forum to leave a comment, suggest a new feature, or ask anything! Click the People icon in the top left of the workspace to visit.
-                                </div>
+                                <NewsletterSignup onClose={() => setShowSocialNotif(false)}/>
                             </Popup> : null
                         }
                     </div>

@@ -254,7 +254,6 @@ export default function Room () {
     return (
         <RoomContext.Provider value={{roomData, setRoomData}}>
             <CustomThemePicker />
-            <Banner />
             <div className={styles.roomOuter}>
                 <Head>
                     <title>{roomData ? `shovel - productivity tool with journal & todo list - ${roomData.name}` : ''}</title>

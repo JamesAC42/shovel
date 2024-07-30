@@ -66,6 +66,7 @@ const getAdminUsernames = require('./controllers/socialControllers/getAdmins');
 const deleteFeedbackPostAdmin = require('./controllers/socialControllers/deleteFeedbackPostAdmin');
 const publicRooms = require("./controllers/publicRooms");
 const getStats = require('./controllers/getStats');
+const addEmailToUser = require('./controllers/addEmailToUser');
 
 sequelize.sync()
   .then(() => {
@@ -187,6 +188,10 @@ app.post('/editFeedbackPost', async (req, res) => {
 
 app.post('/deleteFeedbackPostAdmin', async (req, res) => {
   deleteFeedbackPostAdmin(req, res, models, redisClient, io);
+});
+
+app.post('/newsletterSignup', async (req, res) => {
+  addEmailToUser(req, res, models);
 });
 
 app.get('/room', (req, res) => {
