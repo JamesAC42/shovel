@@ -216,7 +216,7 @@ function Journal({activeView}) {
         if(!roomData) return;
 
         if(!activeTab) {
-            if(userInfo && !roomData.guest) {
+            if(userInfo && !roomData.guest && userInRoom()) {
                 setActiveTab(userInfo.id);
             } else {
                 setActiveTab(parseInt(Object.keys(roomData.users)[0]));
@@ -240,6 +240,13 @@ function Journal({activeView}) {
         }
 
     }, [activeTab]);
+
+    const userInRoom = () => {
+        if(!roomData) return false;
+        if(!userInfo) return false;
+        if(!roomData.users[userInfo.id]) return false;
+        return true;
+    }
 
     if(!roomData) return null;
 
