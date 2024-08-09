@@ -191,7 +191,7 @@ export default function Home() {
             Shovel is a cutting-edge productivity app designed to enhance focus, boost efficiency, and achieve deep work. With its sleek, minimalist interface, Shovel aims to eliminate distractions by consolidating your tasks, notes, thoughts, and progress all in one view. Perfect for ADHD management, this productivity tool allows you to create or join a collaborative room with up to 5 people, enabling asynchronous teamwork. The daily check-in feature helps you build a productivity streak and ensures consistent task completion, making it an ideal study app for students and professionals alike.
           </FAQSection>
 
-          <FAQSection question="How does shovel help improve productivity?">
+          <FAQSection question="How does Shovel help improve productivity?">
             Shovel revolutionizes time management by unifying <span className={styles.infoBold}>past</span>, <span className={styles.infoBold}>present</span>, and <span className={styles.infoBold}>future</span> in a single space, allowing your mind to focus on the work at hand. Future-oriented goals and tasks, a work grid for tracking daily deep work hours, and a built-in journal for capturing ideas and progress notes all contribute to a distraction-free workflow. This comprehensive approach to productivity and efficiency helps manage ADHD symptoms, reduces productivity anxiety, and fosters a balanced work environment, whether you're using it on your iPhone, iPad, Android device, or Mac.
           </FAQSection>
 

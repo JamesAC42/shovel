@@ -24,6 +24,7 @@ const User = sequelize.define('User', {
   },
   password: {
     type: DataTypes.STRING(100),
+    allowNull: true
   },
   username: {
     type: DataTypes.STRING(50),
@@ -32,6 +33,11 @@ const User = sequelize.define('User', {
   email: {
     type: DataTypes.STRING(200),
     allowNull: true
+  },
+  googleId: {
+    type: DataTypes.STRING(256),
+    allowNull: true,
+    field: 'google_id'
   }
 }, {
   tableName: 'users',

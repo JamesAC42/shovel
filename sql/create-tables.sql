@@ -8,6 +8,7 @@ CREATE TABLE users
     password character varying(100) COLLATE pg_catalog."default",
     username character varying(50) COLLATE pg_catalog."default" NOT NULL,
     email character varying(200) COLLATE pg_catalog."default",
+    google_id character varying(256) COLLATE pg_catalog."default",
     CONSTRAINT users_pkey PRIMARY KEY (id)
 );
 

@@ -114,6 +114,7 @@
     width:15rem;
     h2 {
         white-space:nowrap;
+        font-size:2rem;
     }
     p {
         text-align:justify;
@@ -137,6 +138,7 @@
         background:var(--background-dark);
         border-radius:0.5rem;
         padding:0.5rem 0;
+        margin-bottom:1rem;
         &:hover {
             outline:2px solid var(--secondary-color);
         }
@@ -152,6 +154,12 @@
 .login, .createUser {
     border-right:1px solid var(--secondary-color);
     
+    .switchMode {
+        margin:0rem 0rem 1rem 0rem;
+        cursor:pointer;
+        text-decoration: underline;
+    }
+
     @media screen and (max-width:1180px) {
         border-right:none;
         border-bottom:1px solid var(--secondary-color);
@@ -160,6 +168,7 @@
 
 .login h2, .createUser h2 {
     margin-bottom:0.5rem;
+    font-size:2rem;
     @media screen and (max-width:470px) {
         margin-bottom:0;
     }

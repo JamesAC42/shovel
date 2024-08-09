@@ -2,3 +2,4 @@
 psql_login.json
 config.json
 redis_login.json
+google_auth.json

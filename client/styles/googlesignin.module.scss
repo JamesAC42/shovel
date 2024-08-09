@@ -1,0 +1,24 @@
+@import "./variables.module.scss";
+
+.googleSignIn {
+    margin-top:1rem;
+    @include flex-center-col;
+    align-items: stretch;
+    .googleSignInSeparator {
+        padding:0 0.5rem;
+        @include flex-center-row;
+        gap:0.5rem;
+        .line {
+            height:0px;
+            border:1px solid var(--primary-color);
+            flex:1;
+            opacity:0.5;
+        }
+    }
+    .signInButton {
+        margin:0 auto;
+        width:fit-content;
+        padding:1.5rem 0;
+    }
+    
+}

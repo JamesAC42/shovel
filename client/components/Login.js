@@ -1,8 +1,9 @@
 import { useState, useContext } from 'react';
 import styles from "../styles/room.module.scss";
 import UserContext from '../contexts/UserContext';
+import GoogleSignIn from './GoogleSignIn';
 
-function Login() {
+function Login({switchMode}) {
 
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
@@ -44,6 +45,9 @@ function Login() {
     return (
         <div className={styles.login}>
             <h2>Login</h2>
+            <div className={styles.switchMode} onClick={switchMode}>
+                No account? Make one here.
+            </div>
             <form>
                 <label>
                     Email or Username:
@@ -54,9 +58,13 @@ function Login() {
                     <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
                 </label>
                 <input className={styles.submitForm} type="submit" value="Login" onClick={submitForm} />
-                <div className={styles.errorMessage}>
-                    {errorMessage}
-                </div>
+                {
+                    errorMessage ?
+                    <div className={styles.errorMessage}>
+                        {errorMessage}
+                    </div> : null
+                }
+                <GoogleSignIn />
             </form>
         </div>
     )

@@ -24,6 +24,11 @@ const login = async (req, res, models) => {
             return;
         }
 
+        if(!foundUser.password) {
+            res.send({ success: false, message: "Sign in with Google."});
+            return;
+        }
+
         const result = await bcrypt.compare(password, foundUser.password);
         if (!result) {
             res.send({ success: false, message: "Username/Email or password is incorrect." });

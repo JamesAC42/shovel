@@ -68,6 +68,10 @@ export default function App({ Component, pageProps }) {
         <UserContext.Provider value={{userInfo, setUserInfo}}>
         <ViewContext.Provider value={{view, setView}}>
             <div className={`theme-parent theme-${theme}`}>
+                <Script
+                    src="https://accounts.google.com/gsi/client"
+                    strategy="afterInteractive"
+                />
                 <Script defer src="https://umami.ovel.sh/script.js" data-website-id="e4ae69a4-87b0-4bc9-acc6-abd1e533316f"></Script>
                 <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1717794133911955"
                     crossorigin="anonymous"></Script>

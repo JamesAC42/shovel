@@ -2,7 +2,7 @@ const getUserFromUsername = (models, username) => {
     return models.User.findOne({ where: { username: username } })
         .then(user => {
             if (!user) {
-                throw new Error('User not found');
+                return null;
             }
             return {
                 id: user.id,

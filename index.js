@@ -37,6 +37,7 @@ redisClient.auth(redisLogin.password);
 const models = require('./models/models');
 
 const login = require('./controllers/login');
+const googleLogin = require('./controllers/googleLogin');
 const logout = require('./controllers/logout');
 const createUser = require('./controllers/createUser');
 const room = require('./controllers/room');
@@ -112,6 +113,10 @@ app.post('/login', (req, res) => {
 
 app.post('/logout', (req, res) => {
   logout(req, res);
+});
+
+app.post('/googleLogin', (req, res) => {
+  googleLogin(req, res, models);
 });
 
 app.post('/createUser', async (req, res) => {

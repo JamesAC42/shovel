@@ -63,7 +63,8 @@ const createUser = async (req, res, models) => {
             password: hashedPassword,
             color,
             email,
-            dateCreated
+            dateCreated,
+            googleId: ""
         });
 
         req.session.user = { username };
