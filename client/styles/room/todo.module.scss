@@ -43,7 +43,7 @@
     @include theme-scrollbar;
 
     .goalSection {
-        margin-bottom: 2rem;
+        margin-bottom: 0.5rem;
         margin-top:1rem;
         @include slide-fade-in;
 
@@ -188,23 +188,103 @@
                 }
             }
             .newTaskContainer {
-                @include flex-center-row;
-                @include slide-fade-in;
-                gap: 0;
-                margin-top: 0.7rem;
-                input {
-                    @include goal-input;
-                    width: 30%;
-                    border-radius:0 0.4rem 0.4rem 0;
-                    
-                    &:first-child {
-                        border-right:none;
-                        border-radius:0.4rem 0 0 0.4rem;
+                position: relative;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background-color: var(--background-color);
+                border:2px solid var(--tertiary-color);
+                overflow: hidden;
+                transition: all 0.1s ease;
+                margin:0.5rem auto;
+                color:var(--primary-color);
+                cursor:pointer;
+
+                &:hover {  
+                    opacity:0.8;
+                }
+
+                .plusButton {
+                    position:absolute;
+                    color:var(--secondary-color);
+                    top:50%;left:50%;
+                    opacity:0.8;
+                    transform:translate(-50%,-50%) scale(0.7);
+                    margin-top:2px;      
+                    cursor:pointer;              
+                }
+
+                &.newTaskVisible {
+                    width: 100%;
+                    height: auto;
+                    border-radius: 8px;
+                    background-color:var(--background-dark);
+                    content:"";
+                    border:none;
+                    cursor:default;
+
+                    .plusButton {
+                        display:none;
+                    }
+
+                    &:hover {
+                        opacity:1;
                     }
                 }
-                .addTask {
-                    @include add-button;
-                    margin-left:1rem;
+
+                .newTaskInputs {
+                    @include flex-center-row;
+                    opacity: 0;
+                    //transform: translateX(-100%);
+                    transition: all 0.2s ease;
+                    padding: 10px;
+                    max-height:0;
+                }
+                
+                &.newTaskVisible .newTaskInputs {
+                    opacity: 1;
+                    transform: translateX(0);
+                    max-height:5rem;
+                }
+
+                .newTaskTextInput {
+                    flex:1;
+
+                    input {
+                        @include goal-input;
+                        width:calc(100% - 3rem);
+                        border:none;
+                        border-radius:0 0.4rem 0.4rem 0;
+                            
+                    }
+                }
+
+                .newTaskActions {
+                    @include flex-center-col;
+                    justify-content:space-between;
+                    width:1rem;
+                    height:100%;
+                    gap:1rem;
+                    margin-right:0.5rem;
+                    .addTask,.hideInput {
+                        cursor:pointer;
+                        border-radius:50%;
+                        height:1.5rem;width:1.5rem;
+                        @include flex-center-col;
+                        color:var(--secondary-color);
+                        &:hover {
+                            background:var(--secondary-color);
+                            color:var(--background-color);
+                            transition:all 0.1s ease-in-out;
+                        }
+                    }
+                }
+
+                &.newTaskVisible .newTaskAction {
+                    top: 10px;
+                    right: 10px;
+                    left: auto;
+                    transform: none;
                 }
             }
         }

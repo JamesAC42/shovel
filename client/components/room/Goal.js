@@ -4,6 +4,8 @@ import { HiPencilAlt } from "react-icons/hi";
 import dateToReadable from "../../utilities/dateToReadable";
 import {useState, useContext, useRef} from 'react';
 import { FaTrashAlt } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
+import { FaPlus } from "react-icons/fa";
 import getToday from "../../utilities/getToday";
 import RoomContext from "../../contexts/RoomContext";
 import UserContext from "../../contexts/UserContext";
@@ -36,6 +38,8 @@ function Goal({activeTab, goalItem}) {
 
     let [taskValue, setTaskValue] = useState("");
     let [tagValue, setTagValue] = useState("");
+
+    let [showTaskInput, setShowTaskInput] = useState(false);
 
     const inputRef = useRef();
 
@@ -162,6 +166,8 @@ function Goal({activeTab, goalItem}) {
         tasks
     } = goalItem;
 
+    console.log(showTaskInput);
+
     return(
         <div className={`${styles.goalSection} ${endDate ? styles.goalCompleted : ''}`}>
             <div
@@ -204,25 +210,44 @@ function Goal({activeTab, goalItem}) {
                 }
                 {
                     showNewTask() ?
-                    <div className={styles.newTaskContainer}>
-                        <input
-                            ref={inputRef}
-                            onChange={(e) => setTaskValue(e.target.value)}
-                            value={taskValue}
-                            onKeyDown={(e) => handleKeyPress(e)} 
-                            maxLength={100}
-                            type="text" 
-                            placeholder="New Task"></input>
-                        <input
-                            onChange={(e) => setTagValue(e.target.value)}
-                            value={tagValue}
-                            onKeyDown={(e) => handleKeyPress(e)} 
-                            type="text" 
-                            placeholder="tag 1, tag 2, ..."></input>
-                        <div
-                            onClick={() => addTask()} 
-                            className={styles.addTask}>
-                            <HiPencilAlt />
+                    <div
+                        onClick={() => setShowTaskInput(true)}  
+                        className={`${styles.newTaskContainer} ${showTaskInput ? styles.newTaskVisible : ""}`}>
+                        <div className={styles.newTaskInputs}>
+                            <div className={styles.newTaskTextInput}>
+                                <input
+                                    ref={inputRef}
+                                    onChange={(e) => setTaskValue(e.target.value)}
+                                    value={taskValue}
+                                    onKeyDown={(e) => handleKeyPress(e)} 
+                                    maxLength={100}
+                                    type="text" 
+                                    placeholder="New Task"></input>
+                                <input
+                                    onChange={(e) => setTagValue(e.target.value)}
+                                    value={tagValue}
+                                    onKeyDown={(e) => handleKeyPress(e)} 
+                                    type="text" 
+                                    placeholder="tag 1, tag 2, ..."></input>
+                            </div>
+                            <div className={styles.newTaskActions}>
+                                <div
+                                    onClick={(e) => {
+                                        setShowTaskInput(false);
+                                        e.stopPropagation();
+                                    }} 
+                                    className={styles.hideInput}>
+                                    <IoClose />
+                                </div>
+                                <div
+                                    onClick={() => addTask()} 
+                                    className={styles.addTask}>
+                                    <HiPencilAlt />
+                                </div>
+                            </div>
+                        </div>
+                        <div className={styles.plusButton}>
+                            <FaPlus/>
                         </div>
                     </div> : null
                 }
