@@ -93,6 +93,7 @@ CREATE TABLE goals
     title character varying(100) COLLATE pg_catalog."default",
     description text COLLATE pg_catalog."default",
     room integer,
+    "order" integer,
     CONSTRAINT goals_pkey PRIMARY KEY (id),
     CONSTRAINT goals_user_id_fkey FOREIGN KEY (user_id)
         REFERENCES public.users (id) MATCH SIMPLE
@@ -109,6 +110,7 @@ CREATE TABLE tasks
     description text COLLATE pg_catalog."default",
     date_created date,
     date_completed date,
+    "order" integer,
     CONSTRAINT tasks_pkey PRIMARY KEY (id),
     CONSTRAINT tasks_goal_id_fkey FOREIGN KEY (goal_id)
         REFERENCES public.goals (id) MATCH SIMPLE

@@ -1,3 +1,4 @@
+const getTaskAmount = require("../../repositories/getTaskAmount");
 const getUserFromUsername = require("../../repositories/getUserFromUsername");
 
 async function addTask(req, res, models, io) {
@@ -75,12 +76,15 @@ async function addTask(req, res, models, io) {
             return;
         }
 
+        const taskAmount = await getTaskAmount(models, goal);
+
         const newTask = await models.Task.create({
             goalId: goal,
             userId: user.id,
             title: task,
             description: task,
-            dateCreated: date
+            dateCreated: date,
+            order: taskAmount + 1
         });
 
         if (!newTask) {

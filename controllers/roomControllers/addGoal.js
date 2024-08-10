@@ -1,3 +1,4 @@
+const getGoalAmount = require("../../repositories/getGoalAmount");
 const getUserFromUsername = require("../../repositories/getUserFromUsername");
 
 async function addGoal(req, res, models, io) {
@@ -59,6 +60,8 @@ async function addGoal(req, res, models, io) {
             return;
         }
 
+        const goalAmount = await getGoalAmount(models, user.id, room);
+
         let newGoal = await models.Goal.create({
             room: room,
             userId: user.id,
@@ -66,7 +69,8 @@ async function addGoal(req, res, models, io) {
             endDate: null,
             status: null,
             description: null,
-            title: goal
+            title: goal,
+            order: goalAmount + 1
         });
 
         if (!newGoal) {

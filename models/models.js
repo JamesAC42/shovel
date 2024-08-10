@@ -247,6 +247,9 @@ const Goal = sequelize.define('Goal', {
   description: {
     type: DataTypes.TEXT,
   },
+  order: {
+    type: DataTypes.INTEGER,
+  }
 }, {
   tableName: 'goals',
   timestamps: false,
@@ -288,6 +291,9 @@ const Task = sequelize.define('Task', {
     type: DataTypes.DATEONLY,
     field: 'date_completed',
   },
+  order: {
+    type: DataTypes.INTEGER,
+  }
 }, {
   tableName: 'tasks',
   timestamps: false,
