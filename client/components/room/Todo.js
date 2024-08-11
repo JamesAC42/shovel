@@ -7,6 +7,7 @@ import { useContext, useState, useEffect } from 'react';
 import { FaArrowDownLong } from "react-icons/fa6";
 import Goal from './Goal';
 import getToday from '../../utilities/getToday';
+import DraggableGoals from './sortable/DraggableGoals';
 
 function Todo() {
 
@@ -128,6 +129,12 @@ function Todo() {
 
     if(!roomData) return null;
 
+    let goals = Object.keys(getGoals()).map(goalId => generateGoal(goalId));
+    goals = goals.sort((a, b) => {
+        if(isNaN(a.order) || isNaN(b.order)) return 0;
+        return a.order - b.order;
+    });
+
     return (
         <div className={styles.todoOuter}>
                         
@@ -139,7 +146,7 @@ function Todo() {
 
                 { noGoals() }
                 {
-                    Object.keys(getGoals()).map((goalId) => <Goal key={goalId} activeTab={activeTab} goalItem={generateGoal(goalId)}/>)
+                    <DraggableGoals activeTab={activeTab} goals={goals}/>
                 }
 
                 { 

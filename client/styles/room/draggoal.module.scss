@@ -1,0 +1,29 @@
+@import "../variables.module.scss";
+
+.dragGoalOuter {
+
+    @include flex-center-row;
+    overflow:visible;
+    position:relative;
+    
+    .dragGoalHandle {
+        opacity:0;
+        @include flex-center-row;
+        cursor:grab;
+        position:absolute;
+        right:0;top:0;
+        margin:1rem;
+        margin-right:0;
+        transform:translate(0%,50%);
+        svg {
+            transform:scale(2);
+        }
+    }
+
+    &:hover {
+        .dragGoalHandle {
+            opacity:1;
+        }
+    }
+    
+}

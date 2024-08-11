@@ -54,6 +54,8 @@ const deleteGoal = require('./controllers/roomControllers/deleteGoal');
 const addTask = require('./controllers/roomControllers/addTask');
 const deleteTask = require('./controllers/roomControllers/deleteTask');
 const toggleTask = require('./controllers/roomControllers/toggleTask');
+const updateTaskOrder = require('./controllers/roomControllers/updateTaskOrder');
+const updateGoalOrder = require('./controllers/roomControllers/updateGoalOrder');
 const saveJournalEntry = require('./controllers/roomControllers/saveJournalEntry');
 const toggleRoomVisibility = require('./controllers/roomControllers/toggleRoomVisibility');
 const getFeedback = require('./controllers/socialControllers/getFeedback');
@@ -197,6 +199,14 @@ app.post('/deleteFeedbackPostAdmin', async (req, res) => {
 
 app.post('/newsletterSignup', async (req, res) => {
   addEmailToUser(req, res, models);
+});
+
+app.post('/updateTaskOrder', async (req, res) => {
+  updateTaskOrder(req, res, models);
+});
+
+app.post('/updateGoalOrder', async (req, res) => {
+  updateGoalOrder(req, res, models);
 });
 
 app.get('/room', (req, res) => {

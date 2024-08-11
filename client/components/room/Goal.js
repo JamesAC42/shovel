@@ -9,6 +9,7 @@ import { FaPlus } from "react-icons/fa";
 import getToday from "../../utilities/getToday";
 import RoomContext from "../../contexts/RoomContext";
 import UserContext from "../../contexts/UserContext";
+import DraggableTasks from "./sortable/DraggableTasks";
 
 function Goal({activeTab, goalItem}) {
 
@@ -166,7 +167,9 @@ function Goal({activeTab, goalItem}) {
         tasks
     } = goalItem;
 
-    console.log(showTaskInput);
+    if(!tasks) {
+        return null;
+    }
 
     return(
         <div className={`${styles.goalSection} ${endDate ? styles.goalCompleted : ''}`}>
@@ -203,11 +206,7 @@ function Goal({activeTab, goalItem}) {
                         No tasks yet
                     </div> : null
                 }
-                {
-                    tasks.map((task) =>
-                        <Task key={task.id} activeTab={activeTab} goal={id} taskItem={task}/>
-                    )
-                }
+                <DraggableTasks tasks={tasks} activeTab={activeTab} goal={id}/>
                 {
                     showNewTask() ?
                     <div

@@ -1,0 +1,29 @@
+@import "../variables.module.scss";
+
+.dragItemOuter {
+
+    @include flex-center-row;
+    overflow:visible;
+    position:relative;
+    
+    .dragItemHandle {
+        opacity:0;
+        overflow:hidden;
+        @include flex-center-row;
+        cursor:grab;
+        position:absolute;
+        left:0;top:50%;
+        transform:translate(-100%,-50%);
+        padding-left:10px;
+        svg {
+            transform:scale(1.1);
+        }
+    }
+
+    &:hover {
+        .dragItemHandle {
+            opacity:1;
+        }
+    }
+    
+}

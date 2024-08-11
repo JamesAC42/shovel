@@ -47,7 +47,7 @@ function WorkGrid() {
         }
         return <td key={user + weekDay} className={styles.workMarkersContainer}>{
             workMarkers.length > 0 ?
-            workMarkers : "None"
+            workMarkers : "-"
         }</td>
     }
 

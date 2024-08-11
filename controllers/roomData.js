@@ -103,7 +103,10 @@ async function roomData (req, res, models) {
 
             let currentStreak = await models.StreakTracker.findOne({ where: { userId: userid, room: roomId } });
             let streakHighScore = await models.StreakHighscore.findOne({ where: { userId: userid, room: roomId } });
-            let goals = await models.Goal.findAll({ where: { userId: userid, room: roomId } });
+            let goals = await models.Goal.findAll({ 
+                where: { userId: userid, room: roomId },
+                order: [['order', 'ASC']]
+            });
             let journal = await models.Journal.findAll({ where: { userId: userid, room: roomId } });
 
             if(currentStreak) { 
@@ -117,13 +120,17 @@ async function roomData (req, res, models) {
 
             let goalsData = {};
             for (let goal of goals) {
-                const tasks = await models.Task.findAll({ where: { goalId: goal.id } });
+                const tasks = await models.Task.findAll({ 
+                    where: { goalId: goal.id },
+                    order: [['order', 'ASC']]
+                });
                 let tasksData = tasks.map(task => ({
                     id: task.id,
                     title: task.title,
                     description: task.description,
                     dateCreated: task.dateCreated,
                     dateCompleted: task.dateCompleted,
+                    order: task.order,
                     tags: [] 
                 }));
 
@@ -146,6 +153,7 @@ async function roomData (req, res, models) {
                     startDate: goal.startDate,
                     endDate: goal.endDate,
                     goalStatus: goal.status,
+                    order: goal.order,
                     tasks: tasksData
                 };
             }

@@ -32,12 +32,34 @@ async function deleteGoal(req, res, models, io) {
             return;
         }
 
+        const goalOrder = goalItem.order;
+
         const tasks = await models.Task.findAll({ where: { goalId: goal } });
         for (let task of tasks) {
             await models.TaskTag.destroy({ where: { taskId: task.id } });
         }
         await models.Task.destroy({ where: { goalId: goal } });
         await models.Goal.destroy({ where: { id: goal } });
+
+        // Get all goals for the user in the same room
+        const allGoals = await models.Goal.findAll({
+            where: { 
+                userId: user.id,
+                room: goalItem.room
+            },
+            order: [['order', 'ASC']]
+        });
+
+        // Update order for remaining goals
+        const goalsToUpdate = allGoals.filter(g => g.order > goalOrder);
+        if (goalsToUpdate.length > 0) {
+            await Promise.all(goalsToUpdate.map(g => 
+                models.Goal.update(
+                    { order: g.order - 1 },
+                    { where: { id: g.id } }
+                )
+            ));
+        }
         
         const socketRoom = `room_${goalItem.room}`;
         io.to(socketRoom).emit('deleteGoal', {

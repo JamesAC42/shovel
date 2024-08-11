@@ -37,12 +37,28 @@ async function deleteTask(req, res, models, io) {
             return;
         }
 
+        const taskOrder = taskItem.order;
+
         await models.TaskTag.destroy({ where: { taskId: task } });
         await models.Task.destroy({ where: { id: task } });
 
-        const allTasks = await models.Task.findAll({ where: { goalId: goal } });
+        const allTasks = await models.Task.findAll({ 
+            where: { goalId: goal },
+            order: [['order', 'ASC']]
+        });
         const allTasksCompleted = allTasks.every(task => task.dateCompleted !== null);
 
+        // Update order for remaining tasks
+        const tasksToUpdate = allTasks.filter(t => t.order > taskOrder);
+        if (tasksToUpdate.length > 0) {
+            await Promise.all(tasksToUpdate.map(t => 
+                models.Task.update(
+                    { order: t.order - 1 },
+                    { where: { id: t.id } }
+                )
+            ));
+        }
+        
         let goalCompletedDate = null;
         if (allTasks.length > 0 && allTasksCompleted) {
             goalCompletedDate = allTasks.reduce((latest, task) => {

@@ -43,9 +43,11 @@
     @include theme-scrollbar;
 
     .goalSection {
-        margin-bottom: 0.5rem;
-        margin-top:1rem;
+        margin-bottom: 0rem;
+        margin-top:0.5rem;
         @include slide-fade-in;
+
+        flex:1;
 
         &.goalCompleted {
             opacity:0.5;
@@ -108,6 +110,7 @@
             }
 
             .taskItem {
+                flex:1;
                 display: flex;
                 flex-direction: row;
                 align-items: center;
