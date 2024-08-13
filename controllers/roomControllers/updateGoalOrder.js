@@ -36,9 +36,15 @@ async function updateGoalOrder(req, res, models) {
 
         const oldOrder = goalItem.order;
         const allGoals = await models.Goal.findAll({
-            where: { room: room },
+            where: { room: room, userId: user.id },
             order: [['order', 'ASC']]
         });
+
+        for(let i = 0; i < allGoals.length; i++) {
+            if(allGoals[i].order === 0) {
+                await allGoals[i].update({ order: i + 1 });
+            }
+        }
 
         if (newIndex < 0 || newIndex >= allGoals.length) {
             res.status(400).json({ success: false, message: 'Invalid new index' });

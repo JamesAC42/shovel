@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {useSortable} from '@dnd-kit/sortable';
 import {CSS} from '@dnd-kit/utilities';
 import Goal from '../Goal';
 import styles from "../../../styles/room/draggoal.module.scss";
 import { PiCaretCircleUpDownFill } from "react-icons/pi";
+import UserContext from '../../../contexts/UserContext';
+import RoomContext from '../../../contexts/RoomContext';
 
 function SortableGoal({id, activeTab, goalItem}) {
+  let { userInfo } = useContext(UserContext);
+  const { roomData } = useContext(RoomContext);
   const {
     attributes,
     listeners,
@@ -21,9 +25,12 @@ function SortableGoal({id, activeTab, goalItem}) {
 
   return (
     <div className={styles.dragGoalOuter} ref={setNodeRef} style={style}>
-      <div className={styles.dragGoalHandle} {...attributes} {...listeners}>
-        <PiCaretCircleUpDownFill />
-      </div>
+      {
+        (userInfo?.id && activeTab === userInfo?.id) || (roomData.guest) ?
+        <div className={styles.dragGoalHandle} {...attributes} {...listeners}>
+          <PiCaretCircleUpDownFill />
+        </div> : null
+      }
       <Goal activeTab={activeTab} goalItem={goalItem}/>
     </div>
   );

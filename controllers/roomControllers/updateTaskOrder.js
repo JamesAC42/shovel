@@ -46,6 +46,12 @@ async function updateTaskOrder(req, res, models) {
             order: [['order', 'ASC']]
         });
 
+        for(let i = 0; i < allTasks.length; i++) {
+            if(allTasks[i].order === 0) {
+                await allTasks[i].update({ order: i + 1});
+            }
+        }
+
         if (newIndex < 0 || newIndex >= allTasks.length) {
             res.status(400).json({ success: false, message: 'Invalid new index' });
             return;
