@@ -9,40 +9,51 @@ import { useEffect, useState } from "react";
 import CustomThemePicker from '../../components/room/CustomThemePicker';
 import {views} from "../../components/room/NavTabs";
 import NavTabs from "../../components/room/NavTabs";
+import Popup from '../../components/Popup';
+import Tutorial from '../../components/room/Tutorial';
 
 function Guest() {
 
     const [roomData, setRoomData] = useState({});
     const [activeView, setActiveView] = useState(views.todo);
+    const [showTutorial, setShowTutorial] = useState(false);
 
     useEffect(() => {
+
+
+        const seenTutorial = localStorage.getItem('shovel:seentutorial');
+        console.log(seenTutorial);
+        if (!seenTutorial || seenTutorial === 'false') {
+            console.log("asdfasdf");
+            setShowTutorial(true);
+            localStorage.setItem('shovel:seentutorial', 'true');
+        }
 
         let savedData = localStorage.getItem('guest-room');
         if(savedData) {
             setRoomData(JSON.parse(savedData));
-            return;
-        }
-
-        let data = {
-            users: {
-                1: {
-                    userInfo: {},
-                    deepWorkTracker: [],
-                    currentStreak: null,
-                    streakHighScore: null,
-                    goals: {},
-                    journal: {},
+        } else {
+            let data = {
+                users: {
+                    1: {
+                        userInfo: {},
+                        deepWorkTracker: [],
+                        currentStreak: null,
+                        streakHighScore: null,
+                        goals: {},
+                        journal: {},
+                    },
                 },
-            },
-            joinRequests: [],
-            id: -1,
-            name: "Guest Room",
-            public: false,
-            guest:true
+                joinRequests: [],
+                id: -1,
+                name: "Guest Room",
+                public: false,
+                guest:true
+            }
+            
+            setRoomData(data);
+            localStorage.setItem('guest-room', JSON.stringify(data));
         }
-        
-        setRoomData(data);
-        localStorage.setItem('guest-room', JSON.stringify(data));
 
     }, []);
 
@@ -65,6 +76,12 @@ function Guest() {
                 </div>
             </div>
             <NavTabs setActiveView={(activeView) => setActiveView(activeView)}/>
+            {
+                showTutorial ?
+                <Popup onClose={() => setShowTutorial(false)}>
+                    <Tutorial onClose={() => setShowTutorial(false)}/>
+                </Popup> : null
+            }
             <div className={styles.mobileNotice}>
                 Shovel is currently only supported on desktop and laptop devices.
                 <Link href="/">Go Back</Link>

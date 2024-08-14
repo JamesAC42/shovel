@@ -21,6 +21,8 @@ import SocketPath from '../../utilities/socketPath';
 
 import {views} from "../../components/room/NavTabs";
 import NavTabs from "../../components/room/NavTabs";
+import Popup from '../../components/Popup';
+import Tutorial from '../../components/room/Tutorial';
 
 
 export default function Room () {
@@ -34,6 +36,8 @@ export default function Room () {
 
     const [roomData, setRoomData] = useState({});
     const [loading, setLoading] = useState(true);
+
+    const [showTutorial, setShowTutorial] = useState(false);
 
     const [activeView, setActiveView] = useState(views.todo);
 
@@ -240,6 +244,12 @@ export default function Room () {
 
     useEffect(() => {
 
+        const seenTutorial = localStorage.getItem('shovel:seentutorial');
+        if (!seenTutorial || seenTutorial === 'false') {
+            setShowTutorial(true);
+            localStorage.setItem('shovel:seentutorial', 'true');
+        }
+
         return () => {
             if(socketRef.current) {
                 socketRef.current.disconnect();
@@ -268,6 +278,13 @@ export default function Room () {
                     </div>
                 </div>
             </div>
+
+            {
+                showTutorial ?
+                <Popup onClose={() => setShowTutorial(false)}>
+                    <Tutorial onClose={() => setShowTutorial(false)}/>
+                </Popup> : null
+            }
 
             <NavTabs setActiveView={(activeView) => setActiveView(activeView)}/>
 

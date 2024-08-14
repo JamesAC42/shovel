@@ -11,6 +11,7 @@ import RoomContext from '../../contexts/RoomContext';
 import UserContext from "../../contexts/UserContext";
 
 import { MdOutlineExpandMore } from "react-icons/md";
+import { FaQuestionCircle } from "react-icons/fa";
 import { IoChevronBackCircle, IoChevronForwardCircle } from "react-icons/io5";
 import { IoMdBackspace } from "react-icons/io";
 import { MdHome } from "react-icons/md";
@@ -19,12 +20,15 @@ import CheckIn from './CheckIn';
 import VisibilityControl from './VisibilityControl';
 import Popup from '../Popup';
 import NewsletterSignup from '../NewsletterSignup';
+import Tutorial from './Tutorial';
 
 function StatsPanel({activeView}) {
 
     const {roomData} = useContext(RoomContext);
     let { userInfo } = useContext(UserContext);
     const [statsExpanded, setStatsExpanded] = useState(true);
+
+    const [showTutorial, setShowTutorial] = useState(false);
 
     const [showSocialNotif, setShowSocialNotif] = useState(false);
 
@@ -101,6 +105,11 @@ function StatsPanel({activeView}) {
                             </Popup> : null
                         }
                     </div>
+                    <div
+                        onClick={() => setShowTutorial(true)} 
+                        className={styles.showTutorial}>
+                        <FaQuestionCircle/>
+                    </div>
                 </div>
                 <div className={deepWorkStyle()}>
                     
@@ -126,7 +135,15 @@ function StatsPanel({activeView}) {
                     <DeepWorkButtons />
 
                 </div>
+
             </div>
+                
+            {
+                showTutorial ?
+                <Popup onClose={() => setShowTutorial(false)}>
+                    <Tutorial onClose={() => setShowTutorial(false)}/>
+                </Popup> : null
+            }
         </div>
     )
 }

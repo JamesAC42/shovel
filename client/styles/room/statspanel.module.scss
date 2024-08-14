@@ -116,6 +116,20 @@
                 box-shadow:0 0 10px 0 var(--glow);
             }
         }
+
+        .showTutorial {
+            position:relative;
+            height:2rem;width:2.5rem;
+            @include flex-center-row;
+            font-size:1.1rem;
+            cursor:pointer;
+            svg {
+                transform:translate(3px,1px);
+            }
+            &:hover {
+                filter:brightness(1.5);
+            }
+        }
         
         @media screen and (max-width:900px) {
             position:fixed;
