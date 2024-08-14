@@ -185,7 +185,7 @@ function Task({goal, activeTab, taskItem}) {
                 onTouchStart={() => toggleDelete(true)}
                 onTouchEnd={() => toggleDelete(false)} 
                 className={styles.taskName}>
-                <div
+                <span
                     onClick={() => deleteTask()} 
                     onTouchEnd={(e) => {
                         deleteTask();
@@ -193,15 +193,17 @@ function Task({goal, activeTab, taskItem}) {
                     }}
                     className={`${styles.deleteTask} ${showDelete ? styles.showDeleteTask : ''}`}>
                     <FaTrashAlt />
-                </div>
-                <div>
-                {title}
-                </div>
-                {
+                </span>
+                <div className={styles.taskRow}>
+                    <span>
+                    {title}
+                    </span>
+                    {
                     tags.map(tag =>
                         <span key={tag} className={styles.taskTag}>{tag}</span>
                     )
-                }
+                    }
+                </div>
             </div>
         </div>
     )
