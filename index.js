@@ -114,7 +114,7 @@ app.use((err, req, res, next) => {
 });
 
 app.post('/login', (req, res) => {
-  login(req, res, models, redisModels);
+  login(req, res, models, redisClient);
 });
 
 app.post('/logout', (req, res) => {
