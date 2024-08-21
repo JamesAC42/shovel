@@ -42,7 +42,7 @@
         font-family:"Poppins",sans-serif;
         font-weight:bold;
         font-size:3.1rem;
-        max-width:70dvw;
+        max-width:75dvw;
         gap:10px;
         text-align:center;
         margin-top:1.5rem;
@@ -72,7 +72,7 @@
 
     @media (max-width: 1500px) {
         .title {
-            max-width:80dvw;
+            max-width:85dvw;
         }
     }
 
@@ -241,9 +241,10 @@
         .screenshots {
             border-width:2px;
             img {
-                width:95dvw;
+                width:60dvw;
                 height:auto;
             }
+            transform:translate(-50%,-60%);
         }
     }
     @media (max-width: 900px) {
@@ -265,6 +266,9 @@
         height:20dvh;
         .screenshots {
             transform:translate(-50%,calc(-50% - 1rem));
+            img {
+                width:70dvw;
+            }
         }
     }
     @media (max-width: 500px) {
