@@ -5,6 +5,8 @@
     "express": "^4.18.3",
     "express-session": "^1.18.0",
     "google-auth-library": "^9.13.0",
+    "googleapis": "^142.0.0",
+    "nodemailer": "^6.9.14",
     "pg": "^8.11.3",
     "pg-hstore": "^2.3.4",
     "redis": "^3.1.2",

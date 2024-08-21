@@ -70,6 +70,10 @@ const deleteFeedbackPostAdmin = require('./controllers/socialControllers/deleteF
 const publicRooms = require("./controllers/publicRooms");
 const getStats = require('./controllers/getStats');
 const addEmailToUser = require('./controllers/addEmailToUser');
+const getNewsletters = require('./controllers/getNewsletters');
+const sendNewsletter = require('./controllers/sendNewsletter');
+const subscribeNewsletter = require('./controllers/subscribeNewsletter');
+const unsubscribeNewsletter = require('./controllers/unsubscribeNewsletter');
 
 sequelize.sync()
   .then(() => {
@@ -110,7 +114,7 @@ app.use((err, req, res, next) => {
 });
 
 app.post('/login', (req, res) => {
-  login(req, res, models);
+  login(req, res, models, redisModels);
 });
 
 app.post('/logout', (req, res) => {
@@ -209,8 +213,24 @@ app.post('/updateGoalOrder', async (req, res) => {
   updateGoalOrder(req, res, models);
 });
 
+app.post('/getNewsletters', async (req, res) => {
+  getNewsletters(req, res, redisClient);
+});
+
+app.post('/sendNewsletter', async (req, res) => {
+  sendNewsletter(req, res, models, redisClient);
+});
+
+app.post('/subscribeNewsletter', async (req, res) => {
+  subscribeNewsletter(req, res, models, redisClient);
+});
+
+app.post('/unsubscribeNewsletter', async (req, res) => {
+  unsubscribeNewsletter(req, res, models, redisClient);
+});
+
 app.get('/room', (req, res) => {
-  room(req, res, models);
+  room(req, res, models, redisClient);
 });
 
 app.get('/roomData', (req, res) => {
@@ -239,6 +259,10 @@ app.get('/getStats', (req, res) => {
 
 app.get('/publicRooms', (req, res) => {
   publicRooms(req, res, models);
+});
+
+app.get('/unsubscribeNewsletter', (req, res) => {
+  unsubscribeNewsletter(req, res, redisClient);
 });
 
 io.on('connection', handleConnection);

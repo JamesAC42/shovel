@@ -60,6 +60,27 @@ export default function EnterRoom({userInfo, setUserInfo}) {
         });
     }
 
+    const toggleSubscription = () => {
+        const apiEndpoint = subscribedEmail ? '/api/unsubscribeNewsletter' : '/api/subscribeNewsletter';
+        fetch(apiEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                setUserInfo(prev => ({ ...prev, subscribedEmail: !subscribedEmail }));
+            } else {
+                console.error('Error:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    };
+
     const createRoom = () => {
 
         if(roomName.length < 1 || roomName.length > 50) {
@@ -152,13 +173,33 @@ export default function EnterRoom({userInfo, setUserInfo}) {
     let {
         color,
         firstName,
-        lastName
+        lastName,
+        subscribedEmail
     } = userInfo;
 
     return(
         <div className={styles.loggedIn} style={{borderColor:color}}>
             <div className={styles.accountStatus}>
+                <div className={styles.accountInfo}>
+                <div className={styles.accountName}>
                 logged in as {firstName + ' ' + lastName}
+                </div>
+                <div className={styles.emailStatus}>
+                    {
+                        subscribedEmail ? (
+                            <>
+                                Subscribed to emails
+                                <button onClick={toggleSubscription}>Unsubscribe</button>
+                            </>
+                        ) : (
+                            <>
+                                Not subscribed to emails
+                                <button onClick={toggleSubscription}>Subscribe</button>
+                            </>
+                        )
+                    }
+                </div>
+                </div>
                 <div className={styles.logout} onClick={logout}>Log out</div>
             </div>
             <div className={`${styles.roomInput} ${styles.createNew}`}>

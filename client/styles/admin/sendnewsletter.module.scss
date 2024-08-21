@@ -1,0 +1,48 @@
+@import "../variables.module.scss";
+
+.sendNewsletterOuter {
+    @include flex-center-col;
+
+    align-items:stretch;
+    padding:0 1rem;
+
+    justify-content: flex-start;
+
+    .newsletterItem {
+        
+        @include flex-center-row;
+        justify-content: space-between;
+        padding:1rem;
+        color:var(--primary-color);
+
+        border-bottom:1px solid var(--background-dark);
+
+        .newsletterSend {
+            background:var(--primary-color);
+            color:var(--background-dark);
+            padding:0.5rem 1rem;
+            border-radius:0.5rem;
+            cursor:pointer;
+            &:hover {
+                opacity:0.5;
+            }
+
+            &.loading {
+                cursor:default;
+                opacity:0.5;
+            }
+        }
+    }
+}
+
+.popup {
+    @include fixed-center;
+    @include flex-center-col;
+    @include fade-in;
+    background:var(--background-color);
+    color:var(--primary-color);
+    border:1px solid var(--secondary-color);
+    padding:1rem;
+    border-radius:1rem;
+    box-shadow:0 0.3rem 1rem 0.2rem var(--background-dark);
+}

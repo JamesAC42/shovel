@@ -1,0 +1,39 @@
+@import "./variables.module.scss";
+
+.mainContent {
+    position:fixed;
+    top:50%;left:50%;
+    transform:translate(-50%,-50%);
+
+    @include flex-center-row;
+
+    .selectView {
+        @include flex-center-col;
+        min-height:40dvh;
+        padding:1rem;
+        gap:0.5rem;
+        .viewItem {
+            color:var(--secondary-color);
+            text-align:center;
+            padding:0.5rem 1.5rem;
+            border-radius:0.5rem;
+            white-space:nowrap;
+            cursor:pointer;
+            transition:all .1s ease-in-out;
+            &:hover {
+                outline:2px solid var(--secondary-color);
+            }
+            &.viewItemActive {
+                background:var(--background-dark);
+            }
+        }
+    }
+
+    .viewOuter {
+        width:50dvw;
+        height:50dvh;
+        overflow-y:scroll;
+        border:1px solid var(--background-dark);
+        border-radius:0.5rem;
+    }
+}

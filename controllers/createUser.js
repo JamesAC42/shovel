@@ -79,7 +79,8 @@ const createUser = async (req, res, models) => {
                 username,
                 color,
                 email,
-                dateCreated
+                dateCreated,
+                subscribedEmail: true
             },
         });
     } catch (error) {

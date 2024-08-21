@@ -1,4 +1,4 @@
-const room = (req, res, models) => {
+const room = (req, res, models, redisClient) => {
     
   if(!req.session.user?.username) {
     res.json({success:false});
@@ -8,16 +8,24 @@ const room = (req, res, models) => {
             if (!user) {
                 res.status(404).json({ success: false, message: "User not found" });
             } else {
-                res.json({ 
-                    success: true,
-                    user: {
-                        id: user.id,
-                        firstName: user.firstName,
-                        lastName: user.lastName,
-                        username: user.username,
-                        email: user.email,
-                        color: user.color,
-                        dateCreated: user.dateCreated
+                redisClient.sismember('shovel:unsubscribed', user.email, (err, result) => {
+                    if (err) {
+                        console.error('Error checking Redis set:', err);
+                        res.status(500).json({ error: 'Internal Server Error' });
+                    } else {
+                        res.json({ 
+                            success: true,
+                            user: {
+                                id: user.id,
+                                firstName: user.firstName,
+                                lastName: user.lastName,
+                                username: user.username,
+                                email: user.email,
+                                color: user.color,
+                                dateCreated: user.dateCreated,
+                                subscribedEmail: !result
+                            }
+                        });
                     }
                 });
             }

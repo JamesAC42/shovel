@@ -260,6 +260,22 @@
     @media screen and (max-width:1180px) {
         margin-bottom:2rem;
     }
+
+    .accountInfo {
+        @include flex-center-col;
+        gap:1rem;
+
+        .emailStatus button {
+            background:none;
+            text-decoration: underline;
+            border:none;
+            outline:none;
+            color:var(--secondary-color);
+            font-family:'Figtree',sans-serif;
+            font-size:1rem;
+            cursor:pointer;
+        }
+    }
 }
 
 .roomInput {
