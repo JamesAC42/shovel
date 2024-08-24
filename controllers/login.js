@@ -1,18 +1,6 @@
 const bcrypt = require('bcrypt');
 const { Op } = require('sequelize');
-
-const getEmailFromUnsubscribed = async (redisClient, email) => {
-    return new Promise((resolve, reject) => {
-        redisClient.sismember('shovel:unsubscribed', email, (err, result) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(result === 1);
-            }
-        });
-    });
-};
-
+const getIsSubscribed = require("../repositories/getIsSubscribed");
 
 const login = async (req, res, models, redisClient) => {
 
@@ -50,7 +38,7 @@ const login = async (req, res, models, redisClient) => {
 
         let subscribedEmail = false;
         if(foundUser.email) {
-            subscribedEmail = await getEmailFromUnsubscribed(redisClient, foundUser.email);
+            subscribedEmail = await getIsSubscribed(redisClient, foundUser.email);
         }
         
         req.session.user = { username: foundUser.username };
