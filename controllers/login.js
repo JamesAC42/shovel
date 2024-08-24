@@ -1,6 +1,19 @@
 const bcrypt = require('bcrypt');
 const { Op } = require('sequelize');
 
+const getEmailFromUnsubscribed = async (redisClient, email) => {
+    return new Promise((resolve, reject) => {
+        redisClient.sismember('shovel:unsubscribed', email, (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result === 1);
+            }
+        });
+    });
+};
+
+
 const login = async (req, res, models, redisClient) => {
 
     const { user, password } = req.body;
@@ -34,26 +47,24 @@ const login = async (req, res, models, redisClient) => {
             res.send({ success: false, message: "Username/Email or password is incorrect." });
             return;
         }
+
+        let subscribedEmail = false;
+        if(foundUser.email) {
+            subscribedEmail = await getEmailFromUnsubscribed(redisClient, foundUser.email);
+        }
         
-        redisClient.sismember('shovel:unsubscribed', foundUser.email, (err, result) => {
-            if (err) {
-                console.error('Error checking Redis set:', err);
-                res.status(500).json({ error: 'Internal Server Error' });
-            } else {
-                req.session.user = { username: foundUser.username };
-                res.json({ 
-                    success: true,
-                    user: { 
-                        id: foundUser.id,
-                        firstName: foundUser.firstName,
-                        lastName: foundUser.lastName,
-                        username: foundUser.username,
-                        email: foundUser.email,
-                        color: foundUser.color,
-                        dateCreated: foundUser.dateCreated,
-                        subscribedEmail: !result
-                    }
-                });
+        req.session.user = { username: foundUser.username };
+        res.json({ 
+            success: true,
+            user: { 
+                id: foundUser.id,
+                firstName: foundUser.firstName,
+                lastName: foundUser.lastName,
+                username: foundUser.username,
+                email: foundUser.email,
+                color: foundUser.color,
+                dateCreated: foundUser.dateCreated,
+                subscribedEmail
             }
         });
     } catch (err) {
