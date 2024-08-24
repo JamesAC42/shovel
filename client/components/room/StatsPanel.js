@@ -59,6 +59,12 @@ function StatsPanel({activeView}) {
         return dateString;
     }
 
+    const userInRoom = () => {
+        if(!userInfo) return false;
+        if(!roomData) return false;
+        return Object.keys(roomData.users).indexOf(userInfo.id.toString()) !== -1;
+    }
+
     let showNewsLetter = false;
     if(showSocialNotif && userInfo && !userInfo.email) {
         showNewsLetter = true;
@@ -85,12 +91,12 @@ function StatsPanel({activeView}) {
                         {roomData.name} {roomData.guest ? "" : ` | ${roomData.id}`}
                     </div>
                     {
-                        !roomData.guest ?
+                        !roomData.guest && userInRoom()  ?
                         <Requests /> : null
                     }
                     <ThemePicker />
                     {
-                        !roomData.guest ?
+                        !roomData.guest && userInRoom() ?
                         <VisibilityControl /> : null
                     }
                     <div className={styles.socialLink}>
@@ -105,11 +111,14 @@ function StatsPanel({activeView}) {
                             </Popup> : null
                         }
                     </div>
-                    <div
-                        onClick={() => setShowTutorial(true)} 
-                        className={styles.showTutorial}>
-                        <FaQuestionCircle/>
-                    </div>
+                    {
+                        roomData.guest || userInRoom()  ?
+                        <div
+                            onClick={() => setShowTutorial(true)} 
+                            className={styles.showTutorial}>
+                            <FaQuestionCircle/>
+                        </div> : null
+                    }
                 </div>
                 <div className={deepWorkStyle()}>
                     
