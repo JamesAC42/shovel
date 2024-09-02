@@ -21,6 +21,7 @@ function Todo() {
 
         if(!roomData || !activeTab) return {};
         if(!userInfo && !roomData.guest) return {};
+        if(!roomData.users[activeTab]) return {};
         return roomData.users[activeTab].goals;
 
     }

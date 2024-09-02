@@ -117,7 +117,8 @@
             }
         }
 
-        .showTutorial {
+        .showTutorial,
+        .showSettings {
             position:relative;
             height:2rem;width:2.5rem;
             @include flex-center-row;
@@ -128,6 +129,12 @@
             }
             &:hover {
                 filter:brightness(1.5);
+            }
+        }
+
+        .showSettings {
+            svg {
+                transform:translate(-45%,1px) scale(1.1);
             }
         }
         

@@ -204,6 +204,22 @@ export default function Room () {
             })
         });
 
+        newSocket.on('roomRenamed', (data) => {
+            setRoomData(prevRoomData => {
+                const oldData = JSON.parse(JSON.stringify(prevRoomData));
+                oldData.name = data.newName;
+                return oldData;
+            })
+        });
+
+        newSocket.on('userLeftRoom', (data) => {
+            setRoomData(prevRoomData => {
+                const oldData = JSON.parse(JSON.stringify(prevRoomData));
+                delete oldData.users[data.userId.toString()]
+                return oldData;
+            })
+        })
+
     }
 
     const fetchData = async () => {

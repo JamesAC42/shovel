@@ -93,6 +93,7 @@ function Journal({activeView}) {
 
     const generateEntries = () => {
 
+        if(!roomData.users[activeTab]) return;
         const journal = roomData.users[activeTab].journal;
 
         let entries = {};

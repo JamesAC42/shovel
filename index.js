@@ -74,6 +74,9 @@ const getNewsletters = require('./controllers/getNewsletters');
 const sendNewsletter = require('./controllers/sendNewsletter');
 const subscribeNewsletter = require('./controllers/subscribeNewsletter');
 const unsubscribeNewsletter = require('./controllers/unsubscribeNewsletter');
+const renameRoom = require('./controllers/roomControllers/renameRoom');
+const deleteRoom = require('./controllers/roomControllers/deleteRoom');
+const leaveRoom = require('./controllers/roomControllers/leaveRoom');
 
 sequelize.sync()
   .then(() => {
@@ -227,6 +230,18 @@ app.post('/subscribeNewsletter', async (req, res) => {
 
 app.post('/unsubscribeNewsletter', async (req, res) => {
   unsubscribeNewsletter(req, res, models, redisClient);
+});
+
+app.post('/deleteRoom', async (req, res) => {
+  deleteRoom(req, res, models);
+});
+
+app.post('/leaveRoom', async (req, res) => {
+  leaveRoom(req, res, models, io);
+});
+
+app.post('/renameRoom', async (req, res) => {
+  renameRoom(req, res, models, io);
 });
 
 app.get('/room', (req, res) => {

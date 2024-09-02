@@ -1,0 +1,115 @@
+@import "../variables.module.scss";
+
+.settingsContainer {
+    background: var(--background-color);
+    height: 60dvh;
+    width: 90dvh;
+    border-radius: 1rem;
+    border: 2px solid var(--secondary-color);
+    overflow: hidden;
+    position: relative;
+    color: var(--primary-color);
+    animation:expand-requests 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1;
+
+    .settingsContent {
+        padding: 2rem;
+        height: 100%;
+        overflow-y: auto;
+
+        h2 {
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            margin-top:0;
+            font-size:2rem;
+            text-align:center;
+        }
+
+        form {
+            @include flex-center-col;
+            align-items: flex-start;
+            border:1px solid var(--secondary-color);
+            padding:1rem;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-radius:0.5rem;
+            align-items: center;
+
+            label {
+                float:left;
+                font-size: 1.2rem;
+            }
+
+            input {
+                width: calc(100% - 2rem);
+                padding: 0.5rem;
+                font-size: 1rem;
+                background: var(--background-dark);
+                border: 1px solid var(--secondary-color);
+                border-radius: 0.3rem;
+                color: var(--primary-color);
+                font-family: 'Figtree', sans-serif;
+                text-align:center;
+            }
+
+            .error {
+                text-align:center;
+                color:var(--error-color);
+            }
+
+            .success {
+                animation:expand-requests 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1;
+                color:var(--primary-color);
+            }
+
+        }
+        
+        button {
+            background: var(--secondary-color);
+            color: var(--background-color);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.3rem;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            font-family: 'Figtree', sans-serif;
+
+            &:hover {
+                filter:brightness(0.8);
+            }
+        }
+        .dangerButton {
+            background: var(--error-color);
+        }
+
+        .exitRoomOuter {
+            border-radius:0.5rem;
+            border:1px solid var(--secondary-color);
+            padding:1rem;
+            @include flex-center-col;
+        }
+    }
+
+    .close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+
+        &:hover {
+            color: var(--secondary-color);
+        }
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .settingsContainer {
+        height: 90dvh;
+        width: 95dvw;
+
+        .settingsContent {
+            padding: 1.5rem;
+        }
+    }
+}

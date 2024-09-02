@@ -13,6 +13,7 @@ import UserContext from "../../contexts/UserContext";
 import { MdOutlineExpandMore } from "react-icons/md";
 import { FaQuestionCircle } from "react-icons/fa";
 import { IoChevronBackCircle, IoChevronForwardCircle } from "react-icons/io5";
+import { BsGearFill } from "react-icons/bs";
 import { IoMdBackspace } from "react-icons/io";
 import { MdHome } from "react-icons/md";
 import Link from 'next/link';
@@ -21,6 +22,7 @@ import VisibilityControl from './VisibilityControl';
 import Popup from '../Popup';
 import NewsletterSignup from '../NewsletterSignup';
 import Tutorial from './Tutorial';
+import Settings from './Settings';
 
 function StatsPanel({activeView}) {
 
@@ -29,6 +31,7 @@ function StatsPanel({activeView}) {
     const [statsExpanded, setStatsExpanded] = useState(true);
 
     const [showTutorial, setShowTutorial] = useState(false);
+    const [showSettings, setShowSettings] = useState(false);
 
     const [showSocialNotif, setShowSocialNotif] = useState(false);
 
@@ -119,6 +122,14 @@ function StatsPanel({activeView}) {
                             <FaQuestionCircle/>
                         </div> : null
                     }
+                    {
+                        !roomData.guest && userInRoom() ?
+                        <div
+                            onClick={() => setShowSettings(true)}  
+                            className={styles.showSettings}>
+                            <BsGearFill />
+                        </div> : null
+                    }
                 </div>
                 <div className={deepWorkStyle()}>
                     
@@ -151,6 +162,13 @@ function StatsPanel({activeView}) {
                 showTutorial ?
                 <Popup onClose={() => setShowTutorial(false)}>
                     <Tutorial onClose={() => setShowTutorial(false)}/>
+                </Popup> : null
+            }
+
+            {
+                showSettings ?
+                <Popup onClose={() => setShowSettings(false)}>
+                    <Settings onClose={() => setShowSettings(false)}/>
                 </Popup> : null
             }
         </div>
