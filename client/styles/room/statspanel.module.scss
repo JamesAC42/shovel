@@ -81,60 +81,56 @@
         .roomId {
             font-weight:bold;
         }
-        .question {
-            font-size:1.2rem;
-            margin-left:0.7rem;
-            cursor:pointer;
-            &:hover {
-                filter:brightness(1.5);
-            }
-            svg {
-                transform:translateY(3px);
-            }
-        }
-        .socialLink {
-            position:relative;
-            height:2rem;
-            width:2rem;
-            @include flex-center-row;
-            a {
-                color:var(--primary-color);
-            }
-            svg {
+        .roomOptionsOuter {
+            display:flex;
+            flex-direction:row;
+            flex-wrap:wrap;
+            margin-left:1rem;
+            .question {
                 font-size:1.2rem;
-                margin-left:1rem;
+                margin-left:0.7rem;
                 cursor:pointer;
-                transform:translateY(3px);
                 &:hover {
                     filter:brightness(1.5);
                 }
+                svg {
+                    transform:translateY(3px);
+                }
             }
-            .socialNotif {
-                background:var(--background-color);
-                border-radius:0.5rem;
-                padding:1rem;
-                box-shadow:0 0 10px 0 var(--glow);
+            .socialLink {
+                position:relative;
+                height:2rem;
+                width:2rem;
+                @include flex-center-row;
+                a {
+                    color:var(--primary-color);
+                }
+                svg {
+                    font-size:1.2rem;
+                    cursor:pointer;
+                    transform:translateY(3px);
+                    &:hover {
+                        filter:brightness(1.5);
+                    }
+                }
+                .socialNotif {
+                    background:var(--background-color);
+                    border-radius:0.5rem;
+                    padding:1rem;
+                    box-shadow:0 0 10px 0 var(--glow);
+                }
             }
-        }
-
-        .showTutorial,
-        .showSettings {
-            position:relative;
-            height:2rem;width:2.5rem;
-            @include flex-center-row;
-            font-size:1.1rem;
-            cursor:pointer;
-            svg {
-                transform:translate(3px,1px);
-            }
-            &:hover {
-                filter:brightness(1.5);
-            }
-        }
-
-        .showSettings {
-            svg {
-                transform:translate(-45%,1px) scale(1.1);
+    
+            .showTutorial,
+            .showSettings {
+                position:relative;
+                height:2rem;width:2rem;
+                @include flex-center-row;
+                font-size:1.1rem;
+                cursor:pointer;
+                &:hover {
+                    filter:brightness(1.5);
+                }
             }
         }
         

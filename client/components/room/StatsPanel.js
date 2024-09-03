@@ -93,43 +93,45 @@ function StatsPanel({activeView}) {
                     <div className={styles.roomId}>
                         {roomData.name} {roomData.guest ? "" : ` | ${roomData.id}`}
                     </div>
-                    {
-                        !roomData.guest && userInRoom()  ?
-                        <Requests /> : null
-                    }
-                    <ThemePicker />
-                    {
-                        !roomData.guest && userInRoom() ?
-                        <VisibilityControl /> : null
-                    }
-                    <div className={styles.socialLink}>
-                        <Link href="/social">
-                            <BsFillPeopleFill/>
-                        </Link>
-
+                    <div className={styles.roomOptionsOuter}>
                         {
-                            showNewsLetter ?
-                            <Popup onClose={() => setShowSocialNotif(false)}>
-                                <NewsletterSignup onClose={() => setShowSocialNotif(false)}/>
-                            </Popup> : null
+                            !roomData.guest && userInRoom()  ?
+                            <Requests /> : null
+                        }
+                        <ThemePicker />
+                        {
+                            !roomData.guest && userInRoom() ?
+                            <VisibilityControl /> : null
+                        }
+                        <div className={styles.socialLink}>
+                            <Link href="/social">
+                                <BsFillPeopleFill/>
+                            </Link>
+
+                            {
+                                showNewsLetter ?
+                                <Popup onClose={() => setShowSocialNotif(false)}>
+                                    <NewsletterSignup onClose={() => setShowSocialNotif(false)}/>
+                                </Popup> : null
+                            }
+                        </div>
+                        {
+                            roomData.guest || userInRoom()  ?
+                            <div
+                                onClick={() => setShowTutorial(true)} 
+                                className={styles.showTutorial}>
+                                <FaQuestionCircle/>
+                            </div> : null
+                        }
+                        {
+                            !roomData.guest && userInRoom() ?
+                            <div
+                                onClick={() => setShowSettings(true)}  
+                                className={styles.showSettings}>
+                                <BsGearFill />
+                            </div> : null
                         }
                     </div>
-                    {
-                        roomData.guest || userInRoom()  ?
-                        <div
-                            onClick={() => setShowTutorial(true)} 
-                            className={styles.showTutorial}>
-                            <FaQuestionCircle/>
-                        </div> : null
-                    }
-                    {
-                        !roomData.guest && userInRoom() ?
-                        <div
-                            onClick={() => setShowSettings(true)}  
-                            className={styles.showSettings}>
-                            <BsGearFill />
-                        </div> : null
-                    }
                 </div>
                 <div className={deepWorkStyle()}>
                     
