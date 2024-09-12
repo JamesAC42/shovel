@@ -50,7 +50,6 @@
     }
 }
 
-
 .statsPanel {
 
     @include flex-center-row;
@@ -122,7 +121,8 @@
             }
     
             .showTutorial,
-            .showSettings {
+            .showSettings,
+            .showTimerSettings {
                 position:relative;
                 height:2rem;width:2rem;
                 @include flex-center-row;
@@ -131,6 +131,10 @@
                 &:hover {
                     filter:brightness(1.5);
                 }
+            }
+
+            .showTimerSettings {
+                font-size:1.4rem;
             }
         }
         
@@ -158,99 +162,153 @@
         //box-shadow:0 0 4px 1px var(--glow);
     }
 
-    
-    @media screen and (max-width:900px) {
-        @include flex-center-col;
-    }
+    .statsPanelContent {
 
-    .deepWorkWeek {
+        display:flex;
+        flex-direction:row;
+        .statsPanelToggle {
+            @include flex-center-col;
+            width:2rem;
+            margin-right:1rem;
+            margin-left:1rem;
+            transform:translateY(5px);
 
-        @include flex-center-row;
-        gap:1rem;
-        opacity:0;
-        transition:opacity 0.3s ease-in-out;
-
-        @keyframes jump-in {
-            0% {
-                opacity:0;
-                transform:translateY(100%);
-            }
-            100% {
-                opacity:1;
-                transform:none;
-            }
-        }
-
-        &.deepWorkWeekVisible {
-            animation:jump-in 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1;
-            opacity:1;
-        }
-
-        .thisWeek {
-            text-align:center;
-            .changeWeek {
-                @include flex-center-row;
-                gap:1rem;
-                margin-top:0.4rem;
-                .changeWeekButton {
-                    font-size:1.6rem;
-                    cursor:pointer;
-                    &:hover {
-                        filter:brightness(2);
-                    }
-                }
-            }
-        }
-
-        .workButtons {
-            @include flex-center-row;
-            gap:1rem;
-            .workMarker, .workMarkerSpecial {margin:0;}
-            .addButtons {
-                @include flex-center-col;
-                gap:1rem;
-            }
-            .workButton {
-                @include flex-center-row;
-                padding:0.3rem;
-                border-radius:0.4rem;
+            .statsArrow {
+                font-size:1rem;
                 cursor:pointer;
-                border:1px solid var(--background-dark);
-                box-shadow:0 0 5px 4px var(--background-dark);
-                height:1.3rem;width:1.3rem;
-                transition:transform .1s linear;
-                &:hover {
-                    outline:2px solid var(--secondary-color);
-                }
+            }
 
-                &.clicked {
-                    filter:brightness(0.8);
-                    transform:scale(0.95);
+            .pageIndicators {
+                @include flex-center-col;
+                position:relative;
+                .pageItem {
+                    position:relative;
+                    z-index:1;
+                    cursor:pointer;
                 }
+                .pageIndicatorSlider {
+                    position:absolute;
+                    transition:transform 0.3s cubic-bezier(0.68, -0.2, 0.265, 1.1);
+                    top:0;
+                    left:0;
+                    z-index:10;
+                }
+            }
 
-                &.disabled {
-                    opacity:0.4;
-                    cursor:default;
-                    &:hover {
-                        outline:none;
+        }
+        .statsPanelWindow {
+            overflow:hidden;
+
+            .statsPanelInner {
+
+                display:grid;
+                grid-template-columns:100%;
+                grid-auto-rows:1fr;
+                row-gap:0px;
+                transition:transform 0.3s cubic-bezier(0.68, -0.2, 0.265, 1.55);
+
+                & > * {
+                    overflow:auto;
+                    box-sizing:border-box;
+                    min-height:150px;
+                }
+                .deepWorkWeek {
+            
+                    @include flex-center-row;
+                    gap:1rem;
+                    opacity:0;
+                    transition:opacity 0.3s ease-in-out;
+                    padding:0 1rem;
+            
+                    @keyframes jump-in {
+                        0% {
+                            opacity:0;
+                            transform:translateY(100%);
+                        }
+                        100% {
+                            opacity:1;
+                            transform:none;
+                        }
+                    }
+            
+                    &.deepWorkWeekVisible {
+                        animation:jump-in 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1;
+                        opacity:1;
+                    }
+            
+                    .thisWeek {
+                        text-align:center;
+                        .changeWeek {
+                            @include flex-center-row;
+                            gap:1rem;
+                            margin-top:0.4rem;
+                            .changeWeekButton {
+                                font-size:1.6rem;
+                                cursor:pointer;
+                                &:hover {
+                                    filter:brightness(2);
+                                }
+                            }
+                        }
+                    }
+            
+                    .workButtons {
+                        @include flex-center-row;
+                        gap:1rem;
+                        .workMarker, .workMarkerSpecial {margin:0;}
+                        .addButtons {
+                            @include flex-center-col;
+                            gap:1rem;
+                        }
+                        .workButton {
+                            @include flex-center-row;
+                            padding:0.3rem;
+                            border-radius:0.4rem;
+                            cursor:pointer;
+                            border:1px solid var(--background-dark);
+                            box-shadow:0 0 5px 4px var(--background-dark);
+                            height:1.3rem;width:1.3rem;
+                            transition:transform .1s linear;
+                            &:hover {
+                                outline:2px solid var(--secondary-color);
+                            }
+            
+                            &.clicked {
+                                filter:brightness(0.8);
+                                transform:scale(0.95);
+                            }
+            
+                            &.disabled {
+                                opacity:0.4;
+                                cursor:default;
+                                &:hover {
+                                    outline:none;
+                                }
+                            }
+            
+                            svg {
+                                transform:translateY(2px);
+                            }
+                        }
+                        .undoButton {
+                            color:var(--secondary-color);
+                            display:inline-block;
+                            height:1rem;
+                            border-radius:80%;
+                            svg {
+                                transform:translate(1px, 1px);
+                            }
+                        }
                     }
                 }
 
-                svg {
-                    transform:translateY(2px);
-                }
-            }
-            .undoButton {
-                color:var(--secondary-color);
-                display:inline-block;
-                height:1rem;
-                border-radius:80%;
-                svg {
-                    transform:translate(1px, 1px);
+                .timerOuter {
+                    @include flex-center-row;
                 }
             }
         }
     }
+
 
     @media screen and (max-width: 900px) {
 
@@ -260,22 +318,39 @@
         width:100dvw;
         padding:0;
         background:var(--background-color);
-
-        .deepWorkWeek {
-            @include flex-center-col;
-            gap:2rem;
-
-            .workButtons {
-                .addButtons {
-                    flex-direction: row;
-                }
-                .undoButton {
-                    @include flex-center-row;
-                }
+        
+        .statsPanelContent {
+            .statsPanelToggle {
+                margin-left:0.5rem;
             }
 
-            @media screen and (max-height:750px) {
-                gap:0.8rem;
+            .statsPanelWindow {
+
+                .statsPanelInner {
+
+                    .deepWorkWeek {
+                        height:100dvh;
+                        @include flex-center-col;
+                        gap:2rem;
+
+                        .workButtons {
+                            .addButtons {
+                                flex-direction: row;
+                            }
+                            .undoButton {
+                                @include flex-center-row;
+                            }
+                        }
+
+                        @media screen and (max-height:750px) {
+                            gap:0.8rem;
+                        }
+                    }
+
+                    .timerOuter {
+                        height:100dvh;
+                    }
+                }
             }
         }
     }

@@ -1,0 +1,118 @@
+@import "../variables.module.scss";
+
+.timerSettingsOuter {
+    @include settings-popup;
+    padding-top:0.5rem;
+    padding-bottom:2rem;
+}
+
+.timerSettingsHeader {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    padding: 1rem 0;
+    margin-top:1rem;
+}
+
+.timerSettingsContent {
+    padding: 1rem;
+}
+
+.timerSettingsRow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+    @include slide-fade-in;
+
+    & > label {
+        font-size: 1.2rem;
+        font-weight:bold;
+        margin-bottom: 0.5rem;
+    }
+}
+
+.timerColumns {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.timerColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    margin: 0 0.5rem;
+
+    label {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+        font-size:1rem;
+    }
+}
+
+.errorMessage {
+    color:var(--error-color);
+    text-align:center;
+    padding:0.5rem 0;
+}
+
+.timerSettingsButtons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.saveButton,
+.cancelButton {
+    padding: 0.5rem 2rem;
+    border-radius: 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    font-family: 'Figtree', sans-serif;
+}
+
+.saveButton {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    border: 1px solid var(--primary-color);
+
+    &:hover {
+        filter: brightness(90%);
+    }
+}
+
+.cancelButton {
+    background-color: var(--background-color);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+
+    &:hover {
+        background-color: var(--secondary-color);
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .timerSettingsOuter {
+        height: 83dvh;
+        width: 98dvw;
+        transform:translate(0,-15px);
+        max-height: 83dvh;
+        overflow-y:scroll;
+        border-radius:0.5rem;
+        border:none;
+
+        .timerSettingsContent {
+            padding: 1.5rem;
+        }
+        .timerColumns {
+            flex-direction:column;
+            .timerColumn {
+                margin-bottom:1rem;
+            }
+        }
+    }
+}

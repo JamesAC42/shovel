@@ -6,7 +6,7 @@ import WorkGrid from './WorkGrid';
 import DeepWorkButtons from './DeepWorkButtons';
 import { BsFillPeopleFill } from "react-icons/bs";
 
-import {useContext, useState, useEffect} from 'react';
+import {useContext, useState, useEffect, useRef} from 'react';
 import RoomContext from '../../contexts/RoomContext';
 import UserContext from "../../contexts/UserContext";
 
@@ -15,6 +15,7 @@ import { FaQuestionCircle } from "react-icons/fa";
 import { IoChevronBackCircle, IoChevronForwardCircle } from "react-icons/io5";
 import { BsGearFill } from "react-icons/bs";
 import { IoMdBackspace } from "react-icons/io";
+import { PiTimerFill } from "react-icons/pi";
 import { MdHome } from "react-icons/md";
 import Link from 'next/link';
 import CheckIn from './CheckIn';
@@ -23,6 +24,10 @@ import Popup from '../Popup';
 import NewsletterSignup from '../NewsletterSignup';
 import Tutorial from './Tutorial';
 import Settings from './Settings';
+import TimerSettings from './TimerSettings';
+import { FiChevronUp, FiChevronDown } from "react-icons/fi";
+import { FaRegCircle, FaCircle } from "react-icons/fa";
+import Timer from './Timer';
 
 function StatsPanel({activeView}) {
 
@@ -32,8 +37,42 @@ function StatsPanel({activeView}) {
 
     const [showTutorial, setShowTutorial] = useState(false);
     const [showSettings, setShowSettings] = useState(false);
+    const [showTimerSettings, setShowTimerSettings] = useState(false);
 
     const [showSocialNotif, setShowSocialNotif] = useState(false);
+
+    const [activeStatsView, setActiveStatsView] = useState(0);
+    const numSections = 2;
+    const [statsInnerHeight, setStatsInnerHeight] = useState(0);
+    const statsInnerRef = useRef(null);
+
+    useEffect(() => {
+        const updateHeight = () => {
+            if (statsInnerRef.current && window.innerWidth > 900) {
+                let height = statsInnerRef.current.clientHeight;
+                height = Math.max(height, 150);
+                setStatsInnerHeight(height / numSections);
+            } else {
+                console.log(window.innerHeight);
+                setStatsInnerHeight(window.innerHeight);
+            }
+        };
+
+        // Update height immediately
+        updateHeight();
+
+        // Set up a small delay to allow for any async rendering
+        const timeoutId = setTimeout(updateHeight, 100);
+
+        // Add window resize event listener
+        window.addEventListener('resize', updateHeight);
+
+        // Clean up
+        return () => {
+            clearTimeout(timeoutId);
+            window.removeEventListener('resize', updateHeight);
+        };
+    }, [roomData]);
 
     useEffect(() => {
         const seenSocial = localStorage.getItem('shovel:seenNewsletter');
@@ -66,6 +105,28 @@ function StatsPanel({activeView}) {
         if(!userInfo) return false;
         if(!roomData) return false;
         return Object.keys(roomData.users).indexOf(userInfo.id.toString()) !== -1;
+    }
+
+    const renderPageIndicators = () => {
+        let circles = [];
+        for(let i = 0; i < numSections; i++) {
+            circles.push(
+            <div
+                onClick={() => setActiveStatsView(i)}
+                className={styles.pageItem}>
+                <FaRegCircle/>
+            </div>
+            );
+        }
+        return circles;
+    }
+
+    const incrementStatsView = () => {
+        setActiveStatsView(prevView => Math.min(prevView + 1, numSections - 1));
+    }
+
+    const decrementStatsView = () => {
+        setActiveStatsView(prevView => Math.max(prevView - 1, 0));
     }
 
     let showNewsLetter = false;
@@ -107,13 +168,6 @@ function StatsPanel({activeView}) {
                             <Link href="/social">
                                 <BsFillPeopleFill/>
                             </Link>
-
-                            {
-                                showNewsLetter ?
-                                <Popup onClose={() => setShowSocialNotif(false)}>
-                                    <NewsletterSignup onClose={() => setShowSocialNotif(false)}/>
-                                </Popup> : null
-                            }
                         </div>
                         {
                             roomData.guest || userInRoom()  ?
@@ -131,35 +185,92 @@ function StatsPanel({activeView}) {
                                 <BsGearFill />
                             </div> : null
                         }
+                        {
+                            roomData.guest || userInRoom() ?
+                            <div
+                                onClick={() => setShowTimerSettings(true)} 
+                                className={styles.showTimerSettings}>
+                                <PiTimerFill />
+                            </div> : null
+                        }
                     </div>
                 </div>
-                <div className={deepWorkStyle()}>
-                    
-                    <div className={styles.thisWeek}>
-                        week of {weekOf()}
-                        <script>
-                        /*
-                        <div className={styles.changeWeek}>
-                            <div className={styles.changeWeekButton}>
-                                <IoChevronBackCircle/>
+                
+                <div className={styles.statsPanelContent}>
+                    {
+                        roomData.guest || userInRoom() ?
+                        <div className={styles.statsPanelToggle}>
+                            <div
+                                onClick={() => decrementStatsView()} 
+                                className={styles.statsArrow}>
+                            <FiChevronUp/>
                             </div>
-                            <div className={styles.changeWeekButton}>
-                                <IoChevronForwardCircle/>
+                            <div className={styles.pageIndicators}>
+                                {renderPageIndicators()}
+                                <div
+                                    style={{
+                                        transform:`translateY(${activeStatsView * 100}%)`
+                                    }}
+                                    className={styles.pageIndicatorSlider}>
+                                    <FaCircle/>
+                                </div>
+                            </div>
+                            <div
+                                onClick={() => incrementStatsView()} 
+                                className={styles.statsArrow}>
+                            <FiChevronDown/>
+                            </div>
+                        </div> : null
+                    }
+                    <div
+                        style={{height: `${statsInnerHeight}px`}}
+                        className={styles.statsPanelWindow}>
+                        <div
+                            style={{
+                                transform:`translateY(-${(100 / numSections) * activeStatsView}%)`
+                            }} 
+                            ref={statsInnerRef}
+                            className={styles.statsPanelInner}>
+                            <div className={deepWorkStyle()}>
+                                
+                                <div className={styles.thisWeek}>
+                                    week of {weekOf()}
+                                    <script>
+                                    /*
+                                    <div className={styles.changeWeek}>
+                                        <div className={styles.changeWeekButton}>
+                                            <IoChevronBackCircle/>
+                                        </div>
+                                        <div className={styles.changeWeekButton}>
+                                            <IoChevronForwardCircle/>
+                                        </div>
+                                    </div>
+                                    */
+                                    </script>
+                                    <CheckIn />
+                                </div>
+
+                                <WorkGrid />
+
+                                <DeepWorkButtons />
+
+                            </div>
+                            <div className={styles.timerOuter}>
+                                <Timer showSettings={() => setShowTimerSettings(true)}/>
                             </div>
                         </div>
-                        */
-                        </script>
-                        <CheckIn />
                     </div>
-
-                    <WorkGrid />
-
-                    <DeepWorkButtons />
-
                 </div>
 
             </div>
                 
+
+            {
+                showNewsLetter ?
+                <Popup onClose={() => setShowSocialNotif(false)}>
+                    <NewsletterSignup onClose={() => setShowSocialNotif(false)}/>
+                </Popup> : null
+            }
             {
                 showTutorial ?
                 <Popup onClose={() => setShowTutorial(false)}>
@@ -171,6 +282,13 @@ function StatsPanel({activeView}) {
                 showSettings ?
                 <Popup onClose={() => setShowSettings(false)}>
                     <Settings onClose={() => setShowSettings(false)}/>
+                </Popup> : null
+            }
+
+            {
+                showTimerSettings ?
+                <Popup onClose={() => setShowTimerSettings(false)}>
+                    <TimerSettings onClose={() => setShowTimerSettings(false)}/>
                 </Popup> : null
             }
         </div>

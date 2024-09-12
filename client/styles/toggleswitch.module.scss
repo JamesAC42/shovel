@@ -1,0 +1,56 @@
+@import "variables.module.scss";
+
+.toggleSwitchContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.toggleSwitch {
+    position: relative;
+    height: 40px;
+    background-color: var(--background-dark);
+    border-radius: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    width: auto;
+    max-width: 100%;
+    min-width: 300px;
+    padding:0;
+    box-sizing: border-box; 
+}
+
+.option {
+    flex: 1;
+    text-align: center;
+    z-index: 1;
+    color: var(--secondary-color);
+    transition: color 0.3s ease;
+    min-width: 100px;
+    padding: 8px 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &.activeOption {
+        color: var(--primary-color);
+    }
+}
+
+.slider {
+    position: absolute;
+    height: calc(100% - 2px);
+    background-color: var(--background-color);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    border:1px solid var(--primary-color);
+    filter:brightness(1);
+}
+
+@media screen and (max-width: 900px) {
+    .toggleSwitchContainer {
+        transform:scale(0.95);
+    }
+}

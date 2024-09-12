@@ -23,6 +23,7 @@ import {views} from "../../components/room/NavTabs";
 import NavTabs from "../../components/room/NavTabs";
 import Popup from '../../components/Popup';
 import Tutorial from '../../components/room/Tutorial';
+import RoomSettingsContext from '../../contexts/RoomSettingsContext';
 
 
 export default function Room () {
@@ -35,6 +36,7 @@ export default function Room () {
     let { userInfo } = useContext(UserContext);
 
     const [roomData, setRoomData] = useState({});
+    const [roomSettings, setRoomSettings] = useState({});
     const [loading, setLoading] = useState(true);
 
     const [showTutorial, setShowTutorial] = useState(false);
@@ -273,41 +275,70 @@ export default function Room () {
         }
 
     }, []);
+
+    useEffect(() => {
+
+        if(Object.keys(roomSettings).length === 0) {
+            let savedSettings = localStorage.getItem('shovel:roomsettings');
+            if(!savedSettings) {
+                setRoomSettings({
+                    timer: {
+                        mode: "pomodoro",
+                        visible: false,
+                        timer: {
+                            time: 3600
+                        },
+                        pomodoro: {
+                            work: 25,
+                            shortBreak: 5,
+                            longBreak: 20,
+                            intervals: 4
+                        },
+                    }
+                })
+            } else {
+                setRoomSettings(JSON.parse(savedSettings));
+            }
+        }
+
+    }, [roomSettings]);
     
     if(loading) return <div className={styles.loading}><div>Loading...</div></div>
     if(!roomData) return <div>Room not found</div>
 
     return (
         <RoomContext.Provider value={{roomData, setRoomData}}>
-            <CustomThemePicker />
-            <div className={styles.roomOuter}>
-                <Head>
-                    <title>{roomData ? `shovel - productivity tool with journal & todo list - ${roomData.name}` : ''}</title>
-                    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-                </Head>
-                <UserSession />
-                <StatsPanel activeView={activeView}/>
-                <div className={styles.mainContentOuter}>
-                    <div className={`${styles.mainContent} ${activeView === views.journal ? styles.showJournal : ""}`}>
-                        <Todo activeView={activeView}/>
-                        <Journal activeView={activeView}/>
+            <RoomSettingsContext.Provider value={{roomSettings, setRoomSettings}}>
+                <CustomThemePicker />
+                <div className={styles.roomOuter}>
+                    <Head>
+                        <title>{roomData ? `shovel - productivity tool with journal & todo list - ${roomData.name}` : ''}</title>
+                        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+                    </Head>
+                    <UserSession />
+                    <StatsPanel activeView={activeView}/>
+                    <div className={styles.mainContentOuter}>
+                        <div className={`${styles.mainContent} ${activeView === views.journal ? styles.showJournal : ""}`}>
+                            <Todo activeView={activeView}/>
+                            <Journal activeView={activeView}/>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            {
-                showTutorial ?
-                <Popup onClose={() => setShowTutorial(false)}>
-                    <Tutorial onClose={() => setShowTutorial(false)}/>
-                </Popup> : null
-            }
+                {
+                    showTutorial ?
+                    <Popup onClose={() => setShowTutorial(false)}>
+                        <Tutorial onClose={() => setShowTutorial(false)}/>
+                    </Popup> : null
+                }
 
-            <NavTabs setActiveView={(activeView) => setActiveView(activeView)}/>
+                <NavTabs setActiveView={(activeView) => setActiveView(activeView)}/>
 
-            <div className={styles.mobileNotice}>
-                Shovel is currently only supported on desktop and laptop devices.
-                <Link href="/">Go Back</Link>
-            </div>
+                <div className={styles.mobileNotice}>
+                    Shovel is currently only supported on desktop and laptop devices.
+                    <Link href="/">Go Back</Link>
+                </div>
+            </RoomSettingsContext.Provider>
         </RoomContext.Provider>
     )
 }

@@ -128,3 +128,15 @@
     resize:none;
     font-family:'Figtree',sans-serif;
 }
+
+@mixin settings-popup {
+    background: var(--background-color);
+    height: 60dvh;
+    width: 90dvh;
+    border-radius: 1rem;
+    border: 2px solid var(--secondary-color);
+    overflow: hidden;
+    position: relative;
+    color: var(--primary-color);
+    animation:expand-requests 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1;
+}

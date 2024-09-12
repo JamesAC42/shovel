@@ -16,6 +16,11 @@
   src: url('/fonts/Poppins-Bold.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: 'DSDigi';
+  src: url('/fonts/DS-DIGI.ttf') format('truetype');
+}
+
 body {
   font-family: Figtree, sans-serif;
   overflow:hidden;

@@ -1,15 +1,7 @@
 @import "../variables.module.scss";
 
 .settingsContainer {
-    background: var(--background-color);
-    height: 60dvh;
-    width: 90dvh;
-    border-radius: 1rem;
-    border: 2px solid var(--secondary-color);
-    overflow: hidden;
-    position: relative;
-    color: var(--primary-color);
-    animation:expand-requests 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1;
+    @include settings-popup;
 
     .settingsContent {
         padding: 2rem;
@@ -22,6 +14,7 @@
             margin-top:0;
             font-size:2rem;
             text-align:center;
+            @include slide-fade-in;
         }
 
         form {
@@ -33,6 +26,7 @@
             margin-bottom: 2rem;
             border-radius:0.5rem;
             align-items: center;
+            @include slide-fade-in;
 
             label {
                 float:left;
@@ -76,6 +70,7 @@
             &:hover {
                 filter:brightness(0.8);
             }
+            @include slide-fade-in;
         }
         .dangerButton {
             background: var(--error-color);
@@ -86,6 +81,7 @@
             border:1px solid var(--secondary-color);
             padding:1rem;
             @include flex-center-col;
+            @include slide-fade-in;
         }
     }
 

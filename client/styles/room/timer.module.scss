@@ -1,0 +1,140 @@
+@import "../variables.module.scss";
+
+.timerInner {
+
+    @include flex-center-row;
+    gap:2rem;
+
+    .timerSettings {
+        font-size:1.6rem;
+        cursor:pointer;
+        svg {
+            transition:all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            &:hover {
+                opacity:0.5;
+                transform:rotate(180deg);
+            }
+        }
+    }
+
+    .timerTime {
+        @include flex-center-row;
+        gap:0.5rem;
+        .timerNumber {
+            position:relative;
+            .timerDigits {
+                @include flex-center-row;
+                gap:0.2rem;
+                transform:translateY(-7px);
+                .timerDigit {
+                    position:relative;
+                    font-family:"DSDigi";
+                    font-size:5rem;
+                    min-width:2.5rem;
+                    background:var(--secondary-color);
+                    color:var(--background-color);
+                    padding:0 0.8rem;
+                    padding-left:1rem; 
+                    &:first-child {
+                        border-radius:0.5rem 0 0 0.5rem;
+                    }
+                    &:last-child {
+                        border-radius:0 0.5rem 0.5rem 0;
+                    }
+                }
+            }
+            .timerLabel {
+                position:absolute;
+                bottom:0;
+                left:50%;
+                transform:translate(-50%,100%);
+                font-size:1.5rem;
+                font-family:"DSDigi";
+            }
+        }
+        .partition {
+            font-family:"DSDigi";
+            font-size:4rem;
+            transform:translate(0,-8px);
+        }
+    }
+
+    .timerControls {
+        & > * {
+            @include flex-center-row;
+            gap:0.5rem;
+            button.controlButton {
+                border:none;
+                outline:none;
+
+                background:var(--primary-color);
+                color:var(--background-color);
+
+                &.play {
+                    background:var(--primary-color);
+                }
+
+                &.pause {
+                    background:var(--secondary-color);
+                }
+
+                &.restart {
+                    background:var(--tag-color);
+                    color:var(--background-slightly-dark);
+                }
+
+                height:3rem;
+                width:3rem;
+                text-align:center;
+
+                border-radius:50%;
+                transition:all .2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                cursor:pointer;
+                &:hover {
+                    transform:translate(0,-3px);
+                    opacity:0.8;
+                }
+                svg {
+                    transform:translate(0,1px);
+                    font-size:1.5rem;
+                }
+            }
+        }
+        .pomodoroModeControls {
+            font-size:1.2rem;
+            .pomodoroPhase {
+                text-decoration:underline;
+                width: 11rem;
+                text-align:center;
+                span.pomodoroInterval {
+                    font-weight:bold;
+                    color:var(--glow);
+                }
+            }
+        }
+    }
+
+    
+
+    @media screen and (max-width: 900px) {
+
+        @include flex-center-col;
+
+        .timerTime {
+            @include flex-center-col;
+            gap:0.5rem;
+            .timerNumber {
+                position:relative;
+                .timerLabel {
+                    left:0;
+                    top:50%;
+                    transform:translate(calc(-100% - 10px),-50%);
+                }
+            }
+            .partition {
+                display:none;
+            }
+        }
+
+    }
+}
