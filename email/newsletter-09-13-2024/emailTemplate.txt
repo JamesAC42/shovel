@@ -1,0 +1,30 @@
+Dear Shovel User,
+
+We're thrilled to share some exciting updates to Shovel, your favorite minimalist productivity app. We've been working hard to bring you new features and improvements to enhance your experience.
+
+NEW TIMER FEATURE!
+
+We're excited to introduce our brand new Timer view, designed to boost your productivity and help you manage your time more effectively.
+Our new Timer includes:
+
+Stopwatch: Track time for your tasks with precision
+Alarm: Set reminders for important deadlines or events
+Pomodoro Mode: Boost your productivity with focused work sessions
+
+OTHER RECENT UPDATES
+
+Room Management: You can now change room names, leave rooms, and delete rooms
+Layout Improvements: We've fixed some minor layout issues for a smoother experience
+Login Fix: Resolved an issue where older accounts couldn't log in
+
+REDISCOVER SHOVEL
+
+Visit our website at https://ovel.sh to explore these new features and see how Shovel can further streamline your workflow and boost your productivity.
+WE VALUE YOUR INPUT
+Your feedback is crucial in shaping the future of Shovel. We'd love to hear your thoughts on our new Timer feature and other updates. Please visit [Feedback URL] to share your thoughts.
+Thank you for being part of the Shovel community. Together, we're digging deeper into productivity!
+Stay focused,
+The Shovel Team
+
+To unsubscribe from these updates, please visit: https://ovel.sh/unsubscribeNewsletter
+© 2024 Shovel App. All rights reserved.

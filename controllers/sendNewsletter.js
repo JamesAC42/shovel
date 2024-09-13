@@ -56,6 +56,7 @@ function sendNewsletter(req, res, models, redisClient) {
                                 redisClient.sadd(sentKey, email, (err) => {
                                     if (err) console.error(`Error adding ${email} to sent set:`, err);
                                 });
+                                console.log("sent email to ", email);
                                 return { email, success: true };
                             })
                             .catch(error => {

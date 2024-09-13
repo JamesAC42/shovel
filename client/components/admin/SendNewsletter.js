@@ -30,7 +30,7 @@ const SendNewsletter = () => {
         try {
             const response = await postFetch('/api/sendNewsletter', { folderName });
             if (response.success) {
-                setPopupMessage(`Newsletter "${folderName}" sent successfully`);
+                setPopupMessage(`${folderName}: ${response.message}`);
             } else {
                 setPopupMessage(`Failed to send newsletter ${folderName}`);
             }
