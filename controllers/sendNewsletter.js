@@ -1,89 +1,85 @@
 const { sendEmail, getEmailContent } = require('../email/sendEmail');
 
-function sendNewsletter(req, res, models, redisClient) {
+async function sendNewsletter(req, res, models, redisClient) {
     const username = req.session.user?.username;
     if (!username) {
-        res.status(401).json({ success: false, message: 'Unauthorized' });
-        return;
+        return res.status(401).json({ success: false, message: 'Unauthorized' });
     }
 
     const { folderName } = req.body;
 
-    redisClient.smembers('shovel:admin_usernames', (err, adminUsernames) => {
-        if (err) {
-            console.error('Redis error:', err);
-            res.status(500).json({ success: false, message: 'Internal server error' });
-            return;
-        }
-
+    try {
+        const adminUsernames = await getRedisSet(redisClient, 'shovel:admin_usernames');
         if (!adminUsernames.includes(username)) {
-            res.status(403).json({ success: false, message: 'Forbidden' });
-            return;
+            return res.status(403).json({ success: false, message: 'Forbidden' });
         }
 
-        models.User.findAll({
-            attributes: ['email']
-        })
-        .then(users => {
-            redisClient.smembers('shovel:unsubscribed', (err, unsubscribedEmails) => {
-                if (err) {
-                    console.error('Redis error:', err);
-                    res.status(500).json({ success: false, message: 'Internal server error' });
-                    return;
-                }
+        const users = await models.User.findAll({ attributes: ['email'] });
+        const unsubscribedEmails = await getRedisSet(redisClient, 'shovel:unsubscribed');
+        const sentKey = `shovel:newslettersent:${folderName}`;
+        const sentEmails = await getRedisSet(redisClient, sentKey);
 
-                const sentKey = `shovel:newslettersent:${folderName}`;
-                redisClient.smembers(sentKey, (err, sentEmails) => {
-                    if (err) {
-                        console.error('Redis error:', err);
-                        res.status(500).json({ success: false, message: 'Internal server error' });
-                        return;
-                    }
+        const emails = users
+            .map(user => user.email)
+            .filter(email => email && !unsubscribedEmails.includes(email) && !sentEmails.includes(email));
 
-                    const emails = users
-                        .map(user => user.email)
-                        .filter(email => email && !unsubscribedEmails.includes(email) && !sentEmails.includes(email));
+        const { subject, text, html } = getEmailContent(folderName);
 
-                    const {
-                        subject,
-                        text,
-                        html
-                    } = getEmailContent(folderName);
+        const batchSize = 50;
+        const results = [];
 
-                    const sendPromises = emails.map(email => 
-                        sendEmail(email, subject, html, text)
-                            .then(() => {
-                                redisClient.sadd(sentKey, email, (err) => {
-                                    if (err) console.error(`Error adding ${email} to sent set:`, err);
-                                });
-                                console.log("sent email to ", email);
-                                return { email, success: true };
-                            })
-                            .catch(error => {
-                                console.error(`Error sending email to ${email}:`, error);
-                                return { email, success: false };
-                            })
-                    );
+        for (let i = 0; i < emails.length; i += batchSize) {
+            const batch = emails.slice(i, i + batchSize);
+            const batchResults = await Promise.all(
+                batch.map(email => sendEmailWithRetry(email, subject, html, text, redisClient, sentKey))
+            );
+            results.push(...batchResults);
+            await new Promise(resolve => setTimeout(resolve, 1000)); // 1 second delay between batches
+        }
 
-                    Promise.all(sendPromises)
-                        .then(results => {
-                            const successCount = results.filter(r => r.success).length;
-                            const failureCount = results.length - successCount;
-                            res.json({ 
-                                success: true, 
-                                message: `Newsletter sent successfully to ${successCount} recipients. ${failureCount} failed.` 
-                            });
-                        })
-                        .catch(error => {
-                            console.error('Error in send process:', error);
-                            res.status(500).json({ success: false, message: 'Error sending newsletter' });
-                        });
-                });
-            });
-        })
-        .catch(error => {
-            console.error('Database error:', error);
-            res.status(500).json({ success: false, message: 'Internal server error' });
+        const successCount = results.filter(r => r.success).length;
+        const failureCount = results.length - successCount;
+        res.json({
+            success: true,
+            message: `Newsletter sent successfully to ${successCount} recipients. ${failureCount} failed.`
+        });
+    } catch (error) {
+        console.error('Error in send process:', error);
+        res.status(500).json({ success: false, message: 'Error sending newsletter' });
+    }
+}
+
+async function sendEmailWithRetry(email, subject, html, text, redisClient, sentKey, maxRetries = 3) {
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        try {
+            await sendEmail(email, subject, html, text);
+            await addToRedisSet(redisClient, sentKey, email);
+            console.log(`Sent email to ${email} (attempt ${attempt})`);
+            return { email, success: true };
+        } catch (error) {
+            console.error(`Error sending email to ${email} (attempt ${attempt}):`, error);
+            if (attempt === maxRetries) {
+                return { email, success: false };
+            }
+            await new Promise(resolve => setTimeout(resolve, 1000 * attempt)); // Exponential backoff
+        }
+    }
+}
+
+function getRedisSet(redisClient, key) {
+    return new Promise((resolve, reject) => {
+        redisClient.smembers(key, (err, members) => {
+            if (err) reject(err);
+            else resolve(members);
+        });
+    });
+}
+
+function addToRedisSet(redisClient, key, value) {
+    return new Promise((resolve, reject) => {
+        redisClient.sadd(key, value, (err) => {
+            if (err) reject(err);
+            else resolve();
         });
     });
 }
