@@ -1,0 +1,88 @@
+@import "./variables.module.scss";
+
+.updateAnnouncement {
+    max-height:90dvh;
+    overflow-y:auto;
+    width:50dvw;
+    padding:2rem 4rem;
+    background:var(--background-color);
+    border:2px solid var(--primary-color);
+    border-radius:1.5rem;
+    justify-content: start;
+    color:var(--primary-color);
+    h1 {
+        color:var(--glow);
+        text-align:center;
+    }
+    p {
+        text-align:center;
+        font-size:1.2rem;
+    }
+    ul li {
+        font-size:1.3rem;
+        margin:0.5rem 0;
+    }
+
+    .imageSection {
+        position:relative;
+        overflow:hidden;
+        border:1px solid var(--primary-color);
+        border-radius:0.5rem;
+        padding:0.5rem;
+        height:fit-content;
+        img.imageImage {
+            height:auto;
+            max-width:100%;
+        }
+        .imageCaption {
+            text-align:center;
+        }
+    }
+
+    .divider {
+        margin:2rem 0;
+        height:0;
+        width:100%;
+        border:1px solid var(--secondary-color);
+    }
+
+    .kofiButtonOuter {
+        @include flex-center-row;
+    }
+
+    a.kofiButton {
+        margin:0 auto;
+        background:var(--tag-color);
+        width:fit-content;
+        svg {
+            margin-right:0.5rem;
+            transform:translate(0,4px);
+        }
+        margin:0 auto;
+        text-decoration: none;
+        border-radius:1rem;
+        font-size:1.4rem;
+        font-weight:bold;
+        text-align:center;
+        padding:1rem 1.6rem;
+        color:var(--background-dark);
+        transition:all .1s ease;
+        &:hover {
+            filter:brightness(1.1);
+        }
+    }
+    
+    @media screen and (max-width: 900px) {
+
+        max-height:100dvh;
+        height:50dvh;
+        overflow-y:auto;
+        width:calc(100dvw - 2rem);
+        padding:2rem 1rem;
+        border-radius:0rem;
+        border-left:none;
+        border-right:none;
+
+    }
+
+}

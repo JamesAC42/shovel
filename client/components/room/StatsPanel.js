@@ -14,7 +14,6 @@ import { MdOutlineExpandMore } from "react-icons/md";
 import { FaQuestionCircle } from "react-icons/fa";
 import { IoChevronBackCircle, IoChevronForwardCircle } from "react-icons/io5";
 import { BsGearFill } from "react-icons/bs";
-import { IoMdBackspace } from "react-icons/io";
 import { PiTimerFill } from "react-icons/pi";
 import { MdHome } from "react-icons/md";
 import Link from 'next/link';
@@ -25,9 +24,13 @@ import NewsletterSignup from '../NewsletterSignup';
 import Tutorial from './Tutorial';
 import Settings from './Settings';
 import TimerSettings from './TimerSettings';
+import { RiMoneyDollarBoxFill } from "react-icons/ri";
 import { FiChevronUp, FiChevronDown } from "react-icons/fi";
 import { FaRegCircle, FaCircle } from "react-icons/fa";
 import Timer from './Timer';
+import UpdateAnnouncement from '../announcements/UpdateAnnouncement';
+
+const announcementKey = "shovel:seenUpdate91224";
 
 function StatsPanel({activeView}) {
 
@@ -39,7 +42,7 @@ function StatsPanel({activeView}) {
     const [showSettings, setShowSettings] = useState(false);
     const [showTimerSettings, setShowTimerSettings] = useState(false);
 
-    const [showSocialNotif, setShowSocialNotif] = useState(false);
+    const [showAnnouncement, setShowAnnouncement] = useState(false);
 
     const [activeStatsView, setActiveStatsView] = useState(0);
     const numSections = 2;
@@ -53,7 +56,6 @@ function StatsPanel({activeView}) {
                 height = Math.max(height, 150);
                 setStatsInnerHeight(height / numSections);
             } else {
-                console.log(window.innerHeight);
                 setStatsInnerHeight(window.innerHeight);
             }
         };
@@ -75,9 +77,9 @@ function StatsPanel({activeView}) {
     }, [roomData]);
 
     useEffect(() => {
-        const seenSocial = localStorage.getItem('shovel:seenNewsletter');
-        if (!seenSocial || seenSocial === 'false') {
-            setShowSocialNotif(true);
+        const storageSeenAnnouncement = localStorage.getItem(announcementKey);
+        if (!storageSeenAnnouncement || storageSeenAnnouncement === 'false') {
+            setShowAnnouncement(true);
         }
     }, []);
 
@@ -129,10 +131,8 @@ function StatsPanel({activeView}) {
         setActiveStatsView(prevView => Math.max(prevView - 1, 0));
     }
 
-    let showNewsLetter = false;
-    if(showSocialNotif && userInfo && !userInfo.email) {
-        showNewsLetter = true;
-        localStorage.setItem('shovel:seenNewsletter', 'true');
+    if(showAnnouncement && userInfo) {
+        localStorage.setItem(announcementKey, 'true');
     }
 
     return(
@@ -193,6 +193,11 @@ function StatsPanel({activeView}) {
                                 <PiTimerFill />
                             </div> : null
                         }
+                        <div className={styles.paymentLink}>
+                            <a href="https://ko-fi.com/shovelproductivity" target="_blank">
+                                <RiMoneyDollarBoxFill />
+                            </a>
+                        </div>
                     </div>
                 </div>
                 
@@ -264,11 +269,10 @@ function StatsPanel({activeView}) {
 
             </div>
                 
-
             {
-                showNewsLetter ?
-                <Popup onClose={() => setShowSocialNotif(false)}>
-                    <NewsletterSignup onClose={() => setShowSocialNotif(false)}/>
+                showAnnouncement ?
+                <Popup onClose={() => setShowAnnouncement(false)}>
+                    <UpdateAnnouncement onClose={() => setShowAnnouncement(false)}/>
                 </Popup> : null
             }
             {

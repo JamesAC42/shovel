@@ -122,7 +122,8 @@
     
             .showTutorial,
             .showSettings,
-            .showTimerSettings {
+            .showTimerSettings,
+            .paymentLink {
                 position:relative;
                 height:2rem;width:2rem;
                 @include flex-center-row;
@@ -130,6 +131,18 @@
                 cursor:pointer;
                 &:hover {
                     filter:brightness(1.5);
+                }
+            }
+
+            .paymentLink {
+                a {
+                    display:block;
+                    color:var(--primary-color);
+                    text-decoration:none;
+                    svg {
+                        font-size:1.4rem;
+                        transform:translate(0,2px);
+                    }
                 }
             }
 
