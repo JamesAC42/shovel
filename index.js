@@ -125,7 +125,7 @@ app.post('/logout', (req, res) => {
 });
 
 app.post('/googleLogin', (req, res) => {
-  googleLogin(req, res, models);
+  googleLogin(req, res, models, redisClient);
 });
 
 app.post('/createUser', async (req, res) => {

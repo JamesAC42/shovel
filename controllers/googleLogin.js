@@ -2,6 +2,7 @@ const { OAuth2Client } = require('google-auth-library');
 const googleAuth = require("../google_auth.json");
 const getUserFromEmail = require('../repositories/getUserFromEmail');
 const getUserFromUsername = require('../repositories/getUserFromUsername');
+const getIsSubscribed = require("../repositories/getIsSubscribed");
 
 const client = new OAuth2Client(googleAuth.client_id);
 
@@ -9,7 +10,7 @@ const generateRandomColor = () => {
     return '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
 };
 
-const login  = async (req, res, datamodels) => {
+const login  = async (req, res, datamodels, redisClient) => {
 
     const { token } = req.body;
     if(!token) {
@@ -60,9 +61,24 @@ const login  = async (req, res, datamodels) => {
         } 
         req.session.user = { username: userModel.username };
 
+        let subscribedEmail = false;
+        if(userModel.email) {
+            subscribedEmail = await getIsSubscribed(redisClient, userModel.email);
+        }
+        userModel.subscribedEmail = subscribedEmail;
+
         res.status(200).json({
             success:true,
-            user: userModel
+            user: { 
+                id: userModel.id,
+                firstName: userModel.firstName,
+                lastName: userModel.lastName,
+                username: userModel.username,
+                email: userModel.email,
+                color: userModel.color,
+                dateCreated: userModel.dateCreated,
+                subscribedEmail
+            }
         });
 
     } catch (error) {

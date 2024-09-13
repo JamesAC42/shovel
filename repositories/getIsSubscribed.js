@@ -4,7 +4,8 @@ const getIsSubscribed = async (redisClient, email) => {
             if (err) {
                 reject(err);
             } else {
-                resolve(result === 1);
+                let unsubscribed = result === 1;
+                resolve(!unsubscribed);
             }
         });
     });
