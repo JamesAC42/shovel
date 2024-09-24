@@ -25,7 +25,7 @@ async function sendNewsletter(req, res, models, redisClient) {
 
         const { subject, text, html } = getEmailContent(folderName);
 
-        const batchSize = 10;
+        const batchSize = 5;
         const results = [];
 
         for (let i = 0; i < emails.length; i += batchSize) {
@@ -34,7 +34,7 @@ async function sendNewsletter(req, res, models, redisClient) {
                 batch.map(email => sendEmailWithRetry(email, subject, html, text, redisClient, sentKey))
             );
             results.push(...batchResults);
-            await new Promise(resolve => setTimeout(resolve, 500)); // 1 second delay between batches
+            await new Promise(resolve => setTimeout(resolve, 2000)); // 1 second delay between batches
         }
 
         const successCount = results.filter(r => r.success).length;
