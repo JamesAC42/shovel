@@ -13,9 +13,12 @@ import { FaCalendarAlt } from "react-icons/fa";
 import ReactMarkdown from 'react-markdown';
 import dateToReadable from '../../utilities/dateToReadable';        
 
+import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
+import { TbLayoutSidebarRightCollapseFilled } from "react-icons/tb";
+
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-function Journal({activeView}) {
+function Journal({activeView, todoCollapsed, journalCollapsed, onCollapsed,isGuest}) {
 
     /* 
     {
@@ -49,8 +52,6 @@ function Journal({activeView}) {
     const [years, setYears] = useState([]);
     const [currentYear, setCurrentYear] = useState(null);
     const [currentMonth, setCurrentMonth] = useState(null);
-
-    const [journalCollapsed, setJournalCollapsed] = useState(false);
 
     const [savedActiveMonth, setSavedActiveMonth] = useState({});
     const [activeTab, setActiveTab] = useState(null);
@@ -212,6 +213,11 @@ function Journal({activeView}) {
 
     }
 
+    const oneUserInRoom = () => {
+        if(!roomData) return false;
+        return Object.keys(roomData.users).length === 1;
+    }   
+
     useEffect(() => {
         
         if(!roomData) return;
@@ -252,13 +258,28 @@ function Journal({activeView}) {
     if(!roomData) return null;
 
     let fullScreen = Object.keys(roomData.users).length === 1;
-
     return (
-        <div className={styles.journalOuter}>
+        <div className={`${styles.journalOuter} ${journalCollapsed ? styles.collapsed : ''} ${todoCollapsed ? styles.expanded : ''}`}>
 
             <UserTabs 
                 activeTab={activeTab}
-                setActiveTab={(userId) => setTab(parseInt(userId))}/>
+                setActiveTab={(userId) => setTab(parseInt(userId))}
+                collapseDirection={'right'}
+                onCollapse={() => onCollapsed(!journalCollapsed)}/>
+
+            {
+                journalCollapsed ?
+                <div className={styles.expandButton} onClick={() => onCollapsed(!journalCollapsed)}>
+                    <TbLayoutSidebarLeftCollapseFilled />
+                </div> : null
+            }
+
+            {
+                (isGuest || oneUserInRoom()) && !journalCollapsed ?
+                <div className={styles.collapseButton} onClick={() => onCollapsed(!journalCollapsed)}>
+                    <TbLayoutSidebarRightCollapseFilled />
+                </div> : null
+            }
             
             <div className={styles.journalInner}>
             

@@ -39,9 +39,26 @@ export default function Room () {
     const [roomSettings, setRoomSettings] = useState({});
     const [loading, setLoading] = useState(true);
 
+    const [todoCollapsed, setTodoCollapsed] = useState(false);
+    const [journalCollapsed, setJournalCollapsed] = useState(false);
+
     const [showTutorial, setShowTutorial] = useState(false);
 
     const [activeView, setActiveView] = useState(views.todo);
+
+    const onTodoCollapsed = (collapsed) => {
+        if(journalCollapsed) {
+            setJournalCollapsed(false);
+        };
+        setTodoCollapsed(collapsed);
+    }
+
+    const onJournalCollapsed = (collapsed) => {
+        if(todoCollapsed) {
+            setTodoCollapsed(false);
+        };
+        setJournalCollapsed(collapsed);
+    }
 
     const reconnectSocket = () => {
 
@@ -319,8 +336,8 @@ export default function Room () {
                     <StatsPanel activeView={activeView}/>
                     <div className={styles.mainContentOuter}>
                         <div className={`${styles.mainContent} ${activeView === views.journal ? styles.showJournal : ""}`}>
-                            <Todo activeView={activeView}/>
-                            <Journal activeView={activeView}/>
+                            <Todo activeView={activeView} todoCollapsed={todoCollapsed} journalCollapsed={journalCollapsed} onCollapsed={onTodoCollapsed}/>
+                            <Journal activeView={activeView} todoCollapsed={todoCollapsed} journalCollapsed={journalCollapsed} onCollapsed={onJournalCollapsed}/>
                         </div>
                     </div>
                 </div>

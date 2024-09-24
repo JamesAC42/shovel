@@ -19,6 +19,22 @@ function Guest() {
     const [activeView, setActiveView] = useState(views.todo);
     const [showTutorial, setShowTutorial] = useState(false);
     const [roomSettings, setRoomSettings] = useState({});
+    const [todoCollapsed, setTodoCollapsed] = useState(false);
+    const [journalCollapsed, setJournalCollapsed] = useState(false);
+
+    const onTodoCollapsed = (collapsed) => {
+        if(journalCollapsed) {
+            setJournalCollapsed(false);
+        };
+        setTodoCollapsed(collapsed);
+    }
+
+    const onJournalCollapsed = (collapsed) => {
+        if(todoCollapsed) {
+            setTodoCollapsed(false);
+        };
+        setJournalCollapsed(collapsed);
+    }
 
     useEffect(() => {
 
@@ -97,8 +113,8 @@ function Guest() {
                     <StatsPanel activeView={activeView}/>
                     <div className={styles.mainContentOuter}>
                         <div className={`${styles.mainContent} ${activeView === views.journal ? styles.showJournal : ""}`}>
-                            <Todo  activeView={activeView}/>
-                            <Journal  activeView={activeView}/>
+                            <Todo  isGuest={true} activeView={activeView} todoCollapsed={todoCollapsed} journalCollapsed={journalCollapsed} onCollapsed={onTodoCollapsed} />
+                            <Journal  isGuest={true} activeView={activeView} todoCollapsed={todoCollapsed} journalCollapsed={journalCollapsed} onCollapsed={onJournalCollapsed}/>
                         </div>
                     </div>
                 </div>

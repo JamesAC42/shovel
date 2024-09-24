@@ -40,5 +40,24 @@
         flex: 1;
         border-bottom: 1px solid var(--secondary-color);
         background: var(--background-slightly-dark);
+        position: relative;
+        .collapseButton {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 0 0.5rem;
+            cursor: pointer;
+            color: var(--secondary-color);
+            transition: all .1s ease-in-out;
+            svg {
+                transform: translateY(1px)scale(1.4);
+            }
+            &:hover {
+                opacity: 0.6;
+            }
+            @media screen and (max-width:900px) {
+                display:none;
+            }
+        }
     }
 }

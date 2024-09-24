@@ -2,9 +2,14 @@ import RoomContext from "../../contexts/RoomContext";
 import {useContext} from 'react';
 import styles from '../../styles/room/usertabs.module.scss';
 
+import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
+import { TbLayoutSidebarRightCollapseFilled } from "react-icons/tb";
+
 export default function UserTabs({
     activeTab,
-    setActiveTab
+    setActiveTab,
+    collapseDirection,
+    onCollapse
 }) {
 
     const {roomData} = useContext(RoomContext);
@@ -30,7 +35,11 @@ export default function UserTabs({
                     </div>
                 )
             }
-            <div className={styles.panelFiller}></div>
+            <div className={styles.panelFiller}>
+                <div className={styles.collapseButton} onClick={onCollapse}>
+                    {collapseDirection === 'left' ? <TbLayoutSidebarLeftCollapseFilled /> : <TbLayoutSidebarRightCollapseFilled />}
+                </div>
+            </div>
         </div>
     )
 

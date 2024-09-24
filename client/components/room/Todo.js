@@ -9,7 +9,10 @@ import Goal from './Goal';
 import getToday from '../../utilities/getToday';
 import DraggableGoals from './sortable/DraggableGoals';
 
-function Todo() {
+import { TbLayoutSidebarRightCollapseFilled } from "react-icons/tb";
+import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
+
+function Todo({todoCollapsed, journalCollapsed, onCollapsed, isGuest}) {
 
     const { roomData, setRoomData } = useContext(RoomContext);
     const { userInfo } = useContext(UserContext);
@@ -115,6 +118,11 @@ function Todo() {
         return true;
     }
 
+    const oneUserInRoom = () => {
+        if(!roomData) return false;
+        return Object.keys(roomData.users).length === 1;
+    }
+
     useEffect(() => {
         
         if(!roomData) return;
@@ -135,13 +143,28 @@ function Todo() {
         if(isNaN(a.order) || isNaN(b.order)) return 0;
         return a.order - b.order;
     });
-
     return (
-        <div className={styles.todoOuter}>
+        <div className={`${styles.todoOuter} ${todoCollapsed ? styles.collapsed : ''} ${journalCollapsed ? styles.expanded : ''}`}>
                         
+            {
+                todoCollapsed ?
+                <div className={styles.expandButton} onClick={() => onCollapsed(!todoCollapsed)}>
+                    <TbLayoutSidebarRightCollapseFilled />
+                </div> : null
+            }
+
+            {
+                (isGuest || oneUserInRoom()) && !todoCollapsed ?
+                <div className={styles.collapseButton} onClick={() => onCollapsed(!todoCollapsed)}>
+                    <TbLayoutSidebarLeftCollapseFilled />
+                </div> : null
+            }
+
             <UserTabs 
                 activeTab={activeTab}
-                setActiveTab={(userId) => setActiveTab(parseInt(userId))}/>
+                setActiveTab={(userId) => setActiveTab(parseInt(userId))}
+                collapseDirection={'left'}
+                onCollapse={() => onCollapsed(!todoCollapsed)}/>
 
             <div className={styles.todoInner}>
 
