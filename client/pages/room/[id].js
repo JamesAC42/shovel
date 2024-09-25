@@ -239,6 +239,28 @@ export default function Room () {
             })
         })
 
+        newSocket.on('goalArchived', (data) => {
+            setRoomData(prevRoomData => {
+                const oldData = JSON.parse(JSON.stringify(prevRoomData));
+                const { user, goal } = data;
+                if (oldData.users[user] && oldData.users[user].goals[goal]) {
+                    oldData.users[user].goals[goal].archived = true;
+                }
+                return oldData;
+            });
+        });
+
+        newSocket.on('goalUnarchived', (data) => {
+            setRoomData(prevRoomData => {
+                const oldData = JSON.parse(JSON.stringify(prevRoomData));
+                const { user, goal } = data;
+                if (oldData.users[user] && oldData.users[user].goals[goal]) {
+                    oldData.users[user].goals[goal].archived = false;
+                }
+                return oldData;
+            });
+        });
+
     }
 
     const fetchData = async () => {

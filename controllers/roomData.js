@@ -154,6 +154,7 @@ async function roomData (req, res, models) {
                     endDate: goal.endDate,
                     goalStatus: goal.status,
                     order: goal.order,
+                    archived: goal.archived, // Added this line
                     tasks: tasksData
                 };
             }

@@ -8,6 +8,7 @@ import { FaArrowDownLong } from "react-icons/fa6";
 import Goal from './Goal';
 import getToday from '../../utilities/getToday';
 import DraggableGoals from './sortable/DraggableGoals';
+import { FaTrashAlt, FaArchive, FaBoxOpen } from 'react-icons/fa';
 
 import { TbLayoutSidebarRightCollapseFilled } from "react-icons/tb";
 import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
@@ -19,19 +20,22 @@ function Todo({todoCollapsed, journalCollapsed, onCollapsed, isGuest}) {
 
     let [activeTab, setActiveTab] = useState(null);
     let [goalInput, setGoalInput] = useState("");
+    let [showArchived, setShowArchived] = useState(false); // Added state variable
+    const [hasArchivedGoals, setHasArchivedGoals] = useState(false);
 
     const getGoals = () => {
 
         if(!roomData || !activeTab) return {};
         if(!userInfo && !roomData.guest) return {};
         if(!roomData.users[activeTab]) return {};
-        return roomData.users[activeTab].goals;
+        let goals = roomData.users[activeTab].goals;
+        // Filter goals based on 'archived' status
+        return Object.fromEntries(
+            Object.entries(goals).filter(([id, goal]) =>
+                showArchived ? goal.archived : !goal.archived
+            )
+        );
 
-    }
-
-    const generateGoal = (goalId) => {
-        let goal = getGoals()[goalId];
-        return goal;
     }
 
     const noGoals = () => {
@@ -107,6 +111,7 @@ function Todo({todoCollapsed, journalCollapsed, onCollapsed, isGuest}) {
 
     const showNewGoal = () => {
         if(!userInfo && !roomData.guest) return false;
+        if (showArchived) return false;
         if(roomData.guest) return true;
         return activeTab === userInfo.id;
     }
@@ -136,9 +141,16 @@ function Todo({todoCollapsed, journalCollapsed, onCollapsed, isGuest}) {
     
     }, [roomData]);
 
+    useEffect(() => {
+        let goals = roomData.users[activeTab]?.goals;
+        if(!goals) return;
+        const archivedGoalsExist = Object.values(goals).some(goal => goal.archived);
+        setHasArchivedGoals(archivedGoalsExist);
+    }, [roomData, activeTab]);
+
     if(!roomData) return null;
 
-    let goals = Object.keys(getGoals()).map(goalId => generateGoal(goalId));
+    let goals = Object.values(getGoals());
     goals = goals.sort((a, b) => {
         if(isNaN(a.order) || isNaN(b.order)) return 0;
         return a.order - b.order;
@@ -167,6 +179,15 @@ function Todo({todoCollapsed, journalCollapsed, onCollapsed, isGuest}) {
                 onCollapse={() => onCollapsed(!todoCollapsed)}/>
 
             <div className={styles.todoInner}>
+
+                {(showArchived || (hasArchivedGoals && !todoCollapsed)) && (
+                    <div className={styles.toggleArchived}>
+                        <button onClick={() => setShowArchived(!showArchived)}>
+                            {showArchived ? <FaArchive /> : <FaBoxOpen />}
+                            {showArchived ? 'Show Active Goals' : 'Show Archived Goals'}
+                        </button>
+                    </div>
+                )}
 
                 { noGoals() }
                 {

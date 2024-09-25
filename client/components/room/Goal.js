@@ -3,7 +3,7 @@ import styles from '../../styles/room/todo.module.scss';
 import { HiPencilAlt } from "react-icons/hi";
 import dateToReadable from "../../utilities/dateToReadable";
 import {useState, useContext, useRef} from 'react';
-import { FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt, FaArchive, FaBoxOpen } from 'react-icons/fa';
 import { IoClose } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa";
 import getToday from "../../utilities/getToday";
@@ -164,12 +164,55 @@ function Goal({activeTab, goalItem}) {
         startDate,
         endDate,
         goalStatus,
-        tasks
+        tasks,
+        archived
     } = goalItem;
 
     if(!tasks) {
         return null;
     }
+
+    const archiveGoal = async () => {
+        if (roomData.guest) {
+            let newData = JSON.parse(JSON.stringify(roomData));
+            newData.users[1].goals[goalItem.id].archived = true;
+            localStorage.setItem("guest-room", JSON.stringify(newData));
+            setRoomData(newData);
+        } else {
+            const response = await fetch('/api/archiveGoal', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ goal: goalItem.id }),
+            });
+            const data = await response.json();
+            if (!data.success) {
+                console.error(data.message);
+            }
+        }
+    };
+
+    const unarchiveGoal = async () => {
+        if (roomData.guest) {
+            let newData = JSON.parse(JSON.stringify(roomData));
+            newData.users[1].goals[goalItem.id].archived = false;
+            localStorage.setItem("guest-room", JSON.stringify(newData));
+            setRoomData(newData);
+        } else {
+            const response = await fetch('/api/unarchiveGoal', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ goal: goalItem.id }),
+            });
+            const data = await response.json();
+            if (!data.success) {
+                console.error(data.message);
+            }
+        }
+    };
 
     return(
         <div className={`${styles.goalSection} ${endDate ? styles.goalCompleted : ''}`}>
@@ -183,14 +226,38 @@ function Goal({activeTab, goalItem}) {
                 <div
                     className={styles.goalTitle}>
                     <div
+                        title="Delete Goal"
                         onClick={() => deleteGoal()} 
                         onTouchEnd={(e) => {
                             deleteGoal();
                             e.stopPropagation();
                         }}
-                        className={`${styles.deleteGoal} ${showDelete ? styles.deleteGoalShow : ''}`}>
+                        className={`${styles.deleteGoal} ${showDelete ? styles.showIcon : ''}`}>
                         <FaTrashAlt />
                     </div>
+                    {!archived ? (
+                        <div
+                            title="Archive Goal"
+                            onClick={() => archiveGoal()}
+                            onTouchEnd={(e) => {
+                                archiveGoal();
+                                e.stopPropagation();
+                            }}
+                            className={`${styles.archiveGoal} ${showDelete ? styles.showIcon : ''}`}>
+                            <FaArchive />
+                        </div>
+                    ) : (
+                        <div
+                            title="Unarchive Goal"
+                            onClick={() => unarchiveGoal()}
+                            onTouchEnd={(e) => {
+                                unarchiveGoal();
+                                e.stopPropagation();
+                            }}
+                            className={`${styles.unarchiveGoal} ${showDelete ? styles.showIcon : ''}`}>
+                            <FaBoxOpen />
+                        </div>
+                    )}
                     <div className={styles.goalTitleText}>
                         {title + " "}
                     </div>

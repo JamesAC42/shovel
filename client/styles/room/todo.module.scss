@@ -75,6 +75,42 @@
             opacity:1;
         }
     }
+
+    .toggleArchived {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        cursor: pointer;
+        z-index: 1000;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+
+        &.toggleArchivedHide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        button {
+            background: var(--background-color);
+            border: 1px solid var(--secondary-color);
+            border-radius: 0.4rem;
+            padding: 0.5rem 1rem;
+            font-family: 'Figtree', sans-serif;
+            cursor: pointer;
+            color: var(--primary-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+
+            svg {
+                margin-right: 0.5rem;
+                transform: translateY(2px) scale(1.2);
+            }
+
+            &:hover {
+                background-color: var(--secondary-color);
+                color: var(--background-color);
+            }
+        }
+    }
 }
 
 .todoInner {
@@ -85,7 +121,7 @@
 
     .noGoals {
         @include placeholder-text;
-        margin-top:1.5rem;
+        margin-top:1rem;
         @include slide-fade-in;
         svg {
             transform:translateY(2px);
@@ -138,22 +174,23 @@
                         width:2rem;
                     }
                 }
-                .deleteGoal {
-                    width:0;
-                    display:inline-block;
+                .deleteGoal, .archiveGoal, .unarchiveGoal {
+                    width: 0;
+                    display: inline-block;
                     @include flex-center-row;
-                    overflow:hidden;
-                    color:var(--error-color);
-                    cursor:pointer;
+                    overflow: hidden;
+                    color: var(--secondary-color);
+                    cursor: pointer;
                     &:hover {
-                        filter:brightness(0.7);
+                        filter: brightness(0.7);
                     }
                     svg {
-                        transform:translateY(2px);
+                        transform: translateY(0px) translateX(-50%);
                     }
-                    &.deleteGoalShow {
+                    &.showIcon {
                         animation: expand-delete 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1;
-                        width:2rem; 
+                        width: 2rem;
+                        text-align: left;
                     }
                 }
                 .goalTitleText {

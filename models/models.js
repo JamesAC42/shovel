@@ -249,7 +249,11 @@ const Goal = sequelize.define('Goal', {
   },
   order: {
     type: DataTypes.INTEGER,
-  }
+  },
+  archived: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
 }, {
   tableName: 'goals',
   timestamps: false,

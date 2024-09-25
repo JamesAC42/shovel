@@ -77,6 +77,8 @@ const unsubscribeNewsletter = require('./controllers/unsubscribeNewsletter');
 const renameRoom = require('./controllers/roomControllers/renameRoom');
 const deleteRoom = require('./controllers/roomControllers/deleteRoom');
 const leaveRoom = require('./controllers/roomControllers/leaveRoom');
+const archiveGoal = require('./controllers/roomControllers/archiveGoal');
+const unarchiveGoal = require('./controllers/roomControllers/unarchiveGoal');
 
 sequelize.sync()
   .then(() => {
@@ -242,6 +244,14 @@ app.post('/leaveRoom', async (req, res) => {
 
 app.post('/renameRoom', async (req, res) => {
   renameRoom(req, res, models, io);
+});
+
+app.post('/archiveGoal', async (req, res) => {
+  archiveGoal(req, res, models, io);
+});
+
+app.post('/unarchiveGoal', async (req, res) => {
+  unarchiveGoal(req, res, models, io);
 });
 
 app.get('/room', (req, res) => {
