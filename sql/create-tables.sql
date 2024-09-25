@@ -94,6 +94,7 @@ CREATE TABLE goals
     description text COLLATE pg_catalog."default",
     room integer,
     "order" integer,
+    archived boolean,
     CONSTRAINT goals_pkey PRIMARY KEY (id),
     CONSTRAINT goals_user_id_fkey FOREIGN KEY (user_id)
         REFERENCES public.users (id) MATCH SIMPLE
