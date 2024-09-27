@@ -21,6 +21,10 @@
     ul li {
         font-size:1.3rem;
         margin:0.5rem 0;
+        a {
+            color:var(--link-color);
+            text-decoration: underline;
+        }
     }
 
     .imageSection {
@@ -45,30 +49,61 @@
         width:100%;
         border:1px solid var(--secondary-color);
     }
+    .supportOptions {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+        margin-top: 2rem;
+        gap:1rem;
+    }
+
+    .supportOption {
+        width: 48%;
+        text-align: center;
+        background:var(--background-dark);
+        border-radius:1rem;
+        padding:1rem;
+    }
 
     .kofiButtonOuter {
         @include flex-center-row;
     }
 
-    a.kofiButton {
-        margin:0 auto;
-        background:var(--tag-color);
-        width:fit-content;
-        svg {
-            margin-right:0.5rem;
-            transform:translate(0,4px);
-        }
-        margin:0 auto;
+    a.kofiButton, a.premiumButton {
+        display: inline-block;
+        margin: 0 auto;
+        margin-top:auto;
+        background: var(--tag-color);
+        width: fit-content;
         text-decoration: none;
-        border-radius:1rem;
-        font-size:1.4rem;
-        font-weight:bold;
-        text-align:center;
-        padding:1rem 1.6rem;
-        color:var(--background-dark);
-        transition:all .1s ease;
+        border-radius: 1rem;
+        font-size: 1.1rem;
+        font-weight: bold;
+        text-align: center;
+        padding: 1rem 1.6rem;
+        color: var(--background-dark);
+        transition: all .1s ease;
+
         &:hover {
-            filter:brightness(1.1);
+            filter: brightness(1.1);
+        }
+    }
+
+    a.kofiButton {
+        svg {
+            margin-right: 0.5rem;
+            transform: translate(0, 4px);
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .supportOptions {
+            flex-direction: column;
+        }
+
+        .supportOption {
+            width: 100%;
+            margin-bottom: 2rem;
         }
     }
     

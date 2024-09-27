@@ -30,7 +30,7 @@ import { FaRegCircle, FaCircle } from "react-icons/fa";
 import Timer from './Timer';
 import UpdateAnnouncement from '../announcements/UpdateAnnouncement';
 
-const announcementKey = "shovel:seenUpdate91224";
+const announcementKey = "shovel:seenUpdate92724";
 
 function StatsPanel({activeView}) {
 
