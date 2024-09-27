@@ -7,7 +7,7 @@ import { PiCaretCircleUpDownFill } from "react-icons/pi";
 import UserContext from '../../../contexts/UserContext';
 import RoomContext from '../../../contexts/RoomContext';
 
-function SortableGoal({id, activeTab, goalItem}) {
+function SortableGoal({id, activeTab, goalItem, onArchiveAttempt}) {
   let { userInfo } = useContext(UserContext);
   const { roomData } = useContext(RoomContext);
   const {
@@ -31,7 +31,7 @@ function SortableGoal({id, activeTab, goalItem}) {
           <PiCaretCircleUpDownFill />
         </div> : null
       }
-      <Goal activeTab={activeTab} goalItem={goalItem}/>
+      <Goal activeTab={activeTab} goalItem={goalItem} onArchiveAttempt={onArchiveAttempt}/>
     </div>
   );
 }

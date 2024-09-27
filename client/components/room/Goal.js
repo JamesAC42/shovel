@@ -14,7 +14,7 @@ import Popup from '../Popup';
 import { GiDiamonds } from "react-icons/gi";
 import Link from 'next/link';
 
-function Goal({activeTab, goalItem}) {
+function Goal({activeTab, goalItem, onArchiveAttempt}) {
 
     /*
     goalsData[goal.id] = {
@@ -39,7 +39,6 @@ function Goal({activeTab, goalItem}) {
     let { userInfo } = useContext(UserContext);
 
     let [showDelete, setShowDelete] = useState(false);
-    let [showPremiumPopup, setShowPremiumPopup] = useState(false);
 
     let [taskValue, setTaskValue] = useState("");
     let [tagValue, setTagValue] = useState("");
@@ -165,7 +164,7 @@ function Goal({activeTab, goalItem}) {
         if (userInfo?.tier === 2) {
             archiveGoal();
         } else {
-            setShowPremiumPopup(true);
+            onArchiveAttempt();
         }
     };
 
@@ -330,21 +329,6 @@ function Goal({activeTab, goalItem}) {
                     </div> : null
                 }
             </div>
-            {showPremiumPopup && (
-                <Popup onClose={() => setShowPremiumPopup(false)}>
-                    <div className={styles.premiumPopup}>
-                        <h2>
-                            <GiDiamonds />
-                            Premium Feature
-                            <GiDiamonds />
-                        </h2>
-                        <p>Archiving goals is only available for premium members.</p>
-                        <Link href="/premium" className={styles.upgradeLinkPopup}>
-                            Upgrade to Premium
-                        </Link>
-                    </div>
-                </Popup>
-            )}
         </div>
     )
 }

@@ -19,7 +19,7 @@ import SortableGoal from './SortableGoal';
 import RoomContext from '../../../contexts/RoomContext';
 import UserContext from '../../../contexts/UserContext';
 
-function DraggableGoals({activeTab, goals}) {
+function DraggableGoals({activeTab, goals, onArchiveAttempt}) {
 
   let { roomData, setRoomData } = useContext(RoomContext);
   let { userInfo } = useContext(UserContext);
@@ -89,7 +89,7 @@ function DraggableGoals({activeTab, goals}) {
       >
         {
             goals.map((goal) =>
-              <SortableGoal key={goal.id} id={goal.id} activeTab={activeTab} goalItem={goal} />
+              <SortableGoal key={goal.id} id={goal.id} activeTab={activeTab} goalItem={goal} onArchiveAttempt={onArchiveAttempt}/>
             )
         }
       </SortableContext>

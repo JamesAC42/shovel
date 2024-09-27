@@ -9,9 +9,11 @@ import Goal from './Goal';
 import getToday from '../../utilities/getToday';
 import DraggableGoals from './sortable/DraggableGoals';
 import { FaTrashAlt, FaArchive, FaBoxOpen } from 'react-icons/fa';
-
 import { TbLayoutSidebarRightCollapseFilled } from "react-icons/tb";
 import { TbLayoutSidebarLeftCollapseFilled } from "react-icons/tb";
+import Popup from '../Popup';
+import Link from 'next/link';
+import { GiDiamonds } from "react-icons/gi";
 
 function Todo({todoCollapsed, journalCollapsed, onCollapsed, isGuest}) {
 
@@ -22,6 +24,7 @@ function Todo({todoCollapsed, journalCollapsed, onCollapsed, isGuest}) {
     let [goalInput, setGoalInput] = useState("");
     let [showArchived, setShowArchived] = useState(false); // Added state variable
     const [hasArchivedGoals, setHasArchivedGoals] = useState(false);
+    const [showPremiumPopup, setShowPremiumPopup] = useState(false);
 
     const getGoals = () => {
 
@@ -155,6 +158,13 @@ function Todo({todoCollapsed, journalCollapsed, onCollapsed, isGuest}) {
         if(isNaN(a.order) || isNaN(b.order)) return 0;
         return a.order - b.order;
     });
+
+    const handleArchiveAttempt = () => {
+        if (userInfo?.tier !== 2) {
+            setShowPremiumPopup(true);
+        }
+    };
+
     return (
         <div className={`${styles.todoOuter} ${todoCollapsed ? styles.collapsed : ''} ${journalCollapsed ? styles.expanded : ''}`}>
                         
@@ -191,7 +201,11 @@ function Todo({todoCollapsed, journalCollapsed, onCollapsed, isGuest}) {
 
                 { noGoals() }
                 {
-                    <DraggableGoals activeTab={activeTab} goals={goals}/>
+                    <DraggableGoals 
+                        activeTab={activeTab} 
+                        goals={goals} 
+                        onArchiveAttempt={handleArchiveAttempt}
+                    />
                 }
 
                 { 
@@ -213,6 +227,21 @@ function Todo({todoCollapsed, journalCollapsed, onCollapsed, isGuest}) {
 
             </div>
 
+            {showPremiumPopup && (
+                <Popup onClose={() => setShowPremiumPopup(false)}>
+                    <div className={styles.premiumPopup}>
+                        <h2>
+                            <GiDiamonds />
+                            Premium Feature
+                            <GiDiamonds />
+                        </h2>
+                        <p>Archiving goals is only available for premium members.</p>
+                        <Link href="/premium" className={styles.upgradeLinkPopup}>
+                            Upgrade to Premium
+                        </Link>
+                    </div>
+                </Popup>
+            )}
         </div>
     )
 }
