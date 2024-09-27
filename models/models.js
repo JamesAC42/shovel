@@ -38,6 +38,10 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING(256),
     allowNull: true,
     field: 'google_id'
+  },
+  tier: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
   }
 }, {
   tableName: 'users',

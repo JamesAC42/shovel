@@ -9,6 +9,7 @@ CREATE TABLE users
     username character varying(50) COLLATE pg_catalog."default" NOT NULL,
     email character varying(200) COLLATE pg_catalog."default",
     google_id character varying(256) COLLATE pg_catalog."default",
+    tier smallint,
     CONSTRAINT users_pkey PRIMARY KEY (id)
 );
 
@@ -193,4 +194,24 @@ CREATE TABLE feedback
         REFERENCES public.users (id) MATCH SIMPLE
         ON UPDATE NO ACTION
         ON DELETE NO ACTION
+);
+
+CREATE TABLE notebooks (
+    id SERIAL PRIMARY KEY,
+    room_id INTEGER NOT NULL,
+    FOREIGN KEY (room_id) REFERENCES room(id)
+);
+
+CREATE TABLE notebook_pages (
+    id SERIAL PRIMARY KEY,
+    notebook_id INTEGER NOT NULL,
+    parent_id INTEGER,
+    title VARCHAR(100) NOT NULL,
+    content TEXT,
+    "order" INTEGER NOT NULL,
+    last_edited_by INTEGER,
+    last_edited_at TIMESTAMP,
+    FOREIGN KEY (notebook_id) REFERENCES notebooks(id),
+    FOREIGN KEY (parent_id) REFERENCES notebook_pages(id),
+    FOREIGN KEY (last_edited_by) REFERENCES users(id)
 );

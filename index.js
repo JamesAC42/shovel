@@ -5,6 +5,9 @@ const RedisStore = require('connect-redis')(session);
 const http = require('http');
 const { Server } = require('socket.io');
 
+const stripeLogin = require('./stripe_key.json');
+const stripe = require('stripe')(stripeLogin.key);
+
 const app = express();
 const httpServer = http.createServer(app);
 const redisClient = redis.createClient({ legacyMode: true });
@@ -80,6 +83,9 @@ const leaveRoom = require('./controllers/roomControllers/leaveRoom');
 const archiveGoal = require('./controllers/roomControllers/archiveGoal');
 const unarchiveGoal = require('./controllers/roomControllers/unarchiveGoal');
 
+const createCheckoutSession = require('./controllers/createCheckoutSession');
+const handleWebhook = require('./controllers/handleWebhook');
+
 sequelize.sync()
   .then(() => {
     console.log('Database synchronized');
@@ -95,6 +101,7 @@ try {
   console.error('Unable to connect to the database:', error);
 }
 
+app.use('/webhook', express.raw({ type: 'application/json' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set('trust proxy', 1);
@@ -252,6 +259,14 @@ app.post('/archiveGoal', async (req, res) => {
 
 app.post('/unarchiveGoal', async (req, res) => {
   unarchiveGoal(req, res, models, io);
+});
+
+app.post('/createCheckoutSession', async (req, res) => {
+  createCheckoutSession(req, res, stripe, models);
+});
+
+app.post('/webhook', express.raw({type: 'application/json'}), async (req, res) => {
+  handleWebhook(req, res, stripe, stripeLogin, models);
 });
 
 app.get('/room', (req, res) => {

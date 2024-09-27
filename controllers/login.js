@@ -40,6 +40,8 @@ const login = async (req, res, models, redisClient) => {
         if(foundUser.email) {
             subscribedEmail = await getIsSubscribed(redisClient, foundUser.email);
         }
+
+        let tier = foundUser.tier ? foundUser.tier : 1;
         
         req.session.user = { username: foundUser.username };
         res.json({ 
@@ -52,7 +54,8 @@ const login = async (req, res, models, redisClient) => {
                 email: foundUser.email,
                 color: foundUser.color,
                 dateCreated: foundUser.dateCreated,
-                subscribedEmail
+                subscribedEmail,
+                tier: tier
             }
         });
     } catch (err) {

@@ -64,7 +64,8 @@ const createUser = async (req, res, models) => {
             color,
             email,
             dateCreated,
-            googleId: ""
+            googleId: "",
+            tier: 1
         });
 
         req.session.user = { username };

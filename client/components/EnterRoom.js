@@ -1,5 +1,6 @@
 import styles from "../styles/room.module.scss";
 import {useState, useEffect} from 'react';
+import { GiDiamonds } from "react-icons/gi";
 import Link from 'next/link';
 import Router from 'next/router';
 
@@ -183,6 +184,22 @@ export default function EnterRoom({userInfo, setUserInfo}) {
                 <div className={styles.accountInfo}>
                 <div className={styles.accountName}>
                 logged in as {firstName + ' ' + lastName}
+                </div>
+                <div className={styles.accountTier}>
+                    {userInfo.tier === 2 ? (
+                        <div className={styles.premiumTier}>
+                            <GiDiamonds /> 
+                            Premium Account
+                            <GiDiamonds /> 
+                        </div>
+                    ) : (
+                        <div className={styles.freeTier}>
+                            Free Account
+                            <Link href="/premium">
+                                Upgrade to Premium
+                            </Link>
+                        </div>
+                    )}
                 </div>
                 <div className={styles.emailStatus}>
                     {

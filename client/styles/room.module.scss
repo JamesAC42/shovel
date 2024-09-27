@@ -265,15 +265,32 @@
         @include flex-center-col;
         gap:1rem;
 
+        .accountTier {
+            .premiumTier {
+                svg {
+                    margin:0 0.2rem;
+                    transform:translateY(2px) scale(1.2);
+                }
+            }
+            .freeTier {
+                a {
+                    margin-left:0.5rem;
+                    color:var(--link-color);
+                }
+            }
+        }
+
         .emailStatus button {
             background:none;
             text-decoration: underline;
             border:none;
             outline:none;
-            color:var(--secondary-color);
+            color:var(--link-color);
             font-family:'Figtree',sans-serif;
             font-size:1rem;
             cursor:pointer;
+            margin-left:0.5rem;
+            padding:0;
         }
     }
 }

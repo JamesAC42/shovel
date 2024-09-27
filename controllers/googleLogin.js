@@ -77,7 +77,8 @@ const login  = async (req, res, datamodels, redisClient) => {
                 email: userModel.email,
                 color: userModel.color,
                 dateCreated: userModel.dateCreated,
-                subscribedEmail
+                subscribedEmail,
+                tier: userModel.tier
             }
         });
 

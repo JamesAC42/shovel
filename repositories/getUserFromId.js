@@ -1,5 +1,5 @@
-const getUserFromUsername = (models, username) => {
-    return models.User.findOne({ where: { username: username } })
+const getUserFromId = (models, id) => {
+    return models.User.findOne({ where: { id: id } })
         .then(user => {
             if (!user) {
                 return null;
@@ -10,8 +10,7 @@ const getUserFromUsername = (models, username) => {
                 lastName: user.lastName,
                 dateCreated: user.dateCreated,
                 color: user.color,
-                username: user.username,
-                tier: user.tier
+                username: user.username
             };
         })
         .catch(err => {
@@ -19,4 +18,4 @@ const getUserFromUsername = (models, username) => {
             throw err;
         });
 }
-module.exports = getUserFromUsername;
+module.exports = getUserFromId;

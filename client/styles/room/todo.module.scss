@@ -403,3 +403,44 @@
         }
     }
 }
+
+.premiumPopup {
+    text-align: center;
+    padding: 1rem;
+
+    background: var(--background-color);
+    padding:1rem 4rem;
+    padding-bottom:2rem;
+    border-radius:1rem;
+    border:1px solid var(--secondary-color);
+
+    h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+        svg {
+            margin:0 0.5rem;
+            transform: translateY(4px) scale(1.2);
+        }
+    }
+
+    p {
+        margin-bottom: 1rem;
+        color: var(--secondary-color);
+    }
+
+    .upgradeLinkPopup {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: var(--primary-color);
+        color: var(--background-color);
+        text-decoration: none;
+        border-radius: 0.25rem;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: var(--secondary-color);
+        }
+    }
+}

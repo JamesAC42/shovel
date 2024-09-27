@@ -15,6 +15,7 @@ const room = (req, res, models, redisClient) => {
                 if(user.email) {
                     subscribedEmail = await getIsSubscribed(redisClient, user.email);
                 }
+                let tier = user.tier ? user.tier : 1;
                 res.json({ 
                     success: true,
                     user: {
@@ -25,7 +26,8 @@ const room = (req, res, models, redisClient) => {
                         email: user.email,
                         color: user.color,
                         dateCreated: user.dateCreated,
-                        subscribedEmail
+                        subscribedEmail,
+                        tier: tier 
                     }
                 });
             }
