@@ -18,7 +18,7 @@ import { TbLayoutSidebarRightCollapseFilled } from "react-icons/tb";
 
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-function Journal({activeView, todoCollapsed, journalCollapsed, onCollapsed,isGuest}) {
+function Journal({activeView, todoCollapsed, journalCollapsed, onCollapsed, isGuest}) {
 
     /* 
     {
@@ -52,6 +52,8 @@ function Journal({activeView, todoCollapsed, journalCollapsed, onCollapsed,isGue
     const [years, setYears] = useState([]);
     const [currentYear, setCurrentYear] = useState(null);
     const [currentMonth, setCurrentMonth] = useState(null);
+
+    const [journalInputCollapsed, setJournalInputCollapsed] = useState(false);
 
     const [savedActiveMonth, setSavedActiveMonth] = useState({});
     const [activeTab, setActiveTab] = useState(null);
@@ -304,11 +306,11 @@ function Journal({activeView, todoCollapsed, journalCollapsed, onCollapsed,isGue
                         {
                             showInput() ?
                             <div
-                                onClick={() => setJournalCollapsed(!journalCollapsed)} 
+                                onClick={() => setJournalInputCollapsed(!journalInputCollapsed)} 
                                 className={styles.toggleJournalCollapse}
-                                title={journalCollapsed ? "Edit Entry" : "Collapse Entry"}>
+                                title={journalInputCollapsed ? "Edit Entry" : "Collapse Entry"}>
                                 {
-                                    journalCollapsed ?
+                                    journalInputCollapsed ?
                                     <HiPencilAlt /> : <FaChevronUp />
                                 }
                             </div> : null
@@ -318,7 +320,7 @@ function Journal({activeView, todoCollapsed, journalCollapsed, onCollapsed,isGue
                     {
                         showInput() ? 
                         <JournalInput
-                            collapsed={journalCollapsed}
+                            collapsed={journalInputCollapsed}
                             entries={entries} 
                             currentYear={currentYear}
                             currentMonth={currentMonth} /> : null
