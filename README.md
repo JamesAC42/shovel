@@ -63,3 +63,14 @@ To run shovel locally, follow these steps:
 9. To run the api server, run `node index` or `nodemon index` for reloading after file changes during dev.
 10. To run the next dev server, run `npm run dev` from inside the `/client` folder.
 11. Sequelize should create all the tables defined in `models/models.js`, however sometimes it messes up so you may need to use the sql in `sql/create-tables.sql` file manually.
+
+Shield: [![CC BY-NC-ND 4.0][cc-by-nc-nd-shield]][cc-by-nc-nd]
+
+This work is licensed under a
+[Creative Commons Attribution-NonCommercial-NoDerivs 4.0 International License][cc-by-nc-nd].
+
+[![CC BY-NC-ND 4.0][cc-by-nc-nd-image]][cc-by-nc-nd]
+
+[cc-by-nc-nd]: http://creativecommons.org/licenses/by-nc-nd/4.0/
+[cc-by-nc-nd-image]: https://licensebuttons.net/l/by-nc-nd/4.0/88x31.png
+[cc-by-nc-nd-shield]: https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg
