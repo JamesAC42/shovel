@@ -17,6 +17,11 @@ function NavBar() {
             </div>
             <div className={styles.navRight}>
                 <div className={styles.navitem}>
+                    <Link href="/premium">
+                        premium
+                    </Link>
+                </div>
+                <div className={styles.navitem}>
                     <Link href="/social">
                         connect
                     </Link>
