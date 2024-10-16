@@ -28,8 +28,10 @@ const login  = async (req, res, datamodels, redisClient) => {
         
         // Extract relevant information from the payload
         const googleId = payload['sub'];  // This is the Google ID
-        const email = payload['email'];
+        let email = payload['email'];
         const name = payload['name'];
+
+        email = email.toLowerCase();
 
         const nameParts=  name.split(" "); 
         const firstName = nameParts[0];

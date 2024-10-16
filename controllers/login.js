@@ -4,7 +4,7 @@ const getIsSubscribed = require("../repositories/getIsSubscribed");
 
 const login = async (req, res, models, redisClient) => {
 
-    const { user, password } = req.body;
+    let { user, password } = req.body;
     if (!user || !password || user.trim() === "" || password.trim() === "") {
         res.send({ success: false, message: "Username/Email or password cannot be empty." });
         return;
@@ -14,7 +14,7 @@ const login = async (req, res, models, redisClient) => {
         const foundUser = await models.User.findOne({
             where: {
                 [Op.or]: [
-                    { email: user },
+                    { email: user.toLowerCase() },
                     { username: user }
                 ]
             }

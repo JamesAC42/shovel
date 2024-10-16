@@ -9,7 +9,7 @@ const createUser = async (req, res, models) => {
     firstName = firstName.trim();
     lastName = lastName.trim();
     username = username.trim();
-    email = email.trim();
+    email = email.trim().toLowerCase();
 
     if (!firstName || !lastName || !username || !password || !email) {
         res.status(400).json({ success: false, message: 'All fields are required' });
