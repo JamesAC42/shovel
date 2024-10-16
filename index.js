@@ -86,6 +86,9 @@ const unarchiveGoal = require('./controllers/roomControllers/unarchiveGoal');
 const createCheckoutSession = require('./controllers/createCheckoutSession');
 const handleWebhook = require('./controllers/handleWebhook');
 
+const { logUserRequest } = require('./featureTracking/collectFeatureTrackingData');
+const getFeatureTrackingData = require('./controllers/getFeatureTrackingData');
+
 sequelize.sync()
   .then(() => {
     console.log('Database synchronized');
@@ -126,30 +129,37 @@ app.use((err, req, res, next) => {
 });
 
 app.post('/login', (req, res) => {
+  logUserRequest(redisClient, req, 'logged_in');
   login(req, res, models, redisClient);
 });
 
 app.post('/logout', (req, res) => {
+  logUserRequest(redisClient, req, 'logged_in'); // Logging out is still an activity
   logout(req, res);
 });
 
 app.post('/googleLogin', (req, res) => {
+  logUserRequest(redisClient, req, 'logged_in');
   googleLogin(req, res, models, redisClient);
 });
 
 app.post('/createUser', async (req, res) => {
+  logUserRequest(redisClient, req, 'created_account');
   createUser(req, res, models);
 });
 
 app.post('/joinRoom', async (req, res) => {
+  logUserRequest(redisClient, req, 'joined_room');
   validateRoom(req, res, models, io);
 });
 
 app.post('/createRoom', async (req, res) => {
+  logUserRequest(redisClient, req, 'created_room');
   createRoom(req, res, models);
 });
 
 app.post('/saveWorkHours', async (req, res) => {
+  logUserRequest(redisClient, req, 'added_work_hour');
   saveWorkHours(req, res, models, io);
 });
 
@@ -158,30 +168,37 @@ app.post('/respondRequest', async (req, res) => {
 });
 
 app.post('/checkIn', async (req, res) => {
+  logUserRequest(redisClient, req, 'check_in');
   checkIn(req, res, models, io);
 });
 
 app.post('/addGoal', async (req, res) => {
+  logUserRequest(redisClient, req, 'added_goal');
   addGoal(req, res, models, io);
 });
 
 app.post('/deleteGoal', async (req, res) => {
+  logUserRequest(redisClient, req, 'deleted_goal');
   deleteGoal(req, res, models, io);
 });
 
 app.post('/addTask', async (req, res) => {
+  logUserRequest(redisClient, req, 'added_task');
   addTask(req, res, models, io);
 });
 
 app.post('/deleteTask', async (req, res) => {
+  logUserRequest(redisClient, req, 'deleted_task');
   deleteTask(req, res, models, io);
 });
 
 app.post('/toggleTask', async (req, res) => {
+  logUserRequest(redisClient, req, req.body.checked ? 'checked_task' : 'unchecked_task');
   toggleTask(req, res, models, io);
 });
 
 app.post('/saveJournalEntry', async (req, res) => {
+  logUserRequest(redisClient, req, 'saved_journal');
   saveJournalEntry(req, res, models, io);
 });
 
@@ -218,10 +235,12 @@ app.post('/newsletterSignup', async (req, res) => {
 });
 
 app.post('/updateTaskOrder', async (req, res) => {
+  logUserRequest(redisClient, req, 'reordered_task');
   updateTaskOrder(req, res, models);
 });
 
 app.post('/updateGoalOrder', async (req, res) => {
+  logUserRequest(redisClient, req, 'reordered_goal');
   updateGoalOrder(req, res, models);
 });
 
@@ -242,6 +261,7 @@ app.post('/unsubscribeNewsletter', async (req, res) => {
 });
 
 app.post('/deleteRoom', async (req, res) => {
+  logUserRequest(redisClient, req, 'deleted_room');
   deleteRoom(req, res, models);
 });
 
@@ -250,14 +270,17 @@ app.post('/leaveRoom', async (req, res) => {
 });
 
 app.post('/renameRoom', async (req, res) => {
+  logUserRequest(redisClient, req, 'renamed_room');
   renameRoom(req, res, models, io);
 });
 
 app.post('/archiveGoal', async (req, res) => {
+  logUserRequest(redisClient, req, 'archived_goal');
   archiveGoal(req, res, models, io);
 });
 
 app.post('/unarchiveGoal', async (req, res) => {
+  logUserRequest(redisClient, req, 'archived_goal'); // Unarchiving is still part of archiving feature
   unarchiveGoal(req, res, models, io);
 });
 
@@ -303,6 +326,10 @@ app.get('/publicRooms', (req, res) => {
 
 app.get('/unsubscribeNewsletter', (req, res) => {
   unsubscribeNewsletter(req, res, redisClient);
+});
+
+app.get('/getFeatureTrackingData', (req, res) => {
+    getFeatureTrackingData(req, res, redisClient);
 });
 
 io.on('connection', handleConnection);
