@@ -59,6 +59,8 @@ function PremiumPage() {
                         <li>Work timers: Alarm, Stopwatch, and Pomodoro</li>
                         <li>Deep work hour tracker</li>
                         <li>Streak tracker</li>
+                        <li>Notebook</li>
+                        <li>Flashcards</li>
                     </ul>
                 </div>
                 <div className={`${styles.featureBox} ${styles.premium}`}>
@@ -70,16 +72,15 @@ function PremiumPage() {
                     <div
                         onClick={handleSubscribe}
                         className={styles.buyContainer}>
-                        { userInfo?.tier === 2 ? "Subscribed" : "Subscribe" }
+                        { userInfo?.tier === 2 ? "Subscribed" : "Try for Free - 7 Days" }
                     </div>
                     <ul>
                         <li>Goal Archive</li>
-                        <li><strong>Coming soon:</strong> Notebook</li>
-                        <li><strong>Coming soon:</strong> Flashcard maker</li>
+                        <li>Unlimited notebook pages</li>
+                        <li>Generate flashcards from notes</li>
                         <li><strong>Coming soon:</strong> AI summaries</li>
                         <li><strong>Coming soon:</strong> AI tutor</li>
                         <li><strong>Coming soon:</strong> AI quizzes</li>
-                        <li><strong>Coming soon:</strong> AI flashcards</li>
                     </ul>
                 </div>
             </div>

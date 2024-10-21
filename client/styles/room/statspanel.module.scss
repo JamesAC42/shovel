@@ -320,6 +320,28 @@
                 }
             }
         }
+
+        .noteBookButton {
+            position:absolute;
+            top:50%;right:5%;
+            transform:translate(0,-50%);
+            a {
+                display:block;
+                padding:0.5rem 1rem;
+                border-radius:0.4rem;
+                background:var(--background-dark);
+                color:var(--primary-color);
+                text-decoration:none;
+                box-shadow:0 0 5px 4px var(--background-dark);
+                svg {
+                    transform:translateY(2px);
+                }
+
+                &:hover {
+                    outline:2px solid var(--secondary-color);
+                }
+            }
+        }
     }
 
 

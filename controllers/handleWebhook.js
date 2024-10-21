@@ -1,4 +1,13 @@
-async function handleWebhook(request, response, stripe, stripeLogin, datamodels) {
+const addUserToFreeTrialList = async (redisClient, user) => {
+    return new Promise((resolve, reject) => {
+        redisClient.sadd(`shovel:free_trial_users`, user, (err, reply) => {
+            if (err) reject(err);
+            resolve();
+        });
+    });
+}
+
+async function handleWebhook(request, response, stripe, stripeLogin, datamodels, redisClient) {
 
     const sig = request.headers['stripe-signature'];
 
@@ -57,7 +66,43 @@ async function handleWebhook(request, response, stripe, stripeLogin, datamodels)
             }
 
             break;
-            
+
+        case 'customer.subscription.deleted':
+
+            subscription = await stripe.subscriptions.retrieve(session.subscription);
+            user = subscription.metadata.client_reference_id;
+            if (user) {
+                await datamodels.User.update({ tier: 1 }, { where: { id: user } });
+            }
+            break;
+
+        case 'customer.subscription.updated':
+
+            subscription = await stripe.subscriptions.retrieve(session.subscription);
+            user = subscription.metadata.client_reference_id;
+            if (user) {
+                if(
+                    subscription.status === 'active' ||
+                    subscription.status === 'trialing'
+                ) {
+                    await addUserToFreeTrialList(redisClient, user);
+                    await datamodels.User.update({ tier: 2 }, { where: { id: user } });
+                } else {
+                    await datamodels.User.update({ tier: 1 }, { where: { id: user } });
+                }
+            }
+            break;
+
+        case 'customer.subscription.created':
+
+            subscription = await stripe.subscriptions.retrieve(session.subscription);
+            user = subscription.metadata.client_reference_id;
+            if (user) {
+                await addUserToFreeTrialList(redisClient, user);
+                await datamodels.User.update({ tier: 2 }, { where: { id: user } });
+            }
+            break;
+
         default:
             console.log(`Unhandled event type ${event.type}`);
     }

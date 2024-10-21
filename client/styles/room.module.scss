@@ -273,10 +273,13 @@
                 }
             }
             .freeTier {
+                margin-left:0.5rem;
                 a {
                     margin-left:0.5rem;
-                    color:var(--link-color);
                 }
+            }
+            a {
+                color:var(--link-color);
             }
         }
 

@@ -15,6 +15,7 @@ import { FaQuestionCircle } from "react-icons/fa";
 import { IoChevronBackCircle, IoChevronForwardCircle } from "react-icons/io5";
 import { BsGearFill } from "react-icons/bs";
 import { PiTimerFill } from "react-icons/pi";
+import { SlNotebook } from "react-icons/sl";
 import { MdHome } from "react-icons/md";
 import Link from 'next/link';
 import CheckIn from './CheckIn';
@@ -264,6 +265,10 @@ function StatsPanel({activeView}) {
                                 <Timer showSettings={() => setShowTimerSettings(true)}/>
                             </div>
                         </div>
+                    </div>
+
+                    <div className={styles.noteBookButton}>
+                        <a href={"https://notes.ovel.sh/room/" + roomData.id}><SlNotebook/> Notebook</a>
                     </div>
                 </div>
 

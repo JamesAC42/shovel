@@ -8,6 +8,7 @@ async function collectFeatureTrackingData(redisClient) {
     const zrangeAsync = promisify(redisClient.zrange).bind(redisClient);
     const hgetallAsync = promisify(redisClient.hgetall).bind(redisClient);
     const keysAsync = promisify(redisClient.keys).bind(redisClient);
+    const redisGet = promisify(redisClient.get).bind(redisClient);
 
     const periods = ['daily', 'weekly', 'monthly'];
     const data = {};
@@ -42,6 +43,15 @@ async function collectFeatureTrackingData(redisClient) {
 
     // Collect user info
     const userInfoKeys = await keysAsync(Keys.user_info + '*');
+
+    console.log(await redisClient.get('shovel:total_deck_generations'));
+
+    const freeDeckGenerations = parseInt(await redisGet('shovel:total_free_deck_generations') || '0');
+    const paidDeckGenerations = parseInt(await redisGet('shovel:total_deck_generations') || '0');
+    data.deck_generations = {
+        free: freeDeckGenerations,
+        paid: paidDeckGenerations
+    };
 
     data.user_info = {};
     for (const key of userInfoKeys) {

@@ -1,6 +1,6 @@
 const getUserFromUsername = require("../repositories/getUserFromUsername");
 
-const createCheckoutSession = async (req, res, stripe, models) => {
+const createCheckoutSession = async (req, res, stripe, models, redisClient) => {
 
     const username = req.session.user?.username;
     if(!username) {
@@ -13,9 +13,16 @@ const createCheckoutSession = async (req, res, stripe, models) => {
 
     // Real price: price_1PhnRwDrQKhh7vW7lbm2x6xb
     // Test price: price_1Q3SL5DrQKhh7vW7cumOCzFZ
-
     try {
-        const session = await stripe.checkout.sessions.create({
+        // Check if user has had a free trial before
+        const hadFreeTrial = await new Promise((resolve, reject) => {
+            redisClient.sismember('shovel:free_trial_users', user.id, (err, reply) => {
+                if (err) reject(err);
+                resolve(reply === 1);
+            });
+        });
+
+        let sessionOptions = {
             mode: 'subscription',
             line_items: [
                 {
@@ -30,7 +37,20 @@ const createCheckoutSession = async (req, res, stripe, models) => {
             metadata: {
                 client_reference_id: user.id
             }
-        });
+        };
+
+        if (!hadFreeTrial) {
+            sessionOptions.subscription_data = {
+                trial_period_days: 7,
+                trial_settings: {
+                    end_behavior: {
+                        missing_payment_method: 'cancel',
+                    }
+                }
+            };
+        }
+
+        const session = await stripe.checkout.sessions.create(sessionOptions);
         res.json({success: true, url: session.url});
     } catch(err) {
         console.error(err);

@@ -191,6 +191,8 @@ export default function EnterRoom({userInfo, setUserInfo}) {
                             <GiDiamonds /> 
                             Premium Account
                             <GiDiamonds /> 
+                            <br/>
+                            <a href="https://billing.stripe.com/p/login/00g2aq2ZT7Jm4jm4gg" target="_blank">Manage Subscription</a>
                         </div>
                     ) : (
                         <div className={styles.freeTier}>

@@ -113,9 +113,14 @@ app.use(
     store: new RedisStore({ client: redisClient }),
     secret: 'domoarigato',
     resave: false,
+    name: 'shovel-session',
     saveUninitialized: false,
     cookie: {
-      secure: config.secureSession, // Set to true if using HTTPS
+      secure: config.secureSession,
+      domain: 'ovel.sh',
+      path: '/',
+      httpOnly: true,
+      maxAge: 7 *24 * 60 * 60 * 1000
     },
   })
 );
@@ -285,11 +290,11 @@ app.post('/unarchiveGoal', async (req, res) => {
 });
 
 app.post('/createCheckoutSession', async (req, res) => {
-  createCheckoutSession(req, res, stripe, models);
+  createCheckoutSession(req, res, stripe, models, redisClient);
 });
 
 app.post('/webhook', express.raw({type: 'application/json'}), async (req, res) => {
-  handleWebhook(req, res, stripe, stripeLogin, models);
+  handleWebhook(req, res, stripe, stripeLogin, models, redisClient);
 });
 
 app.get('/room', (req, res) => {
