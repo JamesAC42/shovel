@@ -117,7 +117,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       secure: config.secureSession,
-      domain: 'ovel.sh',
+      domain: config.local ? 'localhost' : 'ovel.sh',
       path: '/',
       httpOnly: true,
       maxAge: 7 *24 * 60 * 60 * 1000

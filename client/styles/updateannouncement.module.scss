@@ -3,13 +3,17 @@
 .updateAnnouncement {
     max-height:90dvh;
     overflow-y:auto;
+    overflow-x:hidden;
     width:50dvw;
     padding:2rem 4rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) var(--background-color);
     background:var(--background-color);
     border:2px solid var(--primary-color);
     border-radius:1.5rem;
     justify-content: start;
     color:var(--primary-color);
+
     h1 {
         color:var(--glow);
         text-align:center;
@@ -120,4 +124,61 @@
 
     }
 
+}
+
+.videoSection {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--primary-color);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 2rem 0;
+    
+    .demoVideo {
+        width: 100%;
+        height: auto;
+        border-radius: 0.25rem;
+    }
+    
+    .videoCaption {
+        text-align: center;
+        margin-top: 0.5rem;
+        font-size: 1rem;
+        color: var(--secondary-color);
+    }
+}
+
+.tryItNow {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.tryButton {
+    display: inline-block;
+    background: var(--glow);
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--background-dark);
+    text-decoration: none;
+    transition: all 0.2s ease;
+
+    &:hover {
+        filter: brightness(1.1);
+        transform: translateY(-0.125rem);
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .videoSection {
+        margin: 1rem 0;
+        padding: 0.25rem;
+    }
+
+    .tryButton {
+        padding: 0.75rem 1.5rem;
+        font-size: 1.1rem;
+    }
 }

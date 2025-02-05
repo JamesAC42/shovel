@@ -1,0 +1,62 @@
+Dear Shovel User,
+
+We're thrilled to announce our biggest update yet: The Shovel Notebook! This powerful new feature transforms Shovel from a productivity tool into a comprehensive study and work companion.
+
+INTRODUCING THE NOTEBOOK
+
+Every room now includes a dedicated notebook that all members can view and edit in real-time. Features include:
+
+Rich Markdown Support:
+- Mathematical equations
+- Code blocks with syntax highlighting
+- Tables
+- Footnotes
+- Links and references
+
+Organizational Tools:
+- Create multiple pages
+- Organize content in folders
+- Real-time collaborative editing
+
+FLASHCARDS SYSTEM
+
+Along with the Notebook, we're introducing our new Flashcards system:
+- Create unlimited flashcard decks
+- Built-in study mode
+- AI-powered deck generation from your notes
+- 5 free AI generations for all users
+
+TRY PREMIUM FREE FOR 7 DAYS!
+
+Get the most out of these new features with Shovel Premium:
+- 5 AI generations per day
+- Unlimited notebook pages
+- Early access to upcoming features
+
+Start your free trial at: https://ovel.sh/premium
+
+COMING SOON
+
+We're working on even more exciting features:
+- AI-generated custom quizzes and tests
+- AI study buddy and tutor
+- Chat with your notes
+- Custom tagging and filtering
+- Room chat system
+
+SUPPORT OUR DEVELOPMENT
+
+Love what we're building? Support Shovel's development on Ko-fi:
+https://ko-fi.com/shovelproductivity
+
+GET STARTED NOW
+
+To access the new Notebook, simply click the "Notebook" button in any room. Visit our website to explore all these new features: https://ovel.sh
+
+Thank you for being part of the Shovel community. Together, we're building the future of productive studying!
+
+Stay focused,
+The Shovel Team
+
+To unsubscribe from these updates, please visit: https://ovel.sh/unsubscribeNewsletter
+© 2024 Shovel App. All rights reserved.
